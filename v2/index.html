@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>Chocokeyf Sos Atölyesi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: koyu çikolata sahne; tek vurgu = seçili lezzetin rengi (--fl), her şey ona göre ısınır. */
+@property --fl { syntax: '<color>'; inherits: true; initial-value: #6b3a1f; }
+@property --flg { syntax: '<color>'; inherits: true; initial-value: #a0582c; }
+:root {
+  color-scheme: dark;
+  --bg: #170b06;
+  --bg-2: #22110a;
+  --panel: #2b170e;
+  --line: #4a2c1c;
+  --cream: #f7ebd5;
+  --cream-dim: #cdb79b;
+  --gold: #d8a659;
+  --gold-deep: #9c6d2c;
+  --ink: #1b0d07;
+  --fl: #6b3a1f;
+  --flg: #a0582c;
+  --fl-ink: #f7ebd5;
+  --f-display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --max: 1240px;
+  transition: --fl .9s ease, --flg .9s ease;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 60; background: var(--bg);
+}
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.eyebrow {
+  font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- header ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
+}
+.top .wrap { display: flex; align-items: center; gap: 20px; padding-block: 10px; }
+.logo-pill {
+  background: var(--cream); border-radius: 999px; padding: 4px 16px 4px 8px; display: flex; align-items: center;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--fl) 55%, transparent);
+  transition: box-shadow .6s;
+}
+.logo-pill img { height: 40px; width: auto; }
+.nav { display: flex; gap: 4px; margin-left: auto; }
+.nav a {
+  color: var(--cream-dim); text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 12px; border-radius: 999px;
+}
+.nav a:hover { color: var(--cream); background: var(--panel); }
+.cart-btn {
+  position: relative; display: flex; align-items: center; gap: 8px; background: var(--gold); color: var(--ink);
+  border: 0; border-radius: 999px; padding: 10px 16px; font-weight: 700;
+}
+.cart-btn svg { width: 20px; height: 20px; }
+.cart-count {
+  min-width: 22px; height: 22px; border-radius: 999px; background: var(--ink); color: var(--cream);
+  font-size: 12px; display: grid; place-items: center; padding: 0 6px; font-variant-numeric: tabular-nums;
+}
+.cart-btn.bump { animation: bump .5s cubic-bezier(.3,1.6,.5,1); }
+@keyframes bump { 40% { transform: scale(1.18) rotate(-4deg); } }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  background:
+    radial-gradient(60% 70% at 72% 48%, color-mix(in oklab, var(--flg) 55%, transparent), transparent 70%),
+    radial-gradient(40% 50% at 10% 100%, color-mix(in oklab, var(--fl) 35%, transparent), transparent 70%),
+    var(--bg);
+}
+.hero .wrap {
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: 12px;
+  padding-block: 28px 36px; min-height: clamp(560px, 82vh, 780px);
+}
+.giant {
+  position: absolute; z-index: -1; right: -2vw; top: 50%; transform: translateY(-50%);
+  font-family: var(--f-display); font-weight: 800; font-size: clamp(110px, 21vw, 340px); line-height: .8;
+  letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 2px color-mix(in oklab, var(--flg) 70%, transparent);
+  white-space: nowrap; pointer-events: none; user-select: none; opacity: .55;
+}
+.giant.swap { animation: giantIn .9s cubic-bezier(.2,.9,.2,1); }
+@keyframes giantIn { from { transform: translate(14%, -50%); opacity: 0; } }
+.hero-copy { display: grid; gap: 22px; position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(46px, 7.2vw, 96px); line-height: .92; font-weight: 800; letter-spacing: -0.04em;
+}
+.hero h1 .drip {
+  display: inline-block; color: var(--fl); position: relative;
+  text-shadow: 0 2px 0 color-mix(in oklab, var(--fl) 60%, #000);
+  transition: color .9s;
+}
+.hero h1 .drip::after {
+  content: ""; position: absolute; left: 12%; top: 88%; width: 12px; height: 34px; border-radius: 0 0 10px 10px;
+  background: var(--fl); animation: dripY 3.2s ease-in-out infinite; transform-origin: top; transition: background .9s;
+}
+.hero h1 .drip::before {
+  content: ""; position: absolute; left: 58%; top: 88%; width: 9px; height: 20px; border-radius: 0 0 9px 9px;
+  background: var(--fl); animation: dripY 2.6s .7s ease-in-out infinite; transform-origin: top; transition: background .9s;
+}
+@keyframes dripY { 0%,100% { transform: scaleY(.55); } 50% { transform: scaleY(1.15); } }
+.hero-lede { color: var(--cream-dim); font-size: 18px; max-width: 34ch; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 8px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--panel) 80%, transparent);
+  border-radius: 999px; padding: 7px 14px 7px 8px; font-weight: 600; font-size: 14.5px; transition: transform .2s, border-color .3s, background .3s;
+}
+.chip i {
+  width: 22px; height: 22px; border-radius: 50%; background: var(--c);
+  box-shadow: inset -3px -4px 6px rgba(0,0,0,.35), inset 3px 3px 5px rgba(255,255,255,.35);
+}
+.chip img { width: 17px; height: 54px; object-fit: contain; margin: -14px 0 -10px; filter: drop-shadow(0 4px 4px rgba(0,0,0,.5)); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+.chip:hover img, .chip[aria-pressed="true"] img { transform: translateY(-6px) rotate(-6deg); }
+.chip:hover { transform: translateY(-2px); border-color: var(--c); }
+.chip[aria-pressed="true"] { border-color: var(--c); background: color-mix(in oklab, var(--c) 28%, var(--panel)); }
+
+.now {
+  display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: end;
+  padding: 18px 20px; border-radius: 20px; background: color-mix(in oklab, var(--bg-2) 75%, transparent);
+  border: 1px solid color-mix(in oklab, var(--fl) 45%, var(--line)); backdrop-filter: blur(6px);
+}
+.now-name { font-family: var(--f-display); font-weight: 800; font-size: 30px; line-height: 1; }
+.now-en { color: var(--cream-dim); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; }
+.now-tag { grid-column: 1 / -1; color: var(--cream-dim); font-size: 15px; }
+.now-price { font-family: var(--f-display); font-weight: 800; font-size: 34px; line-height: 1; text-align: right; font-variant-numeric: tabular-nums; }
+.now-price small { display: block; font-family: var(--f-body); font-size: 12px; font-weight: 600; color: var(--cream-dim); letter-spacing: .04em; }
+.now-actions { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px;
+  padding: 13px 22px; font-weight: 700; font-size: 15.5px; text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.btn:active { transform: scale(.97); }
+.btn-pour { background: var(--fl); color: var(--fl-ink); box-shadow: 0 10px 30px -10px var(--fl); transition: background .9s, transform .2s; }
+.btn-pour:hover { transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--cream); border: 1.5px solid var(--line); }
+.btn-ghost:hover { border-color: var(--cream-dim); }
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn svg { width: 18px; height: 18px; }
+
+.stage { position: relative; height: clamp(440px, 72vh, 700px); min-width: 0; }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage .fallback {
+  position: absolute; inset: 6% 25%; object-fit: contain; transition: opacity .6s; opacity: 0;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,.5));
+}
+.stage.nogl .fallback { opacity: 1; }
+.stage.nogl canvas, .stage.nogl .stage-hint { display: none; }
+.stage-hint {
+  position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); font-size: 12.5px; color: var(--cream-dim);
+  background: color-mix(in oklab, var(--bg) 70%, transparent); padding: 5px 12px; border-radius: 999px; white-space: nowrap;
+}
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--cream-dim); font-size: 14px; font-weight: 600; }
+.facts b { color: var(--cream); font-family: var(--f-display); font-size: 18px; margin-right: 4px; }
+
+/* ---------- marquee ---------- */
+.marquee { overflow: hidden; background: var(--gold); color: var(--ink); transform: rotate(-1.6deg); margin: -14px -20px 0; position: relative; z-index: 3; border-block: 3px solid var(--ink); }
+.marquee.two { background: var(--fl); color: var(--fl-ink); transform: rotate(1.2deg); margin-top: -8px; z-index: 2; transition: background .9s; }
+.marquee-track { display: flex; width: max-content; animation: slide 28s linear infinite; }
+.marquee.two .marquee-track { animation-direction: reverse; animation-duration: 34s; }
+.marquee span { font-family: var(--f-display); font-weight: 800; font-size: clamp(22px, 3vw, 34px); padding: 10px 0; white-space: nowrap; letter-spacing: -0.01em; }
+.marquee span em { font-style: normal; display: inline-block; margin: 0 22px; transform: translateY(-2px); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- sections ---------- */
+section.block { padding-block: clamp(64px, 9vw, 120px) 0; }
+.sec-head { display: grid; gap: 12px; margin-bottom: 36px; max-width: 760px; }
+.sec-head h2 { font-size: clamp(36px, 5.2vw, 64px); line-height: .96; font-weight: 800; }
+.sec-head p { color: var(--cream-dim); font-size: 17.5px; max-width: 60ch; }
+
+/* products */
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.card {
+  --c: #6b3a1f; position: relative; display: grid; grid-template-rows: auto 1fr; border-radius: 24px; overflow: hidden;
+  background: var(--panel); border: 1px solid var(--line); transition: border-color .3s, transform .3s;
+}
+.card:hover { border-color: color-mix(in oklab, var(--c) 70%, var(--line)); }
+.card-media {
+  position: relative; aspect-ratio: 1 / 1.02; perspective: 900px; border: 0; padding: 0; background:
+    radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c) 80%, transparent), transparent 75%),
+    linear-gradient(180deg, color-mix(in oklab, var(--c) 35%, var(--bg-2)), var(--bg-2));
+  display: grid; place-items: center; overflow: hidden; width: 100%;
+}
+.card-media .lbl {
+  position: absolute; top: 6%; bottom: 6%; left: 0; right: 0; margin: auto; height: 88%; width: auto; max-width: 70%; object-fit: contain; z-index: 1;
+  transform: rotateX(var(--rx, 4deg)) rotateY(var(--ry, -10deg)) translateZ(20px) translateY(4%);
+  transition: transform .25s ease-out; filter: drop-shadow(0 26px 22px rgba(0,0,0,.6));
+}
+.card:hover .card-media .lbl { transform: rotateX(var(--rx, 4deg)) rotateY(var(--ry, -10deg)) translateZ(40px) translateY(1%); }
+.card-media .glare {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: radial-gradient(40% 40% at var(--gx, 30%) var(--gy, 20%), rgba(255,255,255,.55), transparent 70%);
+}
+.card-media .blob {
+  position: absolute; width: 46%; aspect-ratio: 1; left: -8%; bottom: -12%; border-radius: 43% 57% 52% 48% / 55% 41% 59% 45%;
+  background: var(--c); filter: blur(.3px); opacity: .9; animation: morph 9s ease-in-out infinite;
+  box-shadow: inset -12px -16px 24px rgba(0,0,0,.3), inset 10px 10px 18px rgba(255,255,255,.25);
+}
+@keyframes morph { 50% { border-radius: 58% 42% 40% 60% / 45% 58% 42% 55%; transform: rotate(20deg) scale(1.06); } }
+.card-media .peek { position: absolute; top: 12px; right: 12px; font-size: 12px; font-weight: 700; background: rgba(0,0,0,.45); padding: 4px 10px; border-radius: 999px; color: var(--cream); }
+.card-body { display: grid; gap: 10px; padding: 16px 18px 18px; align-content: start; }
+.card-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.card-title h3 { font-size: 24px; font-weight: 800; }
+.card-title span { font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--cream-dim); font-weight: 700; }
+.card-tag { font-size: 14px; color: var(--cream-dim); min-height: 3.1em; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-2); border-radius: 999px; padding: 3px; border: 1px solid var(--line); }
+.seg button { border: 0; background: transparent; padding: 7px 6px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--cream-dim); }
+.seg button[aria-pressed="true"] { background: var(--cream); color: var(--ink); }
+.buy { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.price { font-family: var(--f-display); font-weight: 800; font-size: 28px; font-variant-numeric: tabular-nums; line-height: 1; }
+.price.ask { font-size: 17px; font-family: var(--f-body); font-weight: 700; color: var(--gold); }
+.add {
+  display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--c); color: var(--cfg, #fff); font-weight: 700;
+  padding: 10px 16px; border-radius: 999px; font-size: 14.5px; transition: transform .2s;
+}
+.add:hover { transform: translateY(-2px) rotate(-2deg); }
+.card.cta {
+  background: linear-gradient(160deg, var(--gold), var(--gold-deep)); color: var(--ink); border: 0; padding: 26px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+}
+.card.cta h3 { font-size: 34px; line-height: .98; font-weight: 800; }
+.card.cta p { font-weight: 500; }
+.card.cta .btn { background: var(--ink); color: var(--cream); align-self: flex-start; }
+.note { color: var(--cream-dim); font-size: 13px; margin-top: 16px; }
+
+/* packaging */
+.packs { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; }
+.pack { position: relative; border-radius: 26px; overflow: hidden; min-height: 420px; display: flex; align-items: flex-end; border: 1px solid var(--line); }
+.pack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.pack:hover img { transform: scale(1.05); }
+.pack::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(18,8,4,.92)); }
+.pack-copy { position: relative; z-index: 1; padding: 26px; display: grid; gap: 8px; max-width: 46ch; }
+.pack-copy h3 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; line-height: 1; }
+.pack-copy p { color: var(--cream-dim); }
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.pill { font-size: 12.5px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: rgba(247,235,213,.12); border: 1px solid rgba(247,235,213,.25); }
+
+/* usage */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+.step { position: relative; padding: 28px 24px 26px; border-radius: 24px; background: var(--bg-2); border: 1px solid var(--line); display: grid; gap: 10px; align-content: start; overflow: hidden; }
+.step .num { font-family: var(--f-display); font-weight: 800; font-size: 82px; line-height: .8; color: transparent; -webkit-text-stroke: 1.5px var(--gold); }
+.step h3 { font-size: 26px; font-weight: 800; }
+.step p { color: var(--cream-dim); }
+.step .ico { position: absolute; right: 18px; top: 22px; width: 64px; height: 64px; color: var(--fl); transition: color .9s; }
+.step .ico.spin { animation: wob 2.4s ease-in-out infinite; transform-origin: 50% 70%; }
+@keyframes wob { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+
+/* wholesale */
+.b2b { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; border-radius: 30px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-2); }
+.b2b-img { position: relative; min-height: 360px; }
+.b2b-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.b2b-form { padding: clamp(22px, 4vw, 44px); display: grid; gap: 14px; align-content: start; }
+.b2b-form h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: .98; font-weight: 800; }
+.b2b-form > p { color: var(--cream-dim); }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 13px; font-weight: 600; color: var(--cream-dim); }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--bg); border: 1.5px solid var(--line); color: var(--cream); border-radius: 12px; padding: 11px 13px; font: inherit; font-size: 15px;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
+.flv-picks { display: flex; flex-wrap: wrap; gap: 6px; }
+.flv-picks label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; border: 1.5px solid var(--line); font-size: 13.5px; font-weight: 600; color: var(--cream); cursor: pointer; }
+.flv-picks input { accent-color: var(--gold); width: 15px; height: 15px; margin: 0; }
+.flv-picks label:has(input:checked) { border-color: var(--gold); background: color-mix(in oklab, var(--gold) 18%, transparent); }
+.form-ok { display: grid; gap: 10px; padding: 22px; border-radius: 18px; background: color-mix(in oklab, var(--gold) 16%, var(--bg)); border: 1px solid var(--gold); }
+.form-ok h3 { font-size: 26px; }
+
+/* footer */
+footer { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line); background: #120804; }
+footer .wrap { padding-block: 40px 30px; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 28px; }
+footer h4 { font-family: var(--f-display); font-size: 16px; margin: 0 0 10px; }
+footer p, footer li { color: var(--cream-dim); font-size: 14px; }
+footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.demo-note { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 18px; font-size: 12.5px; color: var(--cream-dim); }
+
+/* drawer + modal */
+.scrim { position: fixed; inset: 0; background: rgba(10,4,2,.6); backdrop-filter: blur(3px); z-index: 70; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100%); z-index: 80; background: var(--bg-2); border-left: 1px solid var(--line);
+  display: grid; grid-template-rows: auto 1fr auto; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px);
+  animation: drawerIn .35s cubic-bezier(.2,.9,.2,1);
+}
+@keyframes drawerIn { from { transform: translateX(100%); } }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.drawer-head h2 { font-size: 24px; }
+.x { border: 0; background: var(--panel); width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; }
+.x svg { width: 18px; height: 18px; }
+.drawer-list { overflow-y: auto; padding: 8px 20px; display: grid; gap: 4px; align-content: start; }
+.line { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.line img { width: 54px; height: 70px; object-fit: contain; }
+.line b { display: block; font-size: 15px; }
+.line small { color: var(--cream-dim); font-size: 13px; }
+.qty { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.qty button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); }
+.qty span { min-width: 24px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; }
+.line-total { font-weight: 800; font-variant-numeric: tabular-nums; }
+.empty { padding: 40px 0; text-align: center; color: var(--cream-dim); display: grid; gap: 14px; justify-items: center; }
+.drawer-foot { padding: 18px 20px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+.sum { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.sum span:last-child { font-family: var(--f-display); font-size: 26px; }
+.checkout-msg { font-size: 13.5px; color: var(--cream-dim); background: var(--panel); padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--gold-deep); }
+
+dialog.detail {
+  width: min(880px, calc(100% - 32px)); max-height: calc(100% - 40px); border: 1px solid var(--line); border-radius: 26px; padding: 0;
+  background: var(--bg-2); color: var(--cream); overflow: auto;
+}
+dialog.detail::backdrop { background: rgba(10,4,2,.7); backdrop-filter: blur(4px); }
+.detail-in { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.detail-img { background: radial-gradient(70% 60% at 50% 40%, var(--c), var(--bg-2)); padding: 28px; display: grid; place-items: center; }
+.detail-img img { width: 62%; filter: drop-shadow(0 30px 30px rgba(0,0,0,.6)); }
+.detail-txt { padding: 28px; display: grid; gap: 14px; align-content: start; position: relative; }
+.detail-txt h2 { font-size: 40px; line-height: 1; }
+.detail-txt .x { position: absolute; top: 16px; right: 16px; }
+.nut { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.nut th, .nut td { padding: 7px 0; border-bottom: 1px solid var(--line); text-align: left; }
+.nut td:last-child { text-align: right; font-weight: 700; }
+.nut caption { text-align: left; font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); padding-bottom: 6px; }
+.small { font-size: 13.5px; color: var(--cream-dim); }
+.warn { font-size: 13px; color: #f4c7a0; background: rgba(220,90,40,.12); border-radius: 10px; padding: 9px 12px; }
+.mono { font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  background: var(--cream); color: var(--ink); padding: 12px 18px; border-radius: 999px; font-weight: 700; z-index: 90;
+  box-shadow: 0 14px 40px -12px rgba(0,0,0,.7); animation: toastIn .35s cubic-bezier(.2,1.4,.4,1); white-space: nowrap; max-width: calc(100% - 32px); overflow: hidden; text-overflow: ellipsis;
+}
+@keyframes toastIn { from { transform: translate(-50%, 30px); opacity: 0; } }
+.flyer { position: fixed; z-index: 95; width: 22px; height: 22px; border-radius: 50% 50% 50% 0; pointer-events: none; box-shadow: inset -3px -4px 6px rgba(0,0,0,.35), inset 3px 3px 5px rgba(255,255,255,.4); }
+
+/* responsive */
+@media (max-width: 1020px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nav { display: none; }
+  .cart-btn { margin-left: auto; }
+}
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-block: 18px 30px; }
+  .stage { order: -1; height: clamp(360px, 58vh, 520px); margin-inline: -16px; }
+  .giant { top: 24%; }
+  .packs, .b2b, .detail-in { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .detail-img img { width: 46%; }
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .fields { grid-template-columns: minmax(0, 1fr); }
+  .logo-pill img { height: 32px; }
+  .cart-btn .lbl-txt { display: none; }
+  .now-name { font-size: 26px; }
+  .now-price { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo-pill" href="#top" aria-label="Chocokeyf ana sayfa"><img src="assets/logo.webp" alt="Chocokeyf" width="369" height="150"></a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#lezzetler">Lezzetler</a>
+      <a href="#ambalaj">Ambalaj</a>
+      <a href="#kullanim">Kullanım</a>
+      <a href="#toptan">Toptan</a>
+    </nav>
+    <button class="cart-btn" id="cartBtn" aria-label="Sepeti aç">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 7V5.5a3 3 0 0 1 6 0V7"/></svg>
+      <span class="lbl-txt">Sepet</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Lezzet seçici">
+    <div class="giant" id="giant" aria-hidden="true">Sütlü</div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Çikolata aşka geldi · Pankek · Krep · Waffle</span>
+        <h1>Sosu dök,<br><span class="drip" id="dripWord">keyfi</span> yakala.</h1>
+        <p class="hero-lede">Yedi lezzet, tek dokunuş. Bir şişe seç, sos sıcak waffle'ın her gözüne aksın.</p>
+        <div class="chips" id="chips" role="group" aria-label="Lezzet seç"></div>
+        <div class="now" id="now" aria-live="polite">
+          <div>
+            <div class="now-en" id="nowEn" lang="en">Milky</div>
+            <div class="now-name" id="nowName">Sütlü</div>
+          </div>
+          <div class="now-price" id="nowPrice">290 ₺<small>1 kg şişe</small></div>
+          <p class="now-tag" id="nowTag"></p>
+          <div class="now-actions">
+            <button class="btn btn-pour" id="nowAdd">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              Sepete ekle
+            </button>
+            <button class="btn btn-ghost" id="nowPour">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4.2 5 7 5 10a5 5 0 0 1-10 0c0-3 2-5.8 5-10z"/></svg>
+              Tekrar dök
+            </button>
+            <button class="btn btn-ghost" id="nowInfo">Besin değerleri</button>
+          </div>
+        </div>
+        <div class="facts">
+          <span><b>7</b>lezzet</span>
+          <span><b>1 kg</b>şişe</span>
+          <span><b>10 kg</b>teneke &amp; kova</span>
+          <span><b>TR</b>Made in Türkiye</span>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <img class="fallback" id="fallback" src="assets/bottle_sutlu.webp" alt="Chocokeyf Sütlü Waffle Sos etiketi">
+        <canvas id="gl" aria-label="Chocokeyf şişesinden waffle üzerine sos dökülüyor"></canvas>
+        <span class="stage-hint">Bir şişe seç, sos dökülsün</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="mq1"></div></div>
+  <div class="marquee two" aria-hidden="true"><div class="marquee-track" id="mq2"></div></div>
+
+  <section class="block" id="lezzetler">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Lezzetler</span>
+        <h2>Yedi renk, yedi keyif.</h2>
+        <p>Her şişe 1 kg. Kafe ve pastaneler için aynı lezzetler 10 kg teneke ambalajda. Şişenin üzerine gel, çevir; besin değerleri için görsele tıkla.</p>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="note">Fiyatlar Chocokeyf 1 kg şişe ve 10 kg teneke fiyat listelerinden alınmıştır. Demo amaçlıdır.</p>
+    </div>
+  </section>
+
+  <section class="block" id="ambalaj">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Ambalaj</span>
+        <h2>Ev mutfağından waffle dükkânına.</h2>
+        <p>Aynı tarif, iki ölçek: evde kahvaltı için şişe, yoğun servis yapan işletmeler için 10 kg.</p>
+      </div>
+      <div class="packs">
+        <article class="pack">
+          <img src="assets/kitchen4.webp" alt="Beyaz, sütlü, karamel ve frambuaz Chocokeyf şişeleri mutfak tezgâhında" loading="lazy">
+          <div class="pack-copy">
+            <span class="eyebrow">1 kg şişe</span>
+            <h3>Kapağı aç, dök, bitti.</h3>
+            <p>Pankek, krep ve waffle için hazır sos. Yedi lezzetin hepsi bu şişede.</p>
+            <div class="pill-row"><span class="pill">260 ₺'den başlayan</span><span class="pill">Net 1 kg · 35,27 oz</span></div>
+          </div>
+        </article>
+        <article class="pack">
+          <img src="assets/kova_teneke.webp" alt="Chocokeyf Sütlü Waffle Sos 10 kg kova ve 10 kg teneke" loading="lazy">
+          <div class="pack-copy">
+            <span class="eyebrow">10 kg teneke · kova</span>
+            <h3>Servis hızında sos.</h3>
+            <p>Kafe, pastane ve waffle dükkânları için büyük ambalaj. Toptan fiyat için teklif isteyin.</p>
+            <div class="pill-row"><span class="pill">2.600 ₺'den başlayan</span><span class="pill">Net 10 kg</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="kullanim">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Kullanım</span>
+        <h2>Üç adımda parlak sos.</h2>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <svg class="ico spin" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="22" y="18" width="20" height="38" rx="8"/><rect x="26" y="8" width="12" height="10" rx="3"/><path d="M14 26c-3 4-3 10 0 14M50 26c3 4 3 10 0 14"/></svg>
+          <span class="num">1</span>
+          <h3>Çalkala</h3>
+          <p>Kullanmadan önce mutlaka karıştırın veya çalkalayın.</p>
+        </article>
+        <article class="step">
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="30" width="44" height="22" rx="4"/><path d="M10 41h44M21 30v22M32 30v22M43 30v22"/><path d="M32 6c3 5 5 8 5 11a5 5 0 0 1-10 0c0-3 2-6 5-11z" fill="currentColor"/></svg>
+          <span class="num">2</span>
+          <h3>Dök</h3>
+          <p>Sıcak pankek, krep ya da waffle'ın üzerine dilediğin kadar.</p>
+        </article>
+        <article class="step">
+          <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M28 10v30a10 10 0 1 0 8 0V10a4 4 0 0 0-8 0z"/><circle cx="32" cy="48" r="4" fill="currentColor"/><path d="M42 18h8M42 26h6"/></svg>
+          <span class="num">3</span>
+          <h3>Sakla</h3>
+          <p>+18 / +24 °C'de serin ve kokusuz bir yerde, ağzı kapalı saklayın. Buzdolabına koymayın.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="toptan">
+    <div class="wrap">
+      <div class="b2b">
+        <div class="b2b-img"><img src="assets/hero_lineup.webp" alt="Chocokeyf waffle sosları ve soslu waffle" loading="lazy"></div>
+        <form class="b2b-form" id="b2bForm" novalidate>
+          <span class="eyebrow">Toptan &amp; bayilik</span>
+          <h2>İşletmene özel fiyat al.</h2>
+          <p>Kafe, pastane, otel ve marketler için 10 kg teneke ve kova. Formu doldur, ekip seni arasın.</p>
+          <div class="fields" id="b2bFields">
+            <div class="field"><label for="f-firma">İşletme adı</label><input id="f-firma" name="firma" required autocomplete="organization" placeholder="Örn. Keyif Waffle"></div>
+            <div class="field"><label for="f-ad">Yetkili</label><input id="f-ad" name="ad" required autocomplete="name" placeholder="Ad soyad"></div>
+            <div class="field"><label for="f-tel">Telefon</label><input id="f-tel" name="tel" required inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
+            <div class="field"><label for="f-sehir">Şehir</label><input id="f-sehir" name="sehir" autocomplete="address-level1" placeholder="İstanbul"></div>
+            <div class="field"><label for="f-tip">İşletme tipi</label>
+              <select id="f-tip" name="tip"><option>Kafe</option><option>Pastane</option><option>Waffle / krep dükkânı</option><option>Otel / restoran</option><option>Market</option><option>Diğer</option></select>
+            </div>
+            <div class="field"><label for="f-adet">Aylık tahmini ihtiyaç</label>
+              <select id="f-adet" name="adet"><option>1–5 teneke</option><option>6–20 teneke</option><option>20+ teneke</option></select>
+            </div>
+            <div class="field full"><span class="small" id="flvLbl">İlgilendiğin lezzetler</span><div class="flv-picks" id="flvPicks" role="group" aria-labelledby="flvLbl"></div></div>
+          </div>
+          <button class="btn btn-gold" type="submit" id="b2bSubmit">Teklif iste</button>
+          <div class="form-ok" id="formOk" hidden>
+            <h3>Talebin alındı.</h3>
+            <p class="small">Demo sürümde form gönderilmez. Canlı sitede bu talep e-posta ve WhatsApp ile satış ekibine düşer.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>Chocokeyf</h4>
+      <p>Ustalar Pasta Ürünleri Gıda San. ve Tic. Ltd. Şti. tarafından CHOCOKEYF Gıda Sanayi Ticaret Limited Şirketi adına üretilmiştir.</p>
+    </div>
+    <div>
+      <h4>İletişim</h4>
+      <ul>
+        <li>Müşteri hizmetleri: <span class="mono">0212 423 9 595</span></li>
+        <li>Üretici adresi: Firuzköy Mah. Bağlariçi Cad. No:81 Avcılar / İstanbul</li>
+        <li>İşletme kayıt no: TR-34-K-203012</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mağaza</h4>
+      <ul>
+        <li><a href="#lezzetler" style="color:inherit">Tüm lezzetler</a></li>
+        <li><a href="#ambalaj" style="color:inherit">1 kg şişe · 10 kg teneke</a></li>
+        <li><a href="#toptan" style="color:inherit">Toptan teklif</a></li>
+      </ul>
+    </div>
+    <p class="demo-note">Bu sayfa Digify tarafından hazırlanmış bir tasarım demosudur. Ödeme, kargo ve form gönderimi canlı sitede bağlanacaktır.</p>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Sepet">
+  <div class="drawer-head">
+    <h2>Sepetin</h2>
+    <button class="x" id="drawerClose" aria-label="Sepeti kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer-list" id="drawerList"></div>
+  <div class="drawer-foot" id="drawerFoot">
+    <div class="sum"><span>Toplam</span><span id="sumTotal">0 ₺</span></div>
+    <button class="btn btn-gold" id="checkout">Siparişi tamamla</button>
+    <p class="checkout-msg" id="checkoutMsg" hidden>Demo sürüm: canlı sitede bu adım güvenli ödeme sayfasına (kart / havale) gider.</p>
+  </div>
+</aside>
+
+<dialog class="detail" id="detail" aria-labelledby="dTitle">
+  <div class="detail-in" id="detailIn"></div>
+</dialog>
+
+<script>
+window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp');
+(function () {
+  const TRACE = 'Eser miktarda yumurta ve ürünleri, gluten, fındık, Antep fıstığı, badem, ceviz, susam içerebilir.';
+  const E129 = 'Kullanılan renklendiricilerden E129 (Allura Red AC): Çocukların aktivite ve dikkatleri üzerine olumsuz etkileri bulunabilir.';
+  const F = [
+    { id: 'sutlu', ad: 'Sütlü', en: 'Milky', c: '#6b3a1f', g: '#a85d2e', ink: '#fbeedd', p1: 290, p10: 2900, bc: '8697427234624',
+      tag: 'Yağsız süt tozu (%10) ve kakaoyla klasik sütlü çikolata tadı.',
+      n: ['2268', '540', '32', '8,4', '61', '49', '2,8', '0,003'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu (%10), yağı azaltılmış kakao tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (vanilya).' },
+    { id: 'bitter', ad: 'Bitter', en: 'Dark', c: '#3a170b', g: '#7c3417', ink: '#fbeedd', p1: 300, p10: 3000, bc: '8697427234648',
+      tag: 'Yağı azaltılmış kakao tozuyla koyu ve yoğun çikolata sosu.',
+      n: ['2289', '545', '34', '9', '58', '48', '2,7', '0,007'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağı azaltılmış kakao tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (bitter, vanilya).' },
+    { id: 'beyaz', ad: 'Beyaz', en: 'White', c: '#eadbbd', g: '#c9ad7c', ink: '#2a160b', p1: 260, p10: 2600, bc: '8697427234631',
+      tag: 'Süt tozu ve vanilyayla bembeyaz, yumuşak bir sos.',
+      n: ['2339', '557', '35', '8,9', '60', '48', '2,9', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (vanilya).' },
+    { id: 'karamel', ad: 'Karamel', en: 'Caramel', c: '#c4782c', g: '#e39a43', ink: '#2a160b', p1: 260, p10: 2600, bc: '8697427234655',
+      tag: 'Karamel ve vanilya aromasıyla altın sarısı bir sos.',
+      n: ['2327', '554', '35', '9,1', '58', '44', '3,6', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu, peynir altı suyu tozu (süt), yağı azaltılmış kakao tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (karamel, vanilya), renklendirici (beta karoten).' },
+    { id: 'frambuaz', ad: 'Frambuaz', en: 'Raspberry', c: '#d4407c', g: '#ef6aa2', ink: '#fff4f8', p1: 260, p10: 2600, bc: '8697427234662',
+      tag: 'Frambuaz ve vanilya aromalı, rengini hibiskustan alan pembe sos.',
+      n: ['2331', '555', '35', '8,9', '60', '47', '2,9', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (frambuaz, vanilya), renklendirici (hibiscus).' },
+    { id: 'cilek', ad: 'Çilek', en: 'Strawberry', c: '#df3a52', g: '#f2647a', ink: '#fff4f5', p1: 260, p10: null, bc: '8697427234686',
+      tag: 'Çilek aromalı, parlak pembe-kırmızı sos.',
+      n: ['2331', '555', '35', '8,9', '60', '47', '2,9', '0,03'], warn: E129,
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (çilek), renklendirici (E129).' },
+    { id: 'antep', ad: 'Antep Fıstık', en: 'Pistachio', c: '#8e9c39', g: '#b7c556', ink: '#1f2208', p1: 400, p10: 4000, bc: '8697427234679',
+      tag: '%6 Antep fıstığı içeren, yeşil ve kadifemsi fıstık sosu.',
+      n: ['2352', '560', '36', '8,9', '59', '45', '3,3', '0,03'], warn: E129, alg: 'Süt ve süt ürünleri ile Antep fıstığı içerir.',
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), Antep fıstığı (%6), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (Antep fıstığı, vanilya), renklendirici [E141(ii), E142, E133, E129].' }
+  ];
+  window.CK_FLAVORS = F;
+  const byId = id => F.find(f => f.id === id);
+  const tl = n => n.toLocaleString('tr-TR') + ' ₺';
+  const $ = s => document.querySelector(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+
+  /* ---------- hero chips ---------- */
+  let current = 'sutlu';
+  const chips = $('#chips');
+  F.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.style.setProperty('--c', f.c);
+    b.dataset.id = f.id; b.setAttribute('aria-pressed', f.id === current);
+    b.innerHTML = `<img src="${CK_IMGSRC('bottle_'+f.id)}" alt="" aria-hidden="true">${f.ad}`;
+    b.addEventListener('click', () => { lastUser = Date.now(); select(f.id, true); });
+    chips.appendChild(b);
+  });
+
+  function paint(f) {
+    const r = document.documentElement.style;
+    r.setProperty('--fl', f.c); r.setProperty('--flg', f.g); r.setProperty('--fl-ink', f.ink);
+    $('#nowName').textContent = f.ad;
+    $('#nowEn').textContent = f.en;
+    $('#nowTag').textContent = f.tag;
+    $('#nowPrice').innerHTML = `${tl(f.p1)}<small>1 kg şişe</small>`;
+    $('#fallback').src = CK_IMGSRC('bottle_'+f.id);
+    const g = $('#giant'); g.textContent = f.ad; g.classList.remove('swap'); void g.offsetWidth; g.classList.add('swap');
+    chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.id === f.id));
+  }
+  function select(id, force) {
+    if (id === current && !force) return;
+    current = id;
+    const f = byId(id);
+    paint(f);
+    window.dispatchEvent(new CustomEvent('ck:flavor', { detail: { id, color: f.c, glow: f.g } }));
+  }
+  paint(byId(current));
+
+  /* auto-cycle while the hero is on screen and the visitor hasn't picked a flavor recently */
+  let lastUser = 0, heroVisible = true, ready3d = false;
+  new IntersectionObserver(es => { heroVisible = es[0].isIntersecting; }, { threshold: .35 }).observe($('#stage'));
+  window.addEventListener('ck:ready', () => { ready3d = true; });
+  setTimeout(() => { if (!ready3d) $('#stage').classList.add('nogl'); }, 7000);
+  if (!reduce) setInterval(() => {
+    if (!ready3d || !heroVisible || document.hidden || Date.now() - lastUser < 16000 || window.CK3D?.busy?.()) return;
+    const i = F.findIndex(f => f.id === current);
+    select(F[(i + 1) % F.length].id);
+  }, 3600);
+
+  $('#nowPour').addEventListener('click', () => { lastUser = Date.now(); select(current, true); });
+  $('#nowAdd').addEventListener('click', e => { lastUser = Date.now(); addToCart(current, '1', e.currentTarget); });
+  $('#nowInfo').addEventListener('click', () => { lastUser = Date.now(); openDetail(current); });
+
+  /* ---------- marquee ---------- */
+  const words = ['PANKEK', 'KREP', 'WAFFLE', 'ÇİKOLATA AŞKA GELDİ'];
+  const row1 = words.map(w => `${w}<em>✺</em>`).join('');
+  $('#mq1').innerHTML = `<span>${row1.repeat(4)}</span><span>${row1.repeat(4)}</span>`;
+  const row2 = F.map(f => `${f.ad.toLocaleUpperCase('tr-TR')}<em>●</em>`).join('');
+  $('#mq2').innerHTML = `<span>${row2.repeat(2)}</span><span>${row2.repeat(2)}</span>`;
+
+  /* ---------- product cards ---------- */
+  const grid = $('#grid');
+  const sizeSel = {};
+  F.forEach(f => {
+    sizeSel[f.id] = '1';
+    const a = document.createElement('article');
+    a.className = 'card'; a.style.setProperty('--c', f.c); a.style.setProperty('--cfg', f.ink);
+    a.innerHTML = `
+      <button class="card-media" type="button" aria-label="${f.ad} besin değerleri ve içindekiler">
+        <span class="blob" aria-hidden="true"></span>
+        <img class="lbl" src="${CK_IMGSRC('bottle_'+f.id)}" alt="Chocokeyf ${f.ad} Waffle Sos 1 kg şişe" decoding="async">
+        <span class="glare" aria-hidden="true"></span>
+        <span class="peek">Detay</span>
+      </button>
+      <div class="card-body">
+        <div class="card-title"><h3>${f.ad}</h3><span lang="en">${f.en}</span></div>
+        <p class="card-tag">${f.tag}</p>
+        <div class="seg" role="group" aria-label="${f.ad} ambalaj seçimi">
+          <button type="button" data-s="1" aria-pressed="true">1 kg şişe</button>
+          <button type="button" data-s="10" aria-pressed="false">10 kg teneke</button>
+        </div>
+        <div class="buy"><span class="price">${tl(f.p1)}</span><button class="add" type="button">+ Sepete</button></div>
+      </div>`;
+    const media = a.querySelector('.card-media');
+    const lbl = a.querySelector('.lbl');
+    media.addEventListener('pointermove', e => {
+      if (reduce) return;
+      const r = media.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      lbl.style.setProperty('--ry', `${(x - .5) * 34}deg`);
+      lbl.style.setProperty('--rx', `${(.5 - y) * 24}deg`);
+      media.style.setProperty('--gx', `${x * 100}%`); media.style.setProperty('--gy', `${y * 100}%`);
+    });
+    media.addEventListener('pointerleave', () => { lbl.style.removeProperty('--ry'); lbl.style.removeProperty('--rx'); });
+    media.addEventListener('click', () => openDetail(f.id));
+    const price = a.querySelector('.price'), add = a.querySelector('.add');
+    a.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+      sizeSel[f.id] = b.dataset.s;
+      a.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      const p = b.dataset.s === '1' ? f.p1 : f.p10;
+      price.className = 'price' + (p ? '' : ' ask');
+      price.textContent = p ? tl(p) : 'Fiyat için sorun';
+      add.textContent = p ? '+ Sepete' : 'Teklif iste';
+    }));
+    add.addEventListener('click', e => {
+      const s = sizeSel[f.id];
+      const p = s === '1' ? f.p1 : f.p10;
+      if (!p) { preselect(f.id); location.hash = '#toptan'; return; }
+      addToCart(f.id, s, e.currentTarget);
+    });
+    grid.appendChild(a);
+  });
+  const cta = document.createElement('article');
+  cta.className = 'card cta';
+  cta.innerHTML = `<div style="display:grid;gap:12px"><span class="eyebrow" style="color:var(--ink)">İşletmeler için</span><h3>10 kg ile servis hızlanır.</h3><p>Kafe, pastane ve waffle dükkânlarına toptan fiyat.</p></div><a class="btn" href="#toptan">Teklif iste →</a>`;
+  grid.appendChild(cta);
+
+  /* ---------- detail dialog ---------- */
+  const dlg = $('#detail');
+  function openDetail(id) {
+    const f = byId(id);
+    const rows = [['Enerji (kJ)', f.n[0]], ['Enerji (kcal)', f.n[1]], ['Yağ (g)', f.n[2]], ['Doymuş yağ (g)', f.n[3]], ['Karbonhidrat (g)', f.n[4]], ['Şekerler (g)', f.n[5]], ['Protein (g)', f.n[6]], ['Tuz (g)', f.n[7]]];
+    $('#detailIn').style.setProperty('--c', f.c);
+    $('#detailIn').innerHTML = `
+      <div class="detail-img"><img src="${CK_IMGSRC('bottle_'+f.id)}" alt="Chocokeyf ${f.ad} Waffle Sos şişesi"></div>
+      <div class="detail-txt">
+        <button class="x" type="button" id="dClose" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <span class="eyebrow">Waffle &amp; krep sos · <span lang="en">${f.en}</span></span>
+        <h2 id="dTitle">${f.ad}</h2>
+        <p class="small">${f.tag}</p>
+        <table class="nut"><caption>Besin değerleri · 100 g</caption><tbody>${rows.map(r => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join('')}</tbody></table>
+        <p class="small"><b style="color:var(--cream)">İçindekiler:</b> ${f.ing}</p>
+        <p class="small"><b style="color:var(--cream)">Alerjen:</b> ${f.alg || 'Süt ve süt ürünleri içerir.'} ${TRACE}</p>
+        ${f.warn ? `<p class="warn">${f.warn}</p>` : ''}
+        <p class="small">Net 1 kg · Barkod <span class="mono">${f.bc}</span> · Menşe Türkiye</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-gold" type="button" id="dAdd">1 kg şişe · ${tl(f.p1)} · Sepete ekle</button></div>
+      </div>`;
+    $('#dClose').onclick = () => dlg.close();
+    $('#dAdd').onclick = e => { addToCart(f.id, '1', e.currentTarget); dlg.close(); };
+    try { dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); }
+  }
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+  /* ---------- cart ---------- */
+  let cart = store.get('ck-cart', []);
+  const drawer = $('#drawer'), scrim = $('#scrim');
+  function priceOf(it) { const f = byId(it.id); return it.s === '1' ? f.p1 : f.p10; }
+  function renderCart() {
+    const n = cart.reduce((a, b) => a + b.q, 0);
+    $('#cartCount').textContent = n;
+    const list = $('#drawerList');
+    if (!cart.length) {
+      list.innerHTML = `<div class="empty"><p>Sepetin şimdilik boş.</p><a class="btn btn-ghost" href="#lezzetler" id="emptyGo">Lezzetlere göz at</a></div>`;
+      $('#emptyGo').onclick = closeCart;
+      $('#drawerFoot').hidden = true;
+    } else {
+      $('#drawerFoot').hidden = false;
+      list.innerHTML = cart.map((it, i) => {
+        const f = byId(it.id);
+        return `<div class="line"><img src="${CK_IMGSRC('bottle_'+f.id)}" alt="">
+          <div><b>${f.ad} Waffle Sos</b><small>${it.s === '1' ? '1 kg şişe' : '10 kg teneke'} · ${tl(priceOf(it))}</small>
+          <div class="qty"><button type="button" data-i="${i}" data-d="-1" aria-label="Azalt">−</button><span>${it.q}</span><button type="button" data-i="${i}" data-d="1" aria-label="Arttır">+</button></div></div>
+          <span class="line-total">${tl(priceOf(it) * it.q)}</span></div>`;
+      }).join('');
+      list.querySelectorAll('.qty button').forEach(b => b.onclick = () => {
+        const it = cart[+b.dataset.i]; it.q += +b.dataset.d;
+        if (it.q <= 0) cart.splice(+b.dataset.i, 1);
+        save(); renderCart();
+      });
+    }
+    $('#sumTotal').textContent = tl(cart.reduce((a, it) => a + priceOf(it) * it.q, 0));
+  }
+  function save() { store.set('ck-cart', cart); }
+  function addToCart(id, s, fromEl) {
+    const ex = cart.find(it => it.id === id && it.s === s);
+    if (ex) ex.q++; else cart.push({ id, s, q: 1 });
+    save(); renderCart();
+    const f = byId(id);
+    fly(fromEl, f.c);
+    toast(`${f.ad} ${s === '1' ? '1 kg şişe' : '10 kg teneke'} sepete eklendi`);
+  }
+  function fly(fromEl, color) {
+    const btn = $('#cartBtn');
+    const done = () => { btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump'); };
+    if (!fromEl || reduce || !fromEl.getBoundingClientRect) return done();
+    const a = fromEl.getBoundingClientRect(), b = btn.getBoundingClientRect();
+    const d = document.createElement('span'); d.className = 'flyer'; d.style.background = color;
+    d.style.left = (a.left + a.width / 2 - 11) + 'px'; d.style.top = (a.top + a.height / 2 - 11) + 'px';
+    document.body.appendChild(d);
+    const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    const anim = d.animate([
+      { transform: 'translate(0,0) rotate(-45deg) scale(1)' },
+      { transform: `translate(${dx * .45}px, ${dy * .45 - 120}px) rotate(-45deg) scale(1.5)`, offset: .45 },
+      { transform: `translate(${dx}px, ${dy}px) rotate(-45deg) scale(.4)` }
+    ], { duration: 750, easing: 'cubic-bezier(.4,0,.3,1)' });
+    anim.onfinish = () => { d.remove(); done(); };
+  }
+  let tt;
+  function toast(msg) {
+    document.querySelectorAll('.toast').forEach(t => t.remove());
+    const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+    document.body.appendChild(t); clearTimeout(tt); tt = setTimeout(() => t.remove(), 2400);
+  }
+  function openCart() { renderCart(); drawer.hidden = false; scrim.hidden = false; $('#drawerClose').focus(); }
+  function closeCart() { drawer.hidden = true; scrim.hidden = true; $('#checkoutMsg').hidden = true; }
+  $('#cartBtn').onclick = openCart; $('#drawerClose').onclick = closeCart; scrim.onclick = closeCart;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !drawer.hidden) closeCart(); });
+  $('#checkout').onclick = () => { $('#checkoutMsg').hidden = false; };
+  renderCart();
+
+  /* ---------- wholesale form ---------- */
+  const picks = $('#flvPicks');
+  F.forEach(f => {
+    const l = document.createElement('label');
+    l.innerHTML = `<input type="checkbox" id="pick-${f.id}" value="${f.id}"> ${f.ad}`;
+    picks.appendChild(l);
+  });
+  function preselect(id) { const c = document.getElementById('pick-' + id); if (c) c.checked = true; }
+  $('#b2bForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const req = ['#f-firma', '#f-ad', '#f-tel'].map(s => $(s));
+    const miss = req.filter(i => !i.value.trim());
+    req.forEach(i => i.style.borderColor = miss.includes(i) ? '#e0604a' : '');
+    if (miss.length) { toast('İşletme adı, yetkili ve telefon gerekli'); miss[0].focus(); return; }
+    $('#b2bFields').hidden = true; $('#b2bSubmit').hidden = true; $('#formOk').hidden = false;
+  });
+})();
+</script>
+
+<script>
+(function () {
+  const F = window.CK_FLAVORS;
+  const IMG = window.CK_IMGSRC;
+  const stage = document.getElementById('stage');
+  const cv = document.getElementById('gl');
+  const ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const WAFFLE_AR = 277 / 470, BOTTLE_AR = 304 / 970;
+
+  const load = src => new Promise(r => { const i = new Image(); i.decoding = 'async'; i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
+  const bottles = {}, waffles = {};
+  let ready = false;
+
+  /* ---------- color helpers ---------- */
+  function hexRgb(h) { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); }
+  function mix(h, t, a) { const c = hexRgb(h), d = hexRgb(t); return `rgb(${c.map((v, i) => Math.round(v + (d[i] - v) * a)).join(',')})`; }
+
+  /* ---------- state ---------- */
+  let W = 0, H = 0, dpr = 1, L = {};
+  const S = {
+    cur: 'sutlu', next: null, reveal: 0, ph: [0, 0, 0],
+    b: { id: 'sutlu', x: 0, y: 0, rot: 0, a: 1, sq: 0, lift: 0 },
+    st: { on: false, head: 0, tail: 0, color: '#6b3a1f' },
+    drops: [], steam: [], bokeh: [], splash: 0
+  };
+  let busy = false, queued = null, px = 0, py = 0, spx = 0, spy = 0;
+
+  function layout() {
+    const r = stage.getBoundingClientRect();
+    W = r.width; H = r.height; dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    const narrow = W < 560;
+    const wb = Math.min(W * (narrow ? 0.7 : 0.64), H * 1.05, 620);
+    const wh = wb * WAFFLE_AR;
+    const ground = H * 0.86;
+    const wx = W * (narrow ? 0.4 : 0.42) - wb / 2;
+    const wy = ground - wh;
+    const bh = Math.min(H * 0.64, wb * 1.25);
+    const bw = bh * BOTTLE_AR;
+    const standX = Math.min(W - bw * 0.62, wx + wb + bw * 0.55);
+    L = {
+      wb, wh, wx, wy, ground, bh, bw,
+      stand: { x: standX, y: ground + bh * 0.012 - bh },
+      pour: { x: Math.min(wx + wb * 0.64, W - bh * 0.97), y: wy - bh * 0.13 },
+      hit: { x: wx + wb * 0.49, y: wy + wh * 0.2 }
+    };
+    if (!busy) { S.b.x = L.stand.x; S.b.y = L.stand.y; }
+    if (!S.bokeh.length) seedBokeh();
+  }
+
+  function seedBokeh() {
+    for (let i = 0; i < 22; i++) S.bokeh.push({
+      x: 0.12 + Math.random() * 0.76, y: 0.1 + Math.random() * 0.5, r: 10 + Math.random() * 34, a: 0.05 + Math.random() * 0.12,
+      sp: 0.004 + Math.random() * 0.01, ph: Math.random() * 6.28, d: 0.3 + Math.random() * 0.7
+    });
+  }
+
+  /* ---------- tweens ---------- */
+  const tweens = new Set();
+  const ease = {
+    io: k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2,
+    out: k => 1 - Math.pow(1 - k, 3),
+    in: k => k * k * k,
+    back: k => { const c = 1.5; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); },
+    lin: k => k
+  };
+  const tween = (sec, fn, e = ease.io) => new Promise(res => tweens.add({ t0: performance.now(), d: reduce ? 1 : sec * 1000, fn, e, res }));
+  const TILT = -2.0;
+
+  async function pour(id) {
+    if (!ready) return;
+    if (busy) { queued = id; return; }
+    busy = true;
+    const f = F.find(x => x.id === id);
+    const b = S.b;
+    if (b.id !== id) {
+      const x0 = L.stand.x;
+      await tween(0.42, k => { b.x = x0 + k * W * 0.45; b.a = 1 - k; b.rot = k * 0.35; }, ease.in);
+      b.id = id;
+      await tween(0.65, k => { b.x = x0 + (1 - k) * W * 0.45; b.a = Math.min(1, k * 1.6); b.rot = (1 - k) * -0.3; }, ease.back);
+    }
+    S.next = id; S.reveal = 0; S.ph = [Math.random() * 6.28, Math.random() * 6.28, Math.random() * 6.28];
+    S.st.color = f.c;
+    await tween(0.85, k => {
+      b.x = L.stand.x + (L.pour.x - L.stand.x) * k;
+      b.y = L.stand.y + (L.pour.y - L.stand.y) * k - Math.sin(k * Math.PI) * L.bh * 0.1;
+      b.rot = TILT * k; b.lift = k;
+    });
+    S.st.on = true; S.st.head = 0; S.st.tail = 0;
+    await tween(0.28, k => { S.st.head = k; }, ease.in);
+    await tween(2.2, k => { S.reveal = k; b.sq = Math.sin(k * Math.PI * 5) * 0.5 + 0.5; }, ease.io);
+    S.cur = id; S.next = null; S.reveal = 0;
+    await tween(0.24, k => { S.st.tail = k; b.sq = 0; }, ease.in);
+    S.st.on = false;
+    for (let i = 0; i < 3; i++) setTimeout(() => spawnDrop(f.c, 0.6 - i * 0.15), 120 + i * 260);
+    await tween(0.85, k => {
+      b.x = L.pour.x + (L.stand.x - L.pour.x) * k;
+      b.y = L.pour.y + (L.stand.y - L.pour.y) * k - Math.sin(k * Math.PI) * L.bh * 0.06;
+      b.rot = TILT * (1 - k); b.lift = 1 - k;
+    });
+    busy = false;
+    if (queued && queued !== id) { const q = queued; queued = null; pour(q); } else queued = null;
+  }
+  window.CK3D = { busy: () => busy };
+
+  /* ---------- geometry helpers ---------- */
+  function nozzle() { return { x: S.b.x, y: S.b.y, dx: Math.sin(S.b.rot), dy: -Math.cos(S.b.rot) }; }
+  function spawnDrop(color, size) {
+    const n = nozzle();
+    S.drops.push({ x: n.x + n.dx * 4, y: n.y + n.dy * 4, vx: n.dx * 30, vy: 20, r: L.bw * 0.05 * size, c: color });
+  }
+
+  function streamPts() {
+    const n = nozzle(), e = L.hit;
+    const dist = Math.hypot(e.x - n.x, e.y - n.y);
+    const c = { x: n.x + n.dx * dist * 0.22, y: n.y + n.dy * dist * 0.22 };
+    const pts = [];
+    const a = S.st.tail, z = S.st.head;
+    const steps = 34;
+    for (let i = 0; i <= steps; i++) {
+      const s = a + (z - a) * (i / steps);
+      const u = 1 - s;
+      const x = u * u * n.x + 2 * u * s * c.x + s * s * e.x;
+      const y = u * u * n.y + 2 * u * s * c.y + s * s * e.y;
+      pts.push({ x, y, s });
+    }
+    return pts;
+  }
+
+  function drawStream(t) {
+    if (!S.st.on) return;
+    const pts = streamPts();
+    if (pts.length < 2) return;
+    const w0 = L.bw * 0.1;
+    const left = [], right = [];
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i], q = pts[Math.min(pts.length - 1, i + 1)], o = pts[Math.max(0, i - 1)];
+      let tx = q.x - o.x, ty = q.y - o.y; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+      const w = w0 * (1 - 0.38 * p.s) * (1 + Math.sin(t * 18 + p.s * 14) * 0.06) / 2;
+      left.push({ x: p.x - ty * w, y: p.y + tx * w }); right.push({ x: p.x + ty * w, y: p.y - tx * w });
+    }
+    const col = S.st.color;
+    ctx.beginPath();
+    left.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+    for (let i = right.length - 1; i >= 0; i--) ctx.lineTo(right[i].x, right[i].y);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(left[0].x, left[0].y, right[0].x, right[0].y);
+    g.addColorStop(0, mix(col, '#000000', 0.35)); g.addColorStop(0.35, mix(col, '#ffffff', 0.12));
+    g.addColorStop(0.6, col); g.addColorStop(1, mix(col, '#000000', 0.45));
+    ctx.fillStyle = col; ctx.fill();
+    ctx.save(); ctx.clip();
+    ctx.lineWidth = w0 * 0.9; ctx.strokeStyle = mix(col, '#000000', 0.4); ctx.globalAlpha = 0.5;
+    ctx.beginPath(); right.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.stroke();
+    ctx.restore();
+    ctx.lineCap = 'round';
+    ctx.lineWidth = Math.max(1.2, w0 * 0.16); ctx.strokeStyle = 'rgba(255,255,255,.55)';
+    ctx.beginPath();
+    pts.forEach((p, i) => { const lp = left[i]; const x = p.x + (lp.x - p.x) * 0.45, y = p.y + (lp.y - p.y) * 0.45; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.stroke();
+    if (S.st.head > 0.98 && S.st.tail < 0.5) {
+      const e = L.hit, rr = w0 * (1.3 + Math.sin(t * 9) * 0.12);
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.ellipse(e.x, e.y + 2, rr, rr * 0.42, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.35)';
+      ctx.beginPath(); ctx.ellipse(e.x - rr * 0.3, e.y, rr * 0.35, rr * 0.12, -0.2, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function blobPath(R) {
+    const c = L.hit, [p1, p2, p3] = S.ph;
+    ctx.beginPath();
+    for (let i = 0; i <= 160; i++) {
+      const th = (i / 160) * Math.PI * 2;
+      const rr = R * (1 + 0.08 * Math.sin(5 * th + p1) + 0.05 * Math.sin(9 * th + p2));
+      const down = Math.max(0, Math.sin(th));
+      const finger = R * 0.5 * Math.pow(Math.max(0, Math.sin(th * 13 + p3)), 10) * down;
+      const x = c.x + rr * Math.cos(th);
+      const y = c.y + rr * 0.55 * Math.sin(th) + finger;
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  function drawWaffle() {
+    const { wx, wy, wb, wh } = L;
+    const ox = spx * 4, oy = spy * 2;
+    const sg = ctx.createRadialGradient(wx + wb / 2, wy + wh * 0.96, 0, wx + wb / 2, wy + wh * 0.96, wb * 0.55);
+    sg.addColorStop(0, 'rgba(0,0,0,.55)'); sg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.save(); ctx.translate(wx + wb / 2, wy + wh * 0.96); ctx.scale(1, 0.16); ctx.translate(-(wx + wb / 2), -(wy + wh * 0.96));
+    ctx.fillStyle = sg; ctx.fillRect(wx - wb * 0.1, wy + wh * 0.96 - wb * 0.6, wb * 1.2, wb * 1.2); ctx.restore();
+    const cur = waffles[S.cur];
+    if (cur) ctx.drawImage(cur, wx + ox, wy + oy, wb, wh);
+    if (S.next && S.reveal > 0) {
+      const nx = waffles[S.next];
+      const Rmax = Math.hypot(wb * 0.55, (wh * 0.85) / 0.55) * 1.05;
+      ctx.save(); blobPath(Rmax * S.reveal); ctx.clip();
+      if (nx) ctx.drawImage(nx, wx + ox, wy + oy, wb, wh);
+      ctx.restore();
+    }
+  }
+
+  function drawBottle() {
+    const b = S.b, img = bottles[b.id];
+    if (!img) return;
+    const { bw, bh, ground } = L;
+    const lift = Math.max(0, (ground - (b.y + bh)) / bh);
+    const sa = (1 - Math.min(1, lift * 2.2)) * b.a;
+    if (sa > 0.01) {
+      const cx = b.x + spx * 8, g = ctx.createRadialGradient(cx, ground, 0, cx, ground, bw * 0.8);
+      g.addColorStop(0, `rgba(0,0,0,${0.55 * sa})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.save(); ctx.translate(cx, ground); ctx.scale(1, 0.18); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, bw * 0.8, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+    ctx.save();
+    ctx.globalAlpha = b.a;
+    ctx.translate(b.x + spx * 8, b.y + spy * 4);
+    const idle = busy ? 0 : Math.sin(perf / 900) * 0.025;
+    ctx.rotate(b.rot + idle);
+    const sq = 1 - b.sq * 0.035;
+    ctx.scale(sq, 1);
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 26 * dpr; ctx.shadowOffsetY = 14 * dpr;
+    ctx.drawImage(img, -bw / 2, -bh * 0.008, bw, bh);
+    ctx.restore();
+  }
+
+  function drawBokeh(t) {
+    S.bokeh.forEach(k => {
+      const x = (k.x + Math.sin(t * k.sp * 10 + k.ph) * 0.02) * W - spx * 14 * k.d, y = k.y * H + Math.cos(t * k.sp * 8 + k.ph) * 10 - spy * 8 * k.d;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, k.r);
+      g.addColorStop(0, `rgba(255,200,130,${k.a})`); g.addColorStop(0.7, `rgba(255,180,110,${k.a * 0.5})`); g.addColorStop(1, 'rgba(255,180,110,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, k.r, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function drawSteam(dt) {
+    if (!reduce && S.steam.length < 26 && Math.random() < 0.25) {
+      S.steam.push({ x: L.wx + L.wb * (0.25 + Math.random() * 0.5), y: L.wy + L.wh * 0.12, r: L.wb * 0.03, a: 0, life: 0, vx: (Math.random() - 0.5) * 8, sw: Math.random() * 6 });
+    }
+    S.steam = S.steam.filter(p => p.life < 1);
+    S.steam.forEach(p => {
+      p.life += dt * 0.28; p.y -= dt * L.wh * 0.35; p.x += Math.sin(p.life * 6 + p.sw) * 0.4 + p.vx * dt; p.r += dt * L.wb * 0.05;
+      const a = Math.sin(p.life * Math.PI) * 0.07;
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, `rgba(255,244,230,${a})`); g.addColorStop(1, 'rgba(255,244,230,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function drawDrops(dt) {
+    S.drops = S.drops.filter(d => d.y < L.hit.y);
+    S.drops.forEach(d => {
+      d.vy += 1400 * dt; d.x += d.vx * dt; d.y += d.vy * dt;
+      ctx.fillStyle = d.c;
+      ctx.beginPath(); ctx.ellipse(d.x, d.y, d.r * 0.85, d.r * 1.25, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.5)';
+      ctx.beginPath(); ctx.arc(d.x - d.r * 0.3, d.y - d.r * 0.4, d.r * 0.25, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  /* ---------- loop ---------- */
+  let perf = 0, last = performance.now(), visible = true;
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min(0.05, (now - last) / 1000); last = now; perf = now;
+    if (!visible || document.hidden || !ready) return;
+    for (const tw of tweens) {
+      const k = Math.min(1, (now - tw.t0) / tw.d);
+      tw.fn(tw.e(k));
+      if (k >= 1) { tweens.delete(tw); tw.res(); }
+    }
+    spx += (px - spx) * 0.06; spy += (py - spy) * 0.06;
+    const t = now / 1000;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    drawBokeh(t);
+    const fg = ctx.createRadialGradient(W * 0.45, L.ground, 0, W * 0.45, L.ground, W * 0.42);
+    fg.addColorStop(0, 'rgba(255,190,120,.10)'); fg.addColorStop(1, 'rgba(255,190,120,0)');
+    ctx.fillStyle = fg; ctx.fillRect(0, L.ground - H * 0.2, W, H * 0.4);
+    drawWaffle();
+    drawSteam(dt);
+    drawDrops(dt);
+    drawStream(t);
+    drawBottle();
+  }
+
+  stage.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    px = ((e.clientX - r.left) / r.width - 0.5) * 2; py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  });
+  stage.addEventListener('pointerleave', () => { px = py = 0; });
+  new ResizeObserver(layout).observe(stage);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.01 }).observe(stage);
+  window.addEventListener('ck:flavor', e => pour(e.detail.id));
+
+  Promise.all(F.map(async f => {
+    bottles[f.id] = await load(IMG('bottle_' + f.id));
+    waffles[f.id] = await load(IMG('waffle_' + f.id));
+  })).then(() => {
+    layout();
+    ready = true;
+    stage.classList.add('ready');
+    window.dispatchEvent(new Event('ck:ready'));
+  });
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
