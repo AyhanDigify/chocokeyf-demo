@@ -171,7 +171,9 @@ p { margin: 0; }
 .btn svg { width: 18px; height: 18px; }
 
 .stage { position: relative; height: clamp(440px, 72vh, 700px); min-width: 0; }
-.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; pointer-events: none; }
+.hero .wrap { position: relative; z-index: 2; }
+.hero.nogl .hero-gl { display: none; }
 .stage .fallback {
   position: absolute; inset: 6% 25%; object-fit: contain; transition: opacity .6s; opacity: 0;
   filter: drop-shadow(0 30px 40px rgba(0,0,0,.5));
@@ -413,6 +415,7 @@ dialog.detail::backdrop { background: rgba(10,4,2,.7); backdrop-filter: blur(4px
 <main id="top">
   <section class="hero" aria-label="Lezzet seçici">
     <div class="giant" id="giant" aria-hidden="true">Sütlü</div>
+    <canvas id="gl" class="hero-gl" role="img" aria-label="Kadın eli Chocokeyf şişesinden waffle üzerine sos döküyor"></canvas>
     <div class="wrap">
       <div class="hero-copy">
         <span class="eyebrow">Çikolata aşka geldi · Pankek · Krep · Waffle</span>
@@ -447,8 +450,7 @@ dialog.detail::backdrop { background: rgba(10,4,2,.7); backdrop-filter: blur(4px
       </div>
       <div class="stage" id="stage">
         <img class="fallback" id="fallback" src="assets/bottle_sutlu.webp" alt="Chocokeyf Sütlü Waffle Sos etiketi">
-        <canvas id="gl" aria-label="Chocokeyf şişesinden waffle üzerine sos dökülüyor"></canvas>
-        <span class="stage-hint">Bir şişe seç, sos dökülsün</span>
+                <span class="stage-hint">Bir lezzet seç, sos dökülsün</span>
       </div>
     </div>
   </section>
@@ -880,9 +882,12 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   const ctx = cv.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const WAFFLE_AR = 277 / 470, BOTTLE_AR = 304 / 970;
+  const HAND = { w: 518, h: 1490, nx: 296, ny: -4, bottle: 820 }; // hand_*.webp: nozzle position + bottle height in image px
+  const hero = stage.closest('.hero');
+  let OX = 0, OY = 0, CW = 0, CH = 0;
 
   const load = src => new Promise(r => { const i = new Image(); i.decoding = 'async'; i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
-  const bottles = {}, waffles = {};
+  const bottles = {}, waffles = {}, hands = {};
   let ready = false;
 
   /* ---------- color helpers ---------- */
@@ -900,9 +905,10 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   let busy = false, queued = null, px = 0, py = 0, spx = 0, spy = 0;
 
   function layout() {
-    const r = stage.getBoundingClientRect();
+    const r = stage.getBoundingClientRect(), hr = hero.getBoundingClientRect();
     W = r.width; H = r.height; dpr = Math.min(devicePixelRatio || 1, 2);
-    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    OX = r.left - hr.left; OY = r.top - hr.top; CW = hr.width; CH = hr.height;
+    cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
     const narrow = W < 560;
     const wb = Math.min(W * (narrow ? 0.7 : 0.64), H * 1.05, 620);
     const wh = wb * WAFFLE_AR;
@@ -911,14 +917,14 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     const wy = ground - wh;
     const bh = Math.min(H * 0.64, wb * 1.25);
     const bw = bh * BOTTLE_AR;
-    const standX = Math.min(W - bw * 0.62, wx + wb + bw * 0.55);
+    const hitX = wx + wb * 0.5;
     L = {
-      wb, wh, wx, wy, ground, bh, bw,
-      stand: { x: standX, y: ground + bh * 0.012 - bh },
-      pour: { x: Math.min(wx + wb * 0.64, W - bh * 0.97), y: wy - bh * 0.13 },
-      hit: { x: wx + wb * 0.49, y: wy + wh * 0.2 }
+      wb, wh, wx, wy, ground, bh, bw, narrow,
+      stand: { x: Math.min(wx + wb * 0.98, W - bw * 1.1), y: wy - bh * 0.22 },
+      pour: { x: hitX, y: wy - bh * 0.12 },
+      hit: { x: hitX, y: wy + wh * 0.2 }
     };
-    if (!busy) { S.b.x = L.stand.x; S.b.y = L.stand.y; }
+    if (!busy) { S.b.x = L.stand.x; S.b.y = L.stand.y; S.b.rot = IDLE; }
     if (!S.bokeh.length) seedBokeh();
   }
 
@@ -939,7 +945,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     lin: k => k
   };
   const tween = (sec, fn, e = ease.io) => new Promise(res => tweens.add({ t0: performance.now(), d: reduce ? 1 : sec * 1000, fn, e, res }));
-  const TILT = -2.0;
+  const TILT = -1.95, IDLE = -0.9;
 
   async function pour(id) {
     if (!ready) return;
@@ -949,16 +955,17 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     const b = S.b;
     if (b.id !== id) {
       const x0 = L.stand.x;
-      await tween(0.42, k => { b.x = x0 + k * W * 0.45; b.a = 1 - k; b.rot = k * 0.35; }, ease.in);
+      const y0 = L.stand.y;
+      await tween(0.5, k => { b.x = x0 + k * (CW - OX - x0 + L.bh * 0.6); b.y = y0 + k * L.bh * 0.25; b.rot = IDLE + k * 0.25; }, ease.in);
       b.id = id;
-      await tween(0.65, k => { b.x = x0 + (1 - k) * W * 0.45; b.a = Math.min(1, k * 1.6); b.rot = (1 - k) * -0.3; }, ease.back);
+      await tween(0.7, k => { b.x = x0 + (1 - k) * (CW - OX - x0 + L.bh * 0.6); b.y = y0 + (1 - k) * L.bh * 0.25; b.rot = IDLE + (1 - k) * 0.25; }, ease.out);
     }
     S.next = id; S.reveal = 0; S.ph = [Math.random() * 6.28, Math.random() * 6.28, Math.random() * 6.28];
     S.st.color = f.c;
     await tween(0.85, k => {
       b.x = L.stand.x + (L.pour.x - L.stand.x) * k;
-      b.y = L.stand.y + (L.pour.y - L.stand.y) * k - Math.sin(k * Math.PI) * L.bh * 0.1;
-      b.rot = TILT * k; b.lift = k;
+      b.y = L.stand.y + (L.pour.y - L.stand.y) * k - Math.sin(k * Math.PI) * L.bh * 0.08;
+      b.rot = IDLE + (TILT - IDLE) * k; b.lift = k;
     });
     S.st.on = true; S.st.head = 0; S.st.tail = 0;
     await tween(0.28, k => { S.st.head = k; }, ease.in);
@@ -969,8 +976,8 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     for (let i = 0; i < 3; i++) setTimeout(() => spawnDrop(f.c, 0.6 - i * 0.15), 120 + i * 260);
     await tween(0.85, k => {
       b.x = L.pour.x + (L.stand.x - L.pour.x) * k;
-      b.y = L.pour.y + (L.stand.y - L.pour.y) * k - Math.sin(k * Math.PI) * L.bh * 0.06;
-      b.rot = TILT * (1 - k); b.lift = 1 - k;
+      b.y = L.pour.y + (L.stand.y - L.pour.y) * k - Math.sin(k * Math.PI) * L.bh * 0.05;
+      b.rot = TILT + (IDLE - TILT) * k; b.lift = 1 - k;
     });
     busy = false;
     if (queued && queued !== id) { const q = queued; queued = null; pour(q); } else queued = null;
@@ -985,9 +992,8 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   }
 
   function streamPts() {
-    const n = nozzle(), e = L.hit;
-    const dist = Math.hypot(e.x - n.x, e.y - n.y);
-    const c = { x: n.x + n.dx * dist * 0.22, y: n.y + n.dy * dist * 0.22 };
+    const n = nozzle(), e = { x: n.x + n.dx * 6, y: L.hit.y };
+    const c = { x: n.x + n.dx * 7, y: n.y + (e.y - n.y) * 0.12 };
     const pts = [];
     const a = S.st.tail, z = S.st.head;
     const steps = 34;
@@ -1032,7 +1038,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     pts.forEach((p, i) => { const lp = left[i]; const x = p.x + (lp.x - p.x) * 0.45, y = p.y + (lp.y - p.y) * 0.45; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
     ctx.stroke();
     if (S.st.head > 0.98 && S.st.tail < 0.5) {
-      const e = L.hit, rr = w0 * (1.3 + Math.sin(t * 9) * 0.12);
+      const e = { x: S.b.x + Math.sin(S.b.rot) * 6, y: L.hit.y }, rr = w0 * (1.3 + Math.sin(t * 9) * 0.12);
       ctx.fillStyle = col;
       ctx.beginPath(); ctx.ellipse(e.x, e.y + 2, rr, rr * 0.42, 0, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = 'rgba(255,255,255,.35)';
@@ -1074,25 +1080,18 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   }
 
   function drawBottle() {
-    const b = S.b, img = bottles[b.id];
+    const b = S.b, img = hands[b.id] || bottles[b.id];
     if (!img) return;
-    const { bw, bh, ground } = L;
-    const lift = Math.max(0, (ground - (b.y + bh)) / bh);
-    const sa = (1 - Math.min(1, lift * 2.2)) * b.a;
-    if (sa > 0.01) {
-      const cx = b.x + spx * 8, g = ctx.createRadialGradient(cx, ground, 0, cx, ground, bw * 0.8);
-      g.addColorStop(0, `rgba(0,0,0,${0.55 * sa})`); g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.save(); ctx.translate(cx, ground); ctx.scale(1, 0.18); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, bw * 0.8, 0, Math.PI * 2); ctx.fill(); ctx.restore();
-    }
+    const sc = L.bh / HAND.bottle;
     ctx.save();
-    ctx.globalAlpha = b.a;
     ctx.translate(b.x + spx * 8, b.y + spy * 4);
-    const idle = busy ? 0 : Math.sin(perf / 900) * 0.025;
+    const idle = busy ? 0 : Math.sin(perf / 1100) * 0.03;
     ctx.rotate(b.rot + idle);
-    const sq = 1 - b.sq * 0.035;
+    const sq = 1 - b.sq * 0.03;
     ctx.scale(sq, 1);
-    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 26 * dpr; ctx.shadowOffsetY = 14 * dpr;
-    ctx.drawImage(img, -bw / 2, -bh * 0.008, bw, bh);
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 30 * dpr; ctx.shadowOffsetY = 18 * dpr;
+    if (hands[b.id]) ctx.drawImage(img, -HAND.nx * sc, -HAND.ny * sc, HAND.w * sc, HAND.h * sc);
+    else ctx.drawImage(img, -L.bw / 2, -L.bh * 0.008, L.bw, L.bh);
     ctx.restore();
   }
 
@@ -1144,7 +1143,10 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     spx += (px - spx) * 0.06; spy += (py - spy) * 0.06;
     const t = now / 1000;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, W, H);
+    ctx.clearRect(0, 0, CW, CH);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(L.narrow ? 0 : OX - 40, 0, CW, L.narrow ? OY + H : CH); ctx.clip();
+    ctx.translate(OX, OY);
     drawBokeh(t);
     const fg = ctx.createRadialGradient(W * 0.45, L.ground, 0, W * 0.45, L.ground, W * 0.42);
     fg.addColorStop(0, 'rgba(255,190,120,.10)'); fg.addColorStop(1, 'rgba(255,190,120,0)');
@@ -1154,13 +1156,15 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     drawDrops(dt);
     drawStream(t);
     drawBottle();
+    ctx.restore();
   }
 
-  stage.addEventListener('pointermove', e => {
+  hero.addEventListener('pointermove', e => {
     const r = stage.getBoundingClientRect();
     px = ((e.clientX - r.left) / r.width - 0.5) * 2; py = ((e.clientY - r.top) / r.height - 0.5) * 2;
   });
-  stage.addEventListener('pointerleave', () => { px = py = 0; });
+  hero.addEventListener('pointerleave', () => { px = py = 0; });
+  new ResizeObserver(layout).observe(hero);
   new ResizeObserver(layout).observe(stage);
   new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.01 }).observe(stage);
   window.addEventListener('ck:flavor', e => pour(e.detail.id));
@@ -1168,6 +1172,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   Promise.all(F.map(async f => {
     bottles[f.id] = await load(IMG('bottle_' + f.id));
     waffles[f.id] = await load(IMG('waffle_' + f.id));
+    hands[f.id] = await load(IMG('hand_' + f.id));
   })).then(() => {
     layout();
     ready = true;
