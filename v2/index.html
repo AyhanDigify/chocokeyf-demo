@@ -882,7 +882,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   const ctx = cv.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const WAFFLE_AR = 277 / 470, BOTTLE_AR = 304 / 970;
-  const HAND = { w: 518, h: 1490, nx: 296, ny: -4, bottle: 820 }; // hand_*.webp: nozzle position + bottle height in image px
+  const HAND = { w: 1346, h: 669, nx: 7, ny: 602, bottle: 820, rot: -1.95 }; // hand_*.webp is drawn in pour pose: nozzle px, bottle length px, built-in rotation
   const hero = stage.closest('.hero');
   let OX = 0, OY = 0, CW = 0, CH = 0;
 
@@ -1086,7 +1086,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     ctx.save();
     ctx.translate(b.x + spx * 8, b.y + spy * 4);
     const idle = busy ? 0 : Math.sin(perf / 1100) * 0.03;
-    ctx.rotate(b.rot + idle);
+    ctx.rotate(b.rot + idle - (hands[b.id] ? HAND.rot : 0));
     const sq = 1 - b.sq * 0.03;
     ctx.scale(sq, 1);
     ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 30 * dpr; ctx.shadowOffsetY = 18 * dpr;
