@@ -1,0 +1,1430 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>Chocokeyf Mağaza</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: açık, ferah mağaza; vitrin koyu çikolata bant, ürün kartları lezzet tonunda zemin üzerinde gerçek şişeler. */
+@property --fl { syntax: '<color>'; inherits: true; initial-value: #6b3a1f; }
+@property --flg { syntax: '<color>'; inherits: true; initial-value: #a85d2e; }
+:root {
+  color-scheme: light;
+  --paper: #fbf6ef;
+  --paper-2: #f3eadc;
+  --card: #ffffff;
+  --ink: #2b170d;
+  --ink-2: #6d5646;
+  --line: #e8dbc8;
+  --choc: #1d0e07;
+  --choc-2: #2e170c;
+  --cream: #f7ebd5;
+  --cream-2: #cdb79b;
+  --gold: #c8913f;
+  --gold-2: #e4b86c;
+  --ok: #2f7a4a;
+  --err: #b4442f;
+  --fl: #6b3a1f;
+  --flg: #a85d2e;
+  --f-display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gl: max(16px, env(safe-area-inset-left, 0px));
+  --gr: max(16px, env(safe-area-inset-right, 0px));
+  --max: 1280px;
+  --r: 18px;
+  transition: --fl .9s ease, --flg .9s ease;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; overflow-x: clip; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--choc); }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 8px; }
+h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; letter-spacing: -0.02em; text-wrap: balance; line-height: 1.02; }
+p { margin: 0; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: var(--gl); padding-right: var(--gr); }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.muted { color: var(--ink-2); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tab-num { font-variant-numeric: tabular-nums; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px; padding: 13px 22px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform .18s, background .2s, box-shadow .2s; white-space: nowrap; }
+.btn:active { transform: scale(.97); }
+.btn-dark { background: var(--ink); color: var(--paper); }
+.btn-dark:hover { background: #4a2a18; }
+.btn-gold { background: var(--gold); color: var(--choc); }
+.btn-gold:hover { background: var(--gold-2); }
+.btn-line { background: transparent; border: 1.5px solid var(--line); color: var(--ink); }
+.btn-line:hover { border-color: var(--ink-2); }
+.btn-cream { background: var(--cream); color: var(--choc); }
+.btn-ghost-dark { background: transparent; border: 1.5px solid rgba(247,235,213,.3); color: var(--cream); }
+.btn-ghost-dark:hover { border-color: var(--cream); }
+.btn svg, .icon-btn svg { width: 18px; height: 18px; flex: none; }
+.icon-btn { position: relative; width: 42px; height: 42px; border-radius: 50%; border: 0; background: transparent; display: grid; place-items: center; }
+.icon-btn:hover { background: var(--paper-2); }
+.icon-btn svg { width: 21px; height: 21px; }
+.badge { position: absolute; top: 2px; right: 0; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 999px; background: var(--gold); color: var(--choc); font-size: 11px; font-weight: 800; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.badge.bump { animation: bump .5s cubic-bezier(.3,1.6,.5,1); }
+@keyframes bump { 40% { transform: scale(1.35); } }
+
+/* announcement + header */
+.announce { background: var(--choc); color: var(--cream-2); font-size: 13px; }
+.announce .wrap { display: flex; justify-content: space-between; gap: 16px; padding-block: 8px; }
+.announce b { color: var(--cream); font-weight: 600; }
+.announce a { color: var(--gold-2); font-weight: 700; text-decoration: none; }
+.hdr { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: color-mix(in oklab, var(--paper) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.hdr .wrap { display: flex; align-items: center; gap: 22px; height: 68px; }
+.logo img { height: 44px; width: auto; }
+.nav { display: flex; gap: 2px; }
+.nav a { text-decoration: none; font-weight: 600; font-size: 15px; padding: 8px 14px; border-radius: 999px; color: var(--ink-2); }
+.nav a:hover { color: var(--ink); background: var(--paper-2); }
+.nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+.hdr-tools { margin-left: auto; display: flex; gap: 2px; align-items: center; }
+.menu-btn { display: none; }
+
+/* hero (dark band with pour scene) */
+.hero { position: relative; overflow: hidden; isolation: isolate; color: var(--cream);
+  background: radial-gradient(55% 70% at 72% 50%, color-mix(in oklab, var(--flg) 50%, transparent), transparent 70%), radial-gradient(40% 50% at 8% 100%, color-mix(in oklab, var(--fl) 35%, transparent), transparent 70%), var(--choc); }
+.hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); align-items: center; gap: 12px; padding-block: 34px 40px; min-height: clamp(540px, 76vh, 720px); }
+.hero-gl { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; display: block; }
+.giant { position: absolute; z-index: -1; right: -2vw; top: 50%; transform: translateY(-50%); font-family: var(--f-display); font-weight: 800; font-size: clamp(110px, 20vw, 320px); line-height: .8; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 2px color-mix(in oklab, var(--flg) 70%, transparent); white-space: nowrap; pointer-events: none; opacity: .5; }
+.giant.swap { animation: giantIn .9s cubic-bezier(.2,.9,.2,1); }
+@keyframes giantIn { from { transform: translate(14%, -50%); opacity: 0; } }
+.hero-copy { display: grid; gap: 20px; }
+.hero h1 { font-size: clamp(44px, 6.6vw, 88px); line-height: .92; font-weight: 800; letter-spacing: -0.04em; }
+.hero h1 em { font-style: normal; color: var(--fl); transition: color .9s; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
+.hero-lede { color: var(--cream-2); font-size: 18px; max-width: 36ch; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 9px; margin-top: 8px; border: 1.5px solid rgba(247,235,213,.18); background: rgba(46,23,12,.6); color: var(--cream); border-radius: 999px; padding: 7px 14px 7px 9px; font-weight: 600; font-size: 14.5px; transition: transform .2s, border-color .3s, background .3s; }
+.chip img { width: 17px; height: 54px; object-fit: contain; margin: -14px 0 -10px; filter: drop-shadow(0 4px 4px rgba(0,0,0,.5)); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+.chip:hover img, .chip[aria-pressed="true"] img { transform: translateY(-6px) rotate(-6deg); }
+.chip:hover { transform: translateY(-2px); border-color: var(--c); }
+.chip[aria-pressed="true"] { border-color: var(--c); background: color-mix(in oklab, var(--c) 30%, var(--choc-2)); }
+.hero-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; }
+.hero-price { font-family: var(--f-display); font-weight: 800; font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
+.hero-price small { display: block; font-family: var(--f-body); font-weight: 600; font-size: 12.5px; color: var(--cream-2); margin-top: 4px; }
+.stage { position: relative; height: clamp(420px, 66vh, 660px); min-width: 0; }
+.stage .fallback { position: absolute; inset: 8% 32%; width: 36%; height: 84%; object-fit: contain; opacity: 0; transition: opacity .5s; }
+.stage.nogl .fallback { opacity: 1; }
+.stage-hint { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); font-size: 12.5px; color: var(--cream-2); background: rgba(29,14,7,.7); padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+
+/* trust strip */
+.trust { border-bottom: 1px solid var(--line); background: var(--card); }
+.trust .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding-block: 20px; }
+.trust div { display: flex; gap: 12px; align-items: center; }
+.trust svg { width: 30px; height: 30px; color: var(--gold); flex: none; }
+.trust b { display: block; font-size: 15px; }
+.trust span { font-size: 13.5px; color: var(--ink-2); }
+
+/* sections */
+.sec { padding-block: clamp(56px, 7vw, 96px) 0; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+.sec-head h2 { font-size: clamp(32px, 4.4vw, 54px); font-weight: 800; }
+.sec-head p { color: var(--ink-2); max-width: 54ch; margin-top: 10px; }
+.link-arrow { font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+
+/* product card */
+.pgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr); gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: thin; }
+.rail > * { scroll-snap-align: start; }
+.pc { --c: #6b3a1f; position: relative; display: grid; gap: 12px; align-content: start; }
+.pc-media { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; background: radial-gradient(70% 60% at 50% 38%, color-mix(in oklab, var(--c) 34%, #fff), color-mix(in oklab, var(--c) 14%, var(--paper-2))); }
+.pc-media .bt { position: absolute; left: 0; right: 0; margin: auto; top: 7%; height: 80%; width: auto; filter: drop-shadow(0 22px 18px rgba(43,23,13,.35)); transition: transform .5s cubic-bezier(.2,.9,.2,1); }
+.pc-media .wf { position: absolute; left: 6%; right: 6%; bottom: -30%; width: 88%; height: auto; opacity: 0; transition: opacity .4s, transform .5s cubic-bezier(.2,.9,.2,1); filter: drop-shadow(0 14px 14px rgba(43,23,13,.35)); }
+.pc:hover .pc-media .bt { transform: translateY(-6%) scale(.92) rotate(-4deg); }
+.pc:hover .pc-media .wf { opacity: 1; transform: translateY(-34%); }
+.pc-tag { position: absolute; left: 12px; top: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; background: rgba(255,255,255,.85); padding: 4px 10px; border-radius: 999px; }
+.fav { position: absolute; right: 10px; top: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.88); display: grid; place-items: center; z-index: 2; }
+.fav svg { width: 19px; height: 19px; }
+.fav[aria-pressed="true"] svg { fill: var(--err); stroke: var(--err); }
+.quick { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; }
+.pc:hover .quick, .pc:focus-within .quick { opacity: 1; transform: none; }
+@media (hover: none) { .quick { opacity: 1; transform: none; } }
+.quick .btn { width: 100%; padding: 11px; font-size: 14px; }
+.pc-info { display: grid; gap: 3px; }
+.pc-info h3 { font-size: 21px; font-weight: 800; }
+.pc-info h3 a { text-decoration: none; }
+.pc-meta { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.pc-meta .price { font-weight: 800; font-size: 17px; font-variant-numeric: tabular-nums; }
+.pc-meta .sizes { font-size: 13px; color: var(--ink-2); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); margin-right: 6px; vertical-align: 1px; }
+
+/* packaging tiles */
+.tiles { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+.tile { position: relative; min-height: 440px; border-radius: 24px; overflow: hidden; display: flex; align-items: flex-end; text-decoration: none; color: var(--cream); }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+.tile:hover img { transform: scale(1.05); }
+.tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(20,9,4,.9)); }
+.tile-copy { position: relative; z-index: 1; padding: 28px; display: grid; gap: 8px; }
+.tile-copy h3 { font-size: clamp(28px, 3.2vw, 40px); font-weight: 800; }
+.tile-copy p { color: var(--cream-2); }
+
+/* finder */
+.finder { background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: clamp(22px, 4vw, 44px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 32px; align-items: center; }
+.finder h2 { font-size: clamp(30px, 3.8vw, 46px); font-weight: 800; }
+.taste { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.taste button { border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 10px 16px; font-weight: 700; }
+.taste button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.finder-out { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+.mini { --c: #6b3a1f; display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: center; text-decoration: none; padding: 10px; border-radius: 14px; border: 1px solid var(--line); background: var(--paper); transition: transform .3s, opacity .3s, border-color .3s; }
+.mini img { width: 44px; height: 72px; object-fit: contain; }
+.mini b { display: block; font-size: 15px; }
+.mini span { font-size: 13px; color: var(--ink-2); }
+.mini.dim { opacity: .3; transform: scale(.96); }
+.mini.hit { border-color: var(--c); box-shadow: 0 8px 22px -12px var(--c); }
+
+/* steps + brand band + faq */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 26px; display: grid; gap: 10px; }
+.step .n { font-family: var(--f-display); font-weight: 800; font-size: 54px; line-height: .8; color: var(--gold); }
+.step h3 { font-size: 24px; }
+.step p { color: var(--ink-2); }
+.band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--choc); color: var(--cream); border-radius: 28px; overflow: hidden; }
+.band img { width: 100%; height: 100%; object-fit: cover; min-height: 380px; }
+.band-copy { padding: clamp(24px, 4vw, 52px); display: grid; gap: 16px; align-content: center; }
+.band-copy h2 { font-size: clamp(32px, 4vw, 52px); font-weight: 800; }
+.band-copy p { color: var(--cream-2); }
+.faq { display: grid; gap: 10px; max-width: 860px; }
+.faq details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px; }
+.faq summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 22px; line-height: 1; color: var(--gold); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 16px; color: var(--ink-2); }
+.news { background: var(--paper-2); border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.news h2 { font-size: clamp(28px, 3.4vw, 42px); font-weight: 800; }
+.news form { display: flex; gap: 8px; flex-wrap: wrap; }
+.news input { flex: 1 1 220px; min-width: 0; }
+
+/* forms */
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .lbl { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+input, select, textarea { width: 100%; font: inherit; font-size: 15px; color: var(--ink); background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in oklab, var(--gold) 25%, transparent); }
+input.bad { border-color: var(--err); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.full { grid-column: 1 / -1; }
+.ok-box { padding: 16px 18px; border-radius: 14px; background: color-mix(in oklab, var(--ok) 12%, #fff); border: 1px solid color-mix(in oklab, var(--ok) 40%, #fff); color: #1d4d2f; font-weight: 600; }
+
+/* listing */
+.page-head { padding-block: 34px 10px; }
+.crumbs { font-size: 13.5px; color: var(--ink-2); display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+.page-head h1 { font-size: clamp(36px, 5vw, 60px); font-weight: 800; margin-top: 8px; }
+.plp { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 32px; padding-block: 18px 0; }
+.filters { display: grid; gap: 22px; align-content: start; position: sticky; top: 100px; }
+.filters h4 { font-family: var(--f-body); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+.chk { display: flex; align-items: center; gap: 10px; padding: 6px 0; cursor: pointer; font-weight: 600; }
+.chk input { width: 18px; height: 18px; accent-color: var(--ink); margin: 0; padding: 0; }
+.chk small { margin-left: auto; color: var(--ink-2); font-weight: 500; }
+.plp-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.plp-bar select { width: auto; padding: 9px 12px; }
+.empty-msg { padding: 50px 0; text-align: center; color: var(--ink-2); display: grid; gap: 14px; justify-items: center; }
+.filters-toggle { display: none; }
+
+/* pdp */
+.pdp { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 44px; padding-block: 18px 0; align-items: start; }
+.gal { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 14px; position: sticky; top: 92px; }
+.thumbs { display: grid; gap: 10px; align-content: start; }
+.thumbs button { border: 1.5px solid var(--line); border-radius: 14px; padding: 0; overflow: hidden; aspect-ratio: 1; background: color-mix(in oklab, var(--c) 16%, var(--paper-2)); }
+.thumbs button[aria-pressed="true"] { border-color: var(--ink); }
+.thumbs img { width: 100%; height: 100%; object-fit: contain; }
+.thumbs img.cover { object-fit: cover; }
+.main-img { position: relative; aspect-ratio: 1 / 1.05; border-radius: 24px; overflow: hidden; background: radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c) 38%, #fff), color-mix(in oklab, var(--c) 16%, var(--paper-2))); display: grid; place-items: center; }
+.main-img img { position: absolute; inset: 0; margin: auto; width: 86%; height: 88%; object-fit: contain; filter: drop-shadow(0 30px 26px rgba(43,23,13,.3)); animation: imgIn .45s cubic-bezier(.2,.9,.2,1); }
+.main-img img.cover { width: 100%; height: 100%; object-fit: cover; filter: none; }
+@keyframes imgIn { from { opacity: 0; transform: scale(.96); } }
+.main-img figcaption { position: absolute; left: 14px; bottom: 14px; right: 14px; font-size: 12.5px; background: rgba(255,255,255,.88); padding: 6px 10px; border-radius: 10px; }
+.buybox { display: grid; gap: 18px; }
+.buybox h1 { font-size: clamp(38px, 4.4vw, 56px); font-weight: 800; }
+.buybox .sub { color: var(--ink-2); font-size: 17px; }
+.bb-price { font-family: var(--f-display); font-size: 38px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.bb-price small { font-family: var(--f-body); font-size: 14px; font-weight: 600; color: var(--ink-2); margin-left: 8px; }
+.opt { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.opt button { text-align: left; border: 1.5px solid var(--line); border-radius: 14px; background: var(--card); padding: 12px 14px; display: grid; gap: 2px; }
+.opt button b { font-size: 15px; }
+.opt button span { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.opt button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.flv-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.flv-row a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 2px solid transparent; text-decoration: none; }
+.flv-row a i { width: 28px; height: 28px; border-radius: 50%; background: var(--c); box-shadow: inset -3px -4px 6px rgba(0,0,0,.25), inset 3px 3px 5px rgba(255,255,255,.35); }
+.flv-row a[aria-current="true"] { border-color: var(--ink); }
+.qty-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; background: var(--card); }
+.stepper button { width: 44px; height: 46px; border: 0; background: transparent; font-size: 20px; }
+.stepper span { min-width: 30px; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+.qty-row .btn-dark { flex: 1 1 200px; }
+.perks { display: grid; gap: 8px; padding: 16px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); font-size: 14px; }
+.perks div { display: flex; gap: 10px; align-items: center; }
+.perks svg { width: 18px; height: 18px; color: var(--gold); flex: none; }
+.tabs { border-top: 1px solid var(--line); }
+.tabs details { border-bottom: 1px solid var(--line); }
+.tabs summary { cursor: pointer; padding: 16px 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; }
+.tabs summary::-webkit-details-marker { display: none; }
+.tabs summary::after { content: "+"; color: var(--gold); font-size: 20px; line-height: 1; }
+.tabs details[open] summary::after { content: "−"; }
+.tabs .body { padding-bottom: 18px; color: var(--ink-2); font-size: 15px; display: grid; gap: 10px; }
+.nut { width: 100%; border-collapse: collapse; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+.nut th, .nut td { padding: 8px 0; border-bottom: 1px solid var(--line); text-align: left; font-weight: 500; color: var(--ink); }
+.nut td { text-align: right; font-weight: 700; }
+.warn { font-size: 13.5px; color: #7a3a1c; background: #fbe9dc; border-radius: 10px; padding: 10px 12px; }
+.buybar { display: none; }
+
+/* cart page + checkout */
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 36px; padding-block: 18px 0; align-items: start; }
+.lines { display: grid; }
+.line { --c: #6b3a1f; display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.line .thumb { width: 92px; height: 108px; border-radius: 14px; background: color-mix(in oklab, var(--c) 18%, var(--paper-2)); display: grid; place-items: center; overflow: hidden; }
+.line .thumb img { height: 88%; width: auto; }
+.line .thumb img.cover { width: 100%; height: 100%; object-fit: cover; }
+.line h3 { font-size: 19px; }
+.line h3 a { text-decoration: none; }
+.line small { color: var(--ink-2); display: block; }
+.line .right { text-align: right; display: grid; gap: 8px; justify-items: end; }
+.line .stepper button { width: 34px; height: 36px; font-size: 17px; }
+.rm { border: 0; background: none; color: var(--ink-2); font-size: 13px; text-decoration: underline; padding: 0; }
+.summary { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: grid; gap: 12px; position: sticky; top: 92px; }
+.summary h2 { font-size: 24px; }
+.srow { display: flex; justify-content: space-between; gap: 10px; font-variant-numeric: tabular-nums; }
+.srow.total { font-size: 20px; font-weight: 800; border-top: 1px solid var(--line); padding-top: 12px; }
+.note { font-size: 13px; color: var(--ink-2); }
+.demo-note { font-size: 13px; background: #fff7e8; border: 1px dashed var(--gold); color: #6b4a1c; padding: 10px 12px; border-radius: 12px; }
+.co-steps { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.co-steps span { font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--paper-2); color: var(--ink-2); }
+.co-steps span.on { background: var(--ink); color: var(--paper); }
+.co-box { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: grid; gap: 16px; }
+.co-box + .co-box { margin-top: 18px; }
+.co-box h2 { font-size: 22px; }
+.pay { display: grid; gap: 10px; }
+.pay label { display: flex; gap: 12px; align-items: center; border: 1.5px solid var(--line); border-radius: 14px; padding: 14px; cursor: pointer; font-weight: 600; }
+.pay label:has(input:checked) { border-color: var(--ink); }
+.pay input { width: 18px; height: 18px; accent-color: var(--ink); margin: 0; padding: 0; }
+.pay small { display: block; font-weight: 500; color: var(--ink-2); }
+.sum-line { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; font-size: 14px; }
+.sum-line img { width: 44px; height: 56px; object-fit: contain; }
+.done { text-align: center; display: grid; gap: 16px; justify-items: center; padding-block: 60px 0; max-width: 640px; margin: 0 auto; }
+.done .check { width: 76px; height: 76px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; animation: pop .5s cubic-bezier(.3,1.6,.5,1); }
+.done .check svg { width: 38px; height: 38px; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } }
+
+/* wholesale + contact */
+.ws { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; padding-block: 18px 0; }
+.ptable { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.ptable th, .ptable td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+.ptable thead th { background: var(--paper-2); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.ptable td:not(:first-child), .ptable th:not(:first-child) { text-align: right; }
+.ptable tr:last-child td { border-bottom: 0; }
+.picks { display: flex; flex-wrap: wrap; gap: 6px; }
+.picks label { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; border: 1.5px solid var(--line); font-size: 14px; font-weight: 600; cursor: pointer; background: var(--card); }
+.picks input { width: 15px; height: 15px; margin: 0; padding: 0; accent-color: var(--ink); }
+.picks label:has(input:checked) { border-color: var(--ink); }
+.info-list { display: grid; gap: 14px; }
+.info-list div { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+.info-list b { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 4px; }
+
+/* footer */
+footer { margin-top: clamp(64px, 8vw, 110px); background: var(--choc); color: var(--cream-2); }
+footer .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 28px; padding-block: 48px 24px; }
+footer h4 { font-family: var(--f-display); color: var(--cream); font-size: 17px; margin-bottom: 12px; }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--cream); }
+.foot-logo { background: var(--cream); border-radius: 14px; padding: 6px 14px; display: inline-block; margin-bottom: 14px; }
+.foot-logo img { height: 40px; }
+.foot-bottom { grid-column: 1 / -1; border-top: 1px solid rgba(247,235,213,.15); padding-top: 18px; font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* overlays */
+.scrim { position: fixed; inset: 0; background: rgba(29,14,7,.45); backdrop-filter: blur(3px); z-index: 70; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100%); z-index: 80; background: var(--paper); display: grid; grid-template-rows: auto 1fr auto; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) 0; animation: drIn .35s cubic-bezier(.2,.9,.2,1); box-shadow: -20px 0 60px -20px rgba(0,0,0,.4); }
+.drawer.left { right: auto; left: 0; padding-left: env(safe-area-inset-left, 0px); padding-right: 0; animation-name: drInL; }
+@keyframes drIn { from { transform: translateX(100%); } }
+@keyframes drInL { from { transform: translateX(-100%); } }
+.dr-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.dr-head h2 { font-size: 22px; }
+.dr-body { overflow-y: auto; padding: 4px 20px; }
+.dr-foot { padding: 18px 20px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.dr-body .line { grid-template-columns: 64px minmax(0, 1fr) auto; gap: 12px; padding: 14px 0; }
+.dr-body .line .thumb { width: 64px; height: 78px; }
+.dr-body .line h3 { font-size: 16px; }
+.mnav { display: grid; padding: 10px 20px; }
+.mnav a { text-decoration: none; font-family: var(--f-display); font-size: 28px; font-weight: 800; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.search { position: fixed; inset: 0 0 auto; z-index: 80; background: var(--paper); padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gr) 24px var(--gl); box-shadow: 0 30px 60px -30px rgba(0,0,0,.4); animation: srIn .3s cubic-bezier(.2,.9,.2,1); }
+@keyframes srIn { from { transform: translateY(-100%); } }
+.search-in { max-width: 900px; margin: 0 auto; display: grid; gap: 16px; }
+.search-row { display: flex; gap: 10px; align-items: center; }
+.search-row input { font-size: 20px; padding: 14px 18px; border-radius: 999px; }
+.search-res { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 12px 18px; border-radius: 999px; font-weight: 700; z-index: 95; box-shadow: 0 14px 40px -12px rgba(0,0,0,.6); animation: tIn .35s cubic-bezier(.2,1.4,.4,1); max-width: calc(100% - 32px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@keyframes tIn { from { transform: translate(-50%, 30px); opacity: 0; } }
+
+[data-view] { animation: viewIn .45s ease; }
+@keyframes viewIn { from { opacity: 0; transform: translateY(8px); } }
+
+/* responsive */
+@media (max-width: 1080px) {
+  .pgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .trust .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  footer .wrap { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .menu-btn { display: grid; }
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-block: 16px 30px; }
+  .stage { order: -1; height: clamp(340px, 54vh, 480px); margin-inline: -16px; }
+  .giant { top: 24%; }
+  .tiles, .finder, .band, .news, .ws, .pdp, .two-col { grid-template-columns: minmax(0, 1fr); }
+  .plp { grid-template-columns: minmax(0, 1fr); }
+  .filters { position: static; display: none; grid-template-columns: 1fr 1fr; }
+  .filters.open { display: grid; }
+  .filters-toggle { display: inline-flex; }
+  .gal { position: static; grid-template-columns: minmax(0, 1fr); }
+  .thumbs { grid-auto-flow: column; grid-auto-columns: 70px; order: 2; overflow-x: auto; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .summary { position: static; }
+  .buybar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--paper); border-top: 1px solid var(--line); padding: 10px var(--gr) calc(10px + env(safe-area-inset-bottom, 0px)) var(--gl); gap: 12px; align-items: center; justify-content: space-between; }
+  .buybar b { font-family: var(--f-display); font-size: 22px; font-variant-numeric: tabular-nums; }
+  body.on-pdp footer { padding-bottom: 76px; }
+}
+@media (max-width: 560px) {
+  .pgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .pc-info h3 { font-size: 18px; }
+  .pc-meta { flex-direction: column; gap: 0; }
+  .announce .hide-s { display: none; }
+  .logo img { height: 36px; }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .trust .wrap { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  footer .wrap { grid-template-columns: minmax(0, 1fr); }
+  .line { grid-template-columns: 72px minmax(0, 1fr); }
+  .line .thumb { width: 72px; height: 88px; }
+  .line .right { grid-column: 2; justify-items: start; text-align: left; grid-auto-flow: column; align-items: center; justify-content: space-between; }
+  .filters { grid-template-columns: minmax(0, 1fr); }
+  .hdr .wrap { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="announce"><div class="wrap"><span><b>Çikolata aşka geldi.</b> <span class="hide-s">Pankek, krep ve waffle için 7 lezzet sos.</span></span><a href="#toptan">İşletmeler için toptan fiyat →</a></div></div>
+<header class="hdr">
+  <div class="wrap">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menüyü aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <a class="logo" href="#anasayfa" aria-label="Chocokeyf ana sayfa"><img data-img="logo" alt="Chocokeyf" width="369" height="150"></a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#anasayfa" data-nav="anasayfa">Ana sayfa</a>
+      <a href="#urunler" data-nav="urunler">Ürünler</a>
+      <a href="#toptan" data-nav="toptan">Toptan</a>
+      <a href="#iletisim" data-nav="iletisim">İletişim</a>
+    </nav>
+    <div class="hdr-tools">
+      <button class="icon-btn" id="searchBtn" aria-label="Ara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+      <a class="icon-btn" href="#favoriler" aria-label="Favoriler"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="badge" id="favCount" hidden>0</span></a>
+      <button class="icon-btn" id="cartBtn" aria-label="Sepeti aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.4 11.2a2 2 0 0 1-2 1.8H8.4a2 2 0 0 1-2-1.8z"/><path d="M9 7V5.5a3 3 0 0 1 6 0V7"/></svg><span class="badge" id="cartCount" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <!-- HOME -->
+  <section data-view="anasayfa" aria-label="Ana sayfa">
+    <div class="hero">
+      <div class="giant" id="giant" aria-hidden="true">Sütlü</div>
+      <canvas id="gl" class="hero-gl" role="img" aria-label="Kadın eli Chocokeyf şişesinden waffle üzerine sos döküyor"></canvas>
+      <div class="wrap">
+        <div class="hero-copy">
+          <span class="eyebrow">Pankek · Krep · Waffle sos</span>
+          <h1>Sosu dök,<br><em>keyfi</em> yakala.</h1>
+          <p class="hero-lede">Yedi lezzet, tek dokunuş. Bir şişe seç, sos sıcak waffle'ın her gözüne aksın.</p>
+          <div class="chips" id="chips" role="group" aria-label="Lezzet seç"></div>
+          <div class="hero-buy">
+            <div class="hero-price" id="heroPrice">290 ₺<small>Sütlü · 1 kg şişe</small></div>
+            <button class="btn btn-gold" id="heroAdd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Sepete ekle</button>
+            <a class="btn btn-ghost-dark" id="heroLink" href="#urun-sutlu">Ürünü incele</a>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <img class="fallback" data-img="bottle_sutlu" alt="Chocokeyf Sütlü Waffle Sos şişesi">
+          <span class="stage-hint">Bir lezzet seç, sos dökülsün</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="wrap">
+        <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M16 4c4 5.5 7 9.4 7 13.5a7 7 0 0 1-14 0C9 13.4 12 9.5 16 4z"/></svg><p><b>7 lezzet</b><span>Sütlüden Antep fıstığına</span></p></div>
+        <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="11" y="9" width="10" height="19" rx="4"/><rect x="13" y="4" width="6" height="5" rx="1.5"/></svg><p><b>1 kg şişe</b><span>Evde kahvaltı için</span></p></div>
+        <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9h18v17a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><path d="M7 9l2-4h14l2 4M12 15h8"/></svg><p><b>10 kg teneke</b><span>Kafe ve pastaneler için</span></p></div>
+        <div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M11 16.5l3.5 3.5 7-8"/></svg><p><b>Made in Türkiye</b><span>Menşe Türkiye</span></p></div>
+      </div>
+    </div>
+
+    <div class="sec"><div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow">Lezzetler</span><h2>Hangisi senin sosun?</h2></div>
+        <a class="link-arrow" href="#urunler">Tümünü gör →</a>
+      </div>
+      <div class="rail" id="homeRail"></div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="tiles">
+        <a class="tile" href="#urunler"><img data-img="kitchen4" alt="Chocokeyf şişeleri mutfak tezgâhında" loading="lazy"><div class="tile-copy"><span class="eyebrow">1 kg şişe</span><h3>Evde kahvaltı keyfi</h3><p>Yedi lezzetin hepsi 1 kg şişede, 260 ₺'den başlayan fiyatlarla.</p></div></a>
+        <a class="tile" href="#toptan"><img data-img="kova_teneke" alt="Chocokeyf 10 kg kova ve 10 kg teneke" loading="lazy"><div class="tile-copy"><span class="eyebrow">10 kg teneke · kova</span><h3>Servis hızında sos</h3><p>Kafe, pastane ve waffle dükkânları için büyük ambalaj ve toptan fiyat.</p></div></a>
+      </div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="finder">
+        <div>
+          <span class="eyebrow">Lezzet bulucu</span>
+          <h2>Canın ne çekiyor?</h2>
+          <p class="muted" style="margin-top:10px">Bir tat seç, sana uyan sosları öne çıkaralım.</p>
+          <div class="taste" id="taste" role="group" aria-label="Tat seç"></div>
+        </div>
+        <div class="finder-out" id="finderOut"></div>
+      </div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Kullanım</span><h2>Üç adımda parlak sos</h2></div></div>
+      <div class="steps">
+        <article class="step"><span class="n">1</span><h3>Çalkala</h3><p>Kullanmadan önce mutlaka karıştırın veya çalkalayın.</p></article>
+        <article class="step"><span class="n">2</span><h3>Dök</h3><p>Sıcak pankek, krep ya da waffle'ın üzerine dilediğin kadar.</p></article>
+        <article class="step"><span class="n">3</span><h3>Sakla</h3><p>+18 / +24 °C'de serin ve kokusuz bir yerde, ağzı kapalı saklayın. Buzdolabına koymayın.</p></article>
+      </div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="band">
+        <img data-img="hero_lineup" alt="Chocokeyf waffle sosları ve soslu waffle" loading="lazy">
+        <div class="band-copy">
+          <span class="eyebrow">İşletmeler için</span>
+          <h2>Menünüzdeki her waffle'a yedi lezzet.</h2>
+          <p>Kafe, pastane, otel ve waffle dükkânları için 10 kg teneke ve kova ambalaj. Lezzetleri seçin, işletmenize özel fiyat teklifini alın.</p>
+          <div><a class="btn btn-gold" href="#toptan">Toptan teklif iste</a></div>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Sık sorulanlar</span><h2>Merak edilenler</h2></div></div>
+      <div class="faq">
+        <details><summary>Sos nasıl saklanmalı?</summary><p>+18 / +24 °C'de serin ve kokusuz bir yerde saklayın. Işık, hava, nem ve aşırı sıcaklık değişimlerinden koruyun; her kullanımdan sonra ambalajı kapalı tutun. Buzdolabına koymayın.</p></details>
+        <details><summary>Kullanmadan önce ne yapmalıyım?</summary><p>Kullanmadan önce mutlaka karıştırın veya çalkalayın.</p></details>
+        <details><summary>Alerjen bilgisi nedir?</summary><p>Tüm soslar süt ve süt ürünleri içerir; Antep Fıstık sos ayrıca Antep fıstığı içerir. Eser miktarda yumurta ve ürünleri, gluten, fındık, Antep fıstığı, badem, ceviz ve susam içerebilir.</p></details>
+        <details><summary>Hangi ambalajlar var?</summary><p>Yedi lezzetin hepsi 1 kg şişede. İşletmeler için 10 kg teneke ve kova ambalaj seçenekleri var.</p></details>
+        <details><summary>Toptan alım yapabilir miyim?</summary><p>Evet. Toptan sayfasındaki formu doldurun; işletmenize özel fiyat teklifi için ekip sizinle iletişime geçsin.</p></details>
+      </div>
+    </div></div>
+
+    <div class="sec"><div class="wrap">
+      <div class="news">
+        <div><span class="eyebrow">Bülten</span><h2>Yeni lezzetlerden ilk sen haberdar ol.</h2></div>
+        <form id="newsForm" novalidate>
+          <label class="sr" for="newsMail">E-posta adresin</label>
+          <input id="newsMail" type="email" placeholder="E-posta adresin" autocomplete="email">
+          <button class="btn btn-dark" type="submit">Abone ol</button>
+          <p class="note" id="newsMsg" style="flex-basis:100%"></p>
+        </form>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- LISTING -->
+  <section data-view="urunler" hidden aria-label="Ürünler">
+    <div class="wrap page-head">
+      <nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>Ürünler</span></nav>
+      <h1>Tüm soslar</h1>
+    </div>
+    <div class="wrap plp">
+      <aside class="filters" id="filters" aria-label="Filtreler">
+        <div><h4>Ambalaj</h4><div id="fPack"></div></div>
+        <div><h4>Lezzet grubu</h4><div id="fGroup"></div></div>
+      </aside>
+      <div>
+        <div class="plp-bar">
+          <span class="muted" id="plpCount"></span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btn-line filters-toggle" id="filtersToggle" style="padding:9px 14px">Filtrele</button>
+            <label class="sr" for="sort">Sırala</label>
+            <select id="sort"><option value="rec">Önerilen</option><option value="asc">Fiyat: artan</option><option value="desc">Fiyat: azalan</option><option value="az">A → Z</option></select>
+          </div>
+        </div>
+        <div class="pgrid" id="plpGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section data-view="urun" hidden aria-label="Ürün"><div class="wrap" id="pdp"></div></section>
+
+  <!-- CART -->
+  <section data-view="sepet" hidden aria-label="Sepet">
+    <div class="wrap page-head"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>Sepet</span></nav><h1>Sepetin</h1></div>
+    <div class="wrap" id="cartPage"></div>
+  </section>
+
+  <!-- CHECKOUT -->
+  <section data-view="odeme" hidden aria-label="Ödeme">
+    <div class="wrap page-head"><nav class="crumbs" aria-label="Konum"><a href="#sepet">Sepet</a><span>/</span><span>Ödeme</span></nav><h1>Ödeme</h1></div>
+    <div class="wrap two-col">
+      <form id="coForm" novalidate>
+        <div class="co-steps" aria-hidden="true"><span class="on">1 Teslimat</span><span class="on">2 Ödeme</span><span>3 Onay</span></div>
+        <div class="co-box">
+          <h2>Teslimat bilgileri</h2>
+          <div class="grid2">
+            <div class="field"><label for="c-ad">Ad soyad</label><input id="c-ad" required autocomplete="name"></div>
+            <div class="field"><label for="c-tel">Telefon</label><input id="c-tel" required inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx"></div>
+            <div class="field full"><label for="c-mail">E-posta</label><input id="c-mail" type="email" required autocomplete="email"></div>
+            <div class="field"><label for="c-il">İl</label><input id="c-il" required autocomplete="address-level1"></div>
+            <div class="field"><label for="c-ilce">İlçe</label><input id="c-ilce" required autocomplete="address-level2"></div>
+            <div class="field full"><label for="c-adres">Adres</label><textarea id="c-adres" rows="3" required autocomplete="street-address"></textarea></div>
+          </div>
+        </div>
+        <div class="co-box">
+          <h2>Ödeme yöntemi</h2>
+          <div class="pay">
+            <label><input type="radio" name="pay" id="pay-kart" value="kart" checked><span>Kredi / banka kartı<small>Canlı sitede güvenli ödeme sayfasına yönlendirilirsiniz.</small></span></label>
+            <label><input type="radio" name="pay" id="pay-havale" value="havale"><span>Havale / EFT<small>Hesap bilgileri sipariş onayında paylaşılır.</small></span></label>
+          </div>
+          <p class="demo-note">Bu bir tasarım demosudur. Kart bilgisi istenmez, ödeme alınmaz ve sipariş oluşturulmaz.</p>
+          <button class="btn btn-dark" type="submit" style="width:100%">Siparişi onayla</button>
+        </div>
+      </form>
+      <aside class="summary" id="coSummary" aria-label="Sipariş özeti"></aside>
+    </div>
+  </section>
+
+  <section data-view="tamamlandi" hidden aria-label="Sipariş özeti">
+    <div class="wrap done" id="donePage"></div>
+  </section>
+
+  <!-- WHOLESALE -->
+  <section data-view="toptan" hidden aria-label="Toptan">
+    <div class="wrap page-head"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>Toptan</span></nav><h1>Toptan &amp; bayilik</h1><p class="muted" style="margin-top:10px;max-width:60ch">Kafe, pastane, otel ve marketler için 10 kg teneke ve kova ambalaj. Liste fiyatlarını inceleyin, işletmenize özel teklif isteyin.</p></div>
+    <div class="wrap ws">
+      <div style="display:grid;gap:18px">
+        <table class="ptable"><thead><tr><th scope="col">Lezzet</th><th scope="col">1 kg şişe</th><th scope="col">10 kg teneke</th></tr></thead><tbody id="ptBody"></tbody></table>
+        <p class="note">Fiyatlar Chocokeyf 1 kg şişe ve 10 kg teneke fiyat listelerinden alınmıştır.</p>
+        <img data-img="kova_teneke" alt="Chocokeyf 10 kg kova ve teneke" style="border-radius:22px;width:100%;aspect-ratio:4/3;object-fit:cover" loading="lazy">
+      </div>
+      <form class="co-box" id="wsForm" novalidate>
+        <h2>Teklif formu</h2>
+        <div class="grid2" id="wsFields">
+          <div class="field"><label for="w-firma">İşletme adı</label><input id="w-firma" required autocomplete="organization"></div>
+          <div class="field"><label for="w-ad">Yetkili</label><input id="w-ad" required autocomplete="name"></div>
+          <div class="field"><label for="w-tel">Telefon</label><input id="w-tel" required inputmode="tel" autocomplete="tel"></div>
+          <div class="field"><label for="w-sehir">Şehir</label><input id="w-sehir" autocomplete="address-level1"></div>
+          <div class="field"><label for="w-tip">İşletme tipi</label><select id="w-tip"><option>Kafe</option><option>Pastane</option><option>Waffle / krep dükkânı</option><option>Otel / restoran</option><option>Market</option><option>Diğer</option></select></div>
+          <div class="field"><label for="w-adet">Aylık tahmini ihtiyaç</label><select id="w-adet"><option>1–5 teneke</option><option>6–20 teneke</option><option>20+ teneke</option></select></div>
+          <div class="field full"><span class="lbl" id="wsPickLbl">İlgilendiğin lezzetler</span><div class="picks" id="wsPicks" role="group" aria-labelledby="wsPickLbl"></div></div>
+        </div>
+        <button class="btn btn-dark" type="submit" id="wsSubmit">Teklif iste</button>
+        <p class="ok-box" id="wsOk" hidden>Talebin alındı. Demo sürümde form gönderilmez; canlı sitede talep satış ekibine e-posta ve WhatsApp ile iletilir.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section data-view="iletisim" hidden aria-label="İletişim">
+    <div class="wrap page-head"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>İletişim</span></nav><h1>İletişim</h1></div>
+    <div class="wrap ws">
+      <div class="info-list">
+        <div><b>Müşteri hizmetleri</b><span class="tab-num">0212 423 9 595</span></div>
+        <div><b>Üretici adresi</b>Firuzköy Mah. Bağlariçi Cad. No:81 Avcılar / İstanbul</div>
+        <div><b>Gıda işletmecisi adresi</b>Cihangir Mah. Güvercin Cad. No:2 İç Kapı No:66 Avcılar / İstanbul</div>
+        <div><b>Üretim</b>Ustalar Pasta Ürünleri Gıda San. ve Tic. Ltd. Şti. tarafından CHOCOKEYF Gıda Sanayi Ticaret Limited Şirketi adına üretilmiştir. İşletme kayıt no: TR-34-K-203012</div>
+      </div>
+      <form class="co-box" id="ctForm" novalidate>
+        <h2>Bize yazın</h2>
+        <div class="field"><label for="t-ad">Ad soyad</label><input id="t-ad" required autocomplete="name"></div>
+        <div class="field"><label for="t-mail">E-posta</label><input id="t-mail" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="t-msg">Mesajınız</label><textarea id="t-msg" rows="5" required></textarea></div>
+        <button class="btn btn-dark" type="submit" id="ctSubmit">Gönder</button>
+        <p class="ok-box" id="ctOk" hidden>Mesajın alındı. Demo sürümde form gönderilmez.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAVORITES -->
+  <section data-view="favoriler" hidden aria-label="Favoriler">
+    <div class="wrap page-head"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>Favoriler</span></nav><h1>Favorilerin</h1></div>
+    <div class="wrap"><div class="pgrid" id="favGrid"></div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="foot-logo"><img data-img="logo" alt="Chocokeyf"></span>
+      <p style="max-width:34ch">Pankek, krep ve waffle için yedi lezzet sos. 1 kg şişe ve 10 kg teneke.</p>
+    </div>
+    <div><h4>Mağaza</h4><ul><li><a href="#urunler">Tüm soslar</a></li><li><a href="#urun-sutlu">Sütlü</a></li><li><a href="#urun-bitter">Bitter</a></li><li><a href="#urun-antep">Antep Fıstık</a></li></ul></div>
+    <div><h4>Kurumsal</h4><ul><li><a href="#toptan">Toptan &amp; bayilik</a></li><li><a href="#iletisim">İletişim</a></li><li><a href="#favoriler">Favoriler</a></li></ul></div>
+    <div><h4>Müşteri hizmetleri</h4><ul><li class="tab-num">0212 423 9 595</li><li>Avcılar / İstanbul</li></ul></div>
+    <div class="foot-bottom"><span>© Chocokeyf</span><span>Bu site Digify tarafından hazırlanmış bir tasarım demosudur. Ödeme, kargo ve formlar canlı sitede bağlanır.</span></div>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar" hidden></div>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="cartDrawer" hidden aria-label="Sepet">
+  <div class="dr-head"><h2>Sepetin</h2><button class="icon-btn" data-close aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dr-body" id="drBody"></div>
+  <div class="dr-foot" id="drFoot"></div>
+</aside>
+<aside class="drawer left" id="menuDrawer" hidden aria-label="Menü">
+  <div class="dr-head"><a class="logo" href="#anasayfa"><img data-img="logo" alt="Chocokeyf" style="height:36px"></a><button class="icon-btn" data-close aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav class="mnav" aria-label="Mobil menü"><a href="#anasayfa">Ana sayfa</a><a href="#urunler">Ürünler</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a><a href="#favoriler">Favoriler</a><a href="#sepet">Sepet</a></nav>
+  <div></div>
+</aside>
+<div class="search" id="search" hidden role="dialog" aria-label="Ürün ara">
+  <div class="search-in">
+    <div class="search-row"><label class="sr" for="q">Ürün ara</label><input id="q" type="search" placeholder="Lezzet ara: sütlü, fıstık, çilek…" autocomplete="off"><button class="icon-btn" data-close aria-label="Aramayı kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="search-res" id="qRes"></div>
+  </div>
+</div>
+
+<script>
+window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp');
+(function () {
+  const IMG = window.CK_IMGSRC;
+  const TRACE = 'Eser miktarda yumurta ve ürünleri, gluten, fındık, Antep fıstığı, badem, ceviz, susam içerebilir.';
+  const E129 = 'Kullanılan renklendiricilerden E129 (Allura Red AC): Çocukların aktivite ve dikkatleri üzerine olumsuz etkileri bulunabilir.';
+  const GROUPS = { cikolata: 'Çikolatalı', krema: 'Kremsi', meyve: 'Meyveli', fistik: 'Fıstıklı' };
+  const F = [
+    { id: 'sutlu', ad: 'Sütlü', en: 'Milky', grp: 'cikolata', c: '#6b3a1f', g: '#a85d2e', p1: 290, p10: 2900, bc: '8697427234624',
+      tag: 'Yağsız süt tozu (%10) ve kakaoyla klasik sütlü çikolata tadı.',
+      n: ['2268', '540', '32', '8,4', '61', '49', '2,8', '0,003'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu (%10), yağı azaltılmış kakao tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (vanilya).' },
+    { id: 'bitter', ad: 'Bitter', en: 'Dark', grp: 'cikolata', c: '#3a170b', g: '#7c3417', p1: 300, p10: 3000, bc: '8697427234648',
+      tag: 'Yağı azaltılmış kakao tozuyla koyu ve yoğun çikolata sosu.',
+      n: ['2289', '545', '34', '9', '58', '48', '2,7', '0,007'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağı azaltılmış kakao tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (bitter, vanilya).' },
+    { id: 'beyaz', ad: 'Beyaz', en: 'White', grp: 'krema', c: '#e2d0ac', g: '#c9ad7c', p1: 260, p10: 2600, bc: '8697427234631',
+      tag: 'Süt tozu ve vanilyayla bembeyaz, yumuşak bir sos.',
+      n: ['2339', '557', '35', '8,9', '60', '48', '2,9', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu, peynir altı suyu tozu (süt), emülgatör (ayçiçek lesitini E 322), aroma verici (vanilya).' },
+    { id: 'karamel', ad: 'Karamel', en: 'Caramel', grp: 'krema', c: '#c4782c', g: '#e39a43', p1: 260, p10: 2600, bc: '8697427234655',
+      tag: 'Karamel ve vanilya aromasıyla altın sarısı bir sos.',
+      n: ['2327', '554', '35', '9,1', '58', '44', '3,6', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), yağsız süt tozu, peynir altı suyu tozu (süt), yağı azaltılmış kakao tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (karamel, vanilya), renklendirici (beta karoten).' },
+    { id: 'frambuaz', ad: 'Frambuaz', en: 'Raspberry', grp: 'meyve', c: '#d4407c', g: '#ef6aa2', p1: 260, p10: 2600, bc: '8697427234662',
+      tag: 'Frambuaz ve vanilya aromalı, rengini hibiskustan alan pembe sos.',
+      n: ['2331', '555', '35', '8,9', '60', '47', '2,9', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (frambuaz, vanilya), renklendirici (hibiscus).' },
+    { id: 'cilek', ad: 'Çilek', en: 'Strawberry', grp: 'meyve', c: '#df3a52', g: '#f2647a', p1: 260, p10: null, bc: '8697427234686', warn: E129,
+      tag: 'Çilek aromalı, parlak pembe-kırmızı sos.',
+      n: ['2331', '555', '35', '8,9', '60', '47', '2,9', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (çilek), renklendirici (E129).' },
+    { id: 'antep', ad: 'Antep Fıstık', en: 'Pistachio', grp: 'fistik', c: '#8e9c39', g: '#b7c556', p1: 400, p10: 4000, bc: '8697427234679', warn: E129, alg: 'Süt ve süt ürünleri ile Antep fıstığı içerir.',
+      tag: '%6 Antep fıstığı içeren, yeşil ve kadifemsi fıstık sosu.',
+      n: ['2352', '560', '36', '8,9', '59', '45', '3,3', '0,03'],
+      ing: 'Şeker, bitkisel yağ (ayçiçek), peynir altı suyu tozu (süt), Antep fıstığı (%6), yağsız süt tozu, emülgatör (ayçiçek lesitini E 322), aroma verici (Antep fıstığı, vanilya), renklendirici [E141(ii), E142, E133, E129].' }
+  ];
+  window.CK_FLAVORS = F;
+  const byId = id => F.find(f => f.id === id);
+  const tl = n => n.toLocaleString('tr-TR') + ' ₺';
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const ICON = {
+    heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+  };
+  const fillImgs = (root = document) => root.querySelectorAll('img[data-img]').forEach(i => { if (!i.src) i.src = IMG(i.dataset.img); });
+  fillImgs();
+
+  /* ---------------- state ---------------- */
+  let cart = store.get('ck3-cart', []);
+  let favs = store.get('ck3-fav', []);
+  const saveCart = () => { store.set('ck3-cart', cart); renderBadges(); };
+  const saveFav = () => { store.set('ck3-fav', favs); renderBadges(); };
+  const priceOf = (id, s) => { const f = byId(id); return s === '10' ? f.p10 : f.p1; };
+  const sizeName = s => s === '10' ? '10 kg teneke' : '1 kg şişe';
+  const subtotal = () => cart.reduce((a, it) => a + priceOf(it.id, it.s) * it.q, 0);
+  function renderBadges() {
+    const n = cart.reduce((a, b) => a + b.q, 0);
+    const cb = $('#cartCount'); cb.textContent = n; cb.hidden = !n;
+    const fb = $('#favCount'); fb.textContent = favs.length; fb.hidden = !favs.length;
+  }
+  function addToCart(id, s = '1', q = 1) {
+    const f = byId(id);
+    if (!priceOf(id, s)) { location.hash = '#toptan'; preselect(id); toast(`${f.ad} 10 kg için fiyat teklifi isteyin`); return; }
+    const ex = cart.find(it => it.id === id && it.s === s);
+    if (ex) ex.q += q; else cart.push({ id, s, q });
+    saveCart();
+    const b = $('#cartCount'); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump');
+    openCart(`${f.ad} · ${sizeName(s)} sepete eklendi`);
+  }
+  function toggleFav(id) {
+    favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id];
+    saveFav();
+    $$(`.fav[data-id="${id}"]`).forEach(b => b.setAttribute('aria-pressed', favs.includes(id)));
+    toast(favs.includes(id) ? `${byId(id).ad} favorilere eklendi` : `${byId(id).ad} favorilerden çıkarıldı`);
+    if (current === 'favoriler') renderFavs();
+  }
+
+  /* ---------------- components ---------------- */
+  function card(f) {
+    const fav = favs.includes(f.id);
+    return `<article class="pc" style="--c:${f.c}">
+      <a class="pc-media" href="#urun-${f.id}" aria-label="${esc(f.ad)} Waffle Sos">
+        <span class="pc-tag">${GROUPS[f.grp]}</span>
+        <img class="wf" src="${IMG('waffle_' + f.id)}" alt="" aria-hidden="true" loading="lazy">
+        <img class="bt" src="${IMG('bottle_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 1 kg şişe">
+      </a>
+      <button class="fav" type="button" data-id="${f.id}" aria-pressed="${fav}" aria-label="${esc(f.ad)} favori">${ICON.heart}</button>
+      <div class="quick"><button class="btn btn-dark" type="button" data-add="${f.id}">${ICON.plus}Sepete ekle · ${tl(f.p1)}</button></div>
+      <div class="pc-info">
+        <h3><a href="#urun-${f.id}">${esc(f.ad)}</a></h3>
+        <div class="pc-meta"><span class="price">${tl(f.p1)}</span><span class="sizes">1 kg · 10 kg</span></div>
+      </div>
+    </article>`;
+  }
+  function lineHTML(it, i, compact) {
+    const f = byId(it.id), p = priceOf(it.id, it.s);
+    const img = it.s === '10' ? `<img class="cover" src="${IMG('kova_teneke')}" alt="">` : `<img src="${IMG('bottle_' + f.id)}" alt="">`;
+    return `<div class="line" style="--c:${f.c}">
+      <a class="thumb" href="#urun-${f.id}" aria-label="${esc(f.ad)}">${img}</a>
+      <div><h3><a href="#urun-${f.id}">${esc(f.ad)} Waffle Sos</a></h3><small>${sizeName(it.s)} · ${tl(p)}</small></div>
+      <div class="right">
+        <div class="stepper"><button type="button" data-q="${i}" data-d="-1" aria-label="Azalt">−</button><span>${it.q}</span><button type="button" data-q="${i}" data-d="1" aria-label="Arttır">+</button></div>
+        <b class="tab-num">${tl(p * it.q)}</b>
+        ${compact ? '' : `<button class="rm" type="button" data-rm="${i}">Kaldır</button>`}
+      </div>
+    </div>`;
+  }
+  function bindLines(root) {
+    root.querySelectorAll('[data-q]').forEach(b => b.onclick = () => {
+      const it = cart[+b.dataset.q]; it.q += +b.dataset.d;
+      if (it.q <= 0) cart.splice(+b.dataset.q, 1);
+      saveCart(); refreshCartViews();
+    });
+    root.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { cart.splice(+b.dataset.rm, 1); saveCart(); refreshCartViews(); });
+  }
+  function refreshCartViews() {
+    if (!$('#cartDrawer').hidden) renderDrawer();
+    if (current === 'sepet') renderCartPage();
+    if (current === 'odeme') renderSummary();
+  }
+
+  /* global delegation for cards */
+  document.addEventListener('click', e => {
+    const add = e.target.closest('[data-add]');
+    if (add) { e.preventDefault(); addToCart(add.dataset.add, add.dataset.size || '1'); return; }
+    const fav = e.target.closest('.fav');
+    if (fav) { e.preventDefault(); toggleFav(fav.dataset.id); return; }
+    if (e.target.closest('[data-close]')) closeAll();
+  });
+
+  /* ---------------- overlays ---------------- */
+  const scrim = $('#scrim');
+  function closeAll() { ['#cartDrawer', '#menuDrawer', '#search'].forEach(s => $(s).hidden = true); scrim.hidden = true; }
+  scrim.onclick = closeAll;
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+  function renderDrawer(msg) {
+    const body = $('#drBody'), foot = $('#drFoot');
+    if (!cart.length) {
+      body.innerHTML = `<div class="empty-msg"><p>Sepetin şimdilik boş.</p><a class="btn btn-dark" href="#urunler">Alışverişe başla</a></div>`;
+      foot.innerHTML = ''; return;
+    }
+    body.innerHTML = (msg ? `<p class="ok-box" style="margin:14px 0 4px">${esc(msg)}</p>` : '') + cart.map((it, i) => lineHTML(it, i, true)).join('');
+    foot.innerHTML = `<div class="srow total" style="border:0;padding:0"><span>Ara toplam</span><span>${tl(subtotal())}</span></div>
+      <p class="note">Kargo ücreti ödeme adımında hesaplanır.</p>
+      <a class="btn btn-dark" href="#odeme">Ödemeye geç</a><a class="btn btn-line" href="#sepet">Sepete git</a>`;
+    bindLines(body);
+  }
+  function openCart(msg) { closeAll(); renderDrawer(msg); $('#cartDrawer').hidden = false; scrim.hidden = false; }
+  $('#cartBtn').onclick = () => openCart();
+  $('#menuBtn').onclick = () => { closeAll(); $('#menuDrawer').hidden = false; scrim.hidden = false; };
+  $('#searchBtn').onclick = () => { closeAll(); $('#search').hidden = false; scrim.hidden = false; $('#q').value = ''; renderSearch(''); setTimeout(() => $('#q').focus(), 50); };
+  const norm = s => s.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ı/g, 'i');
+  function renderSearch(q) {
+    const n = norm(q.trim());
+    const res = F.filter(f => !n || norm(`${f.ad} ${f.en} ${GROUPS[f.grp]} ${f.tag} ${f.ing}`).includes(n));
+    $('#qRes').innerHTML = res.length ? res.map(f => `<a class="mini" href="#urun-${f.id}" style="--c:${f.c}"><img src="${IMG('bottle_' + f.id)}" alt=""><span><b>${esc(f.ad)}</b><span>${tl(f.p1)} · ${GROUPS[f.grp]}</span></span></a>`).join('') : `<p class="muted">“${esc(q)}” için sonuç yok. Örneğin “fıstık” ya da “çikolata” deneyin.</p>`;
+  }
+  $('#q').addEventListener('input', e => renderSearch(e.target.value));
+  let tt;
+  function toast(msg) {
+    $$('.toast').forEach(t => t.remove());
+    const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+    document.body.appendChild(t); clearTimeout(tt); tt = setTimeout(() => t.remove(), 2400);
+  }
+
+  /* ---------------- home ---------------- */
+  let heroFlavor = 'sutlu', lastUser = 0, ready3d = false;
+  const chips = $('#chips');
+  F.forEach(f => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.dataset.id = f.id; b.style.setProperty('--c', f.c);
+    b.setAttribute('aria-pressed', f.id === heroFlavor);
+    b.innerHTML = `<img src="${IMG('bottle_' + f.id)}" alt="" aria-hidden="true">${esc(f.ad)}`;
+    b.onclick = () => { lastUser = Date.now(); selectHero(f.id, true); };
+    chips.appendChild(b);
+  });
+  function paintHero(f) {
+    const r = document.documentElement.style;
+    r.setProperty('--fl', f.c); r.setProperty('--flg', f.g);
+    $('#heroPrice').innerHTML = `${tl(f.p1)}<small>${esc(f.ad)} · 1 kg şişe</small>`;
+    $('#heroLink').href = `#urun-${f.id}`;
+    const g = $('#giant'); g.textContent = f.ad; g.classList.remove('swap'); void g.offsetWidth; g.classList.add('swap');
+    chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.id === f.id));
+  }
+  function selectHero(id, force) {
+    if (id === heroFlavor && !force) return;
+    heroFlavor = id; const f = byId(id); paintHero(f);
+    window.dispatchEvent(new CustomEvent('ck:flavor', { detail: { id } }));
+  }
+  paintHero(byId(heroFlavor));
+  $('#heroAdd').onclick = () => { lastUser = Date.now(); addToCart(heroFlavor, '1'); };
+  window.addEventListener('ck:ready', () => { ready3d = true; });
+  setTimeout(() => { if (!ready3d) $('#stage').classList.add('nogl'); }, 7000);
+  let heroVisible = true;
+  new IntersectionObserver(es => { heroVisible = es[0].isIntersecting; }, { threshold: .35 }).observe($('#stage'));
+  if (!reduce) setInterval(() => {
+    if (current !== 'anasayfa' || !ready3d || !heroVisible || document.hidden || Date.now() - lastUser < 16000 || window.CK3D?.busy?.()) return;
+    const i = F.findIndex(f => f.id === heroFlavor);
+    selectHero(F[(i + 1) % F.length].id);
+  }, 3600);
+  $('#homeRail').innerHTML = F.map(card).join('');
+
+  const TASTES = [['cikolata', 'Çikolata'], ['krema', 'Vanilya & karamel'], ['meyve', 'Meyve'], ['fistik', 'Fıstık']];
+  let taste = 'cikolata';
+  $('#taste').innerHTML = TASTES.map(([k, l]) => `<button type="button" data-t="${k}" aria-pressed="${k === taste}">${l}</button>`).join('');
+  $('#finderOut').innerHTML = F.map(f => `<a class="mini" data-g="${f.grp}" href="#urun-${f.id}" style="--c:${f.c}"><img src="${IMG('bottle_' + f.id)}" alt=""><span><b>${esc(f.ad)}</b><span>${tl(f.p1)}</span></span></a>`).join('');
+  function paintTaste() {
+    $$('#taste button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === taste));
+    $$('#finderOut .mini').forEach(m => { const hit = m.dataset.g === taste; m.classList.toggle('hit', hit); m.classList.toggle('dim', !hit); });
+  }
+  $('#taste').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { taste = b.dataset.t; paintTaste(); } });
+  paintTaste();
+  $('#newsForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#newsMail').value.trim(), ok = /.+@.+\..+/.test(v);
+    $('#newsMail').classList.toggle('bad', !ok);
+    $('#newsMsg').textContent = ok ? 'Teşekkürler! Demo sürümde abonelik kaydedilmez.' : 'Geçerli bir e-posta adresi yazın.';
+  });
+
+  /* ---------------- listing ---------------- */
+  const flt = { pack: new Set(), grp: new Set(), sort: 'rec' };
+  $('#fPack').innerHTML = [['1', '1 kg şişe', 7], ['10', '10 kg teneke', 7]].map(([v, l, n]) => `<label class="chk"><input type="checkbox" id="fp-${v}" value="${v}">${l}<small>${n}</small></label>`).join('');
+  $('#fGroup').innerHTML = Object.entries(GROUPS).map(([k, l]) => `<label class="chk"><input type="checkbox" id="fg-${k}" value="${k}">${l}<small>${F.filter(f => f.grp === k).length}</small></label>`).join('');
+  $('#fPack').addEventListener('change', e => { e.target.checked ? flt.pack.add(e.target.value) : flt.pack.delete(e.target.value); renderPLP(); });
+  $('#fGroup').addEventListener('change', e => { e.target.checked ? flt.grp.add(e.target.value) : flt.grp.delete(e.target.value); renderPLP(); });
+  $('#sort').addEventListener('change', e => { flt.sort = e.target.value; renderPLP(); });
+  $('#filtersToggle').onclick = () => $('#filters').classList.toggle('open');
+  function renderPLP() {
+    let list = F.filter(f => !flt.grp.size || flt.grp.has(f.grp));
+    const only10 = flt.pack.size === 1 && flt.pack.has('10');
+    const pv = f => only10 ? (f.p10 ?? Infinity) : f.p1;
+    if (flt.sort === 'asc') list = [...list].sort((a, b) => pv(a) - pv(b));
+    if (flt.sort === 'desc') list = [...list].sort((a, b) => (pv(b) === Infinity ? -1 : pv(b)) - (pv(a) === Infinity ? -1 : pv(a)));
+    if (flt.sort === 'az') list = [...list].sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
+    $('#plpCount').textContent = `${list.length} ürün`;
+    $('#plpGrid').innerHTML = list.length ? list.map(f => {
+      if (!only10) return card(f);
+      return card(f).replace(`<span class="price">${tl(f.p1)}</span>`, `<span class="price">${f.p10 ? tl(f.p10) : 'Teklif alın'}</span>`)
+        .replace(`<span class="sizes">1 kg · 10 kg</span>`, `<span class="sizes">10 kg teneke</span>`)
+        .replace(`data-add="${f.id}">${ICON.plus}Sepete ekle · ${tl(f.p1)}`, `data-add="${f.id}" data-size="10">${ICON.plus}${f.p10 ? 'Sepete ekle · ' + tl(f.p10) : 'Teklif iste'}`);
+    }).join('') : `<div class="empty-msg"><p>Bu filtrelerle ürün bulunamadı.</p></div>`;
+  }
+
+  /* ---------------- product page ---------------- */
+  let pdpSize = '1', pdpQty = 1, pdpImg = 0;
+  function gallery(f) {
+    const g = [
+      { k: 'bottle_' + f.id, alt: `Chocokeyf ${f.ad} Waffle Sos 1 kg şişe` },
+      { k: 'hand_' + f.id, alt: `${f.ad} sos şişeden dökülüyor` },
+      { k: 'waffle_' + f.id, alt: `${f.ad} soslu waffle` },
+      { k: 'front_' + f.id, alt: `${f.ad} etiketi`, cover: true }
+    ];
+    if (pdpSize === '10') g.unshift({ k: 'kova_teneke', alt: 'Chocokeyf 10 kg kova ve teneke', cover: true, cap: f.id === 'sutlu' ? '' : 'Görselde Sütlü 10 kg ambalaj gösterilmektedir.' });
+    return g;
+  }
+  function renderPDP(id) {
+    const f = byId(id);
+    if (!f) { location.hash = '#urunler'; return; }
+    const g = gallery(f); pdpImg = Math.min(pdpImg, g.length - 1);
+    const p = priceOf(f.id, pdpSize);
+    const rows = [['Enerji (kJ)', f.n[0]], ['Enerji (kcal)', f.n[1]], ['Yağ (g)', f.n[2]], ['Doymuş yağ (g)', f.n[3]], ['Karbonhidrat (g)', f.n[4]], ['Şekerler (g)', f.n[5]], ['Protein (g)', f.n[6]], ['Tuz (g)', f.n[7]]];
+    const cur = g[pdpImg];
+    $('#pdp').style.setProperty('--c', f.c);
+    $('#pdp').innerHTML = `
+      <div class="page-head" style="padding-bottom:0"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#urunler">Ürünler</a><span>/</span><span>${esc(f.ad)}</span></nav></div>
+      <div class="pdp">
+        <div class="gal">
+          <div class="thumbs" role="group" aria-label="Görseller">${g.map((x, i) => `<button type="button" data-img-i="${i}" aria-pressed="${i === pdpImg}" aria-label="Görsel ${i + 1}"><img class="${x.cover ? 'cover' : ''}" src="${IMG(x.k)}" alt=""></button>`).join('')}</div>
+          <figure class="main-img" style="margin:0"><img class="${cur.cover ? 'cover' : ''}" src="${IMG(cur.k)}" alt="${esc(cur.alt)}">${cur.cap ? `<figcaption>${cur.cap}</figcaption>` : ''}</figure>
+        </div>
+        <div class="buybox">
+          <div style="display:grid;gap:8px">
+            <span class="eyebrow">${GROUPS[f.grp]} · Pankek-krep-waffle sos</span>
+            <h1>${esc(f.ad)}</h1>
+            <p class="sub">${esc(f.tag)}</p>
+          </div>
+          <div class="bb-price">${p ? tl(p) : 'Fiyat için teklif alın'}<small>${sizeName(pdpSize)}</small></div>
+          <div><span class="lbl">Ambalaj</span><div class="opt" style="margin-top:8px">
+            <button type="button" data-size="1" aria-pressed="${pdpSize === '1'}"><b>1 kg şişe</b><span>${tl(f.p1)}</span></button>
+            <button type="button" data-size="10" aria-pressed="${pdpSize === '10'}"><b>10 kg teneke</b><span>${f.p10 ? tl(f.p10) : 'Teklif alın'}</span></button>
+          </div></div>
+          <div><span class="lbl">Lezzet: ${esc(f.ad)}</span><div class="flv-row" style="margin-top:8px">${F.map(x => `<a href="#urun-${x.id}" style="--c:${x.c}" aria-current="${x.id === f.id}" aria-label="${esc(x.ad)}" title="${esc(x.ad)}"><i></i></a>`).join('')}</div></div>
+          <div class="qty-row">
+            ${p ? `<div class="stepper"><button type="button" id="qMinus" aria-label="Azalt">−</button><span id="qVal">${pdpQty}</span><button type="button" id="qPlus" aria-label="Arttır">+</button></div>
+            <button class="btn btn-dark" type="button" id="pdpAdd">${ICON.plus}Sepete ekle</button>` : `<a class="btn btn-dark" href="#toptan" id="pdpQuote" style="flex:1">10 kg için teklif iste</a>`}
+            <button class="fav" type="button" data-id="${f.id}" aria-pressed="${favs.includes(f.id)}" aria-label="${esc(f.ad)} favori" style="position:static;width:48px;height:48px;border:1.5px solid var(--line);background:var(--card)">${ICON.heart}</button>
+          </div>
+          <div class="perks">
+            <div>${ICON.check}Net ${pdpSize === '10' ? '10 kg' : '1 kg (35,27 oz)'}</div>
+            <div>${ICON.check}Menşe Türkiye · Barkod <span class="tab-num">${f.bc}</span></div>
+            <div>${ICON.check}+18 / +24 °C'de saklayın, buzdolabına koymayın</div>
+          </div>
+          <div class="tabs">
+            <details open><summary>Açıklama</summary><div class="body"><p>Chocokeyf ${esc(f.ad)} pankek, krep ve waffle sosu. ${esc(f.tag)} Kullanmadan önce mutlaka karıştırın veya çalkalayın.</p></div></details>
+            <details><summary>İçindekiler ve alerjen</summary><div class="body"><p>${esc(f.ing)}</p><p><b style="color:var(--ink)">Alerjen:</b> ${esc(f.alg || 'Süt ve süt ürünleri içerir.')} ${TRACE}</p>${f.warn ? `<p class="warn">${esc(f.warn)}</p>` : ''}</div></details>
+            <details><summary>Besin değerleri (100 g)</summary><div class="body"><table class="nut"><tbody>${rows.map(r => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td></tr>`).join('')}</tbody></table><p class="note">Ortalama değerlerdir.</p></div></details>
+            <details><summary>Saklama koşulları</summary><div class="body"><p>+18 / +24 °C'de serin ve kokusuz bir yerde muhafaza edin. Işık, hava, nem ve aşırı sıcaklık değişimlerinden koruyun. Her kullanımdan sonra ambalajı kapalı tutun. Buzdolabına koymayın.</p></div></details>
+          </div>
+        </div>
+      </div>
+      <div class="sec"><div class="sec-head"><div><span class="eyebrow">Diğer lezzetler</span><h2>Bunu da dene</h2></div></div>
+        <div class="rail">${F.filter(x => x.id !== f.id).map(card).join('')}</div></div>`;
+    $$('#pdp [data-img-i]').forEach(b => b.onclick = () => { pdpImg = +b.dataset.imgI; renderPDP(id); });
+    $$('#pdp .opt [data-size]').forEach(b => b.onclick = () => { pdpSize = b.dataset.size; pdpImg = 0; renderPDP(id); });
+    if ($('#pdpAdd')) {
+      $('#qMinus').onclick = () => { pdpQty = Math.max(1, pdpQty - 1); $('#qVal').textContent = pdpQty; };
+      $('#qPlus').onclick = () => { pdpQty = Math.min(99, pdpQty + 1); $('#qVal').textContent = pdpQty; };
+      $('#pdpAdd').onclick = () => addToCart(f.id, pdpSize, pdpQty);
+    } else $('#pdpQuote').onclick = () => preselect(f.id);
+    const bar = $('#buybar');
+    bar.innerHTML = p ? `<div><small class="muted">${esc(f.ad)} · ${sizeName(pdpSize)}</small><br><b>${tl(p)}</b></div><button class="btn btn-dark" type="button" id="barAdd">Sepete ekle</button>` : `<div><b>${esc(f.ad)}</b></div><a class="btn btn-dark" href="#toptan">Teklif iste</a>`;
+    if ($('#barAdd')) $('#barAdd').onclick = () => addToCart(f.id, pdpSize, pdpQty);
+  }
+
+  /* ---------------- cart + checkout ---------------- */
+  function renderCartPage() {
+    const el = $('#cartPage');
+    if (!cart.length) { el.innerHTML = `<div class="empty-msg"><p>Sepetin şimdilik boş.</p><a class="btn btn-dark" href="#urunler">Alışverişe başla</a></div>`; return; }
+    el.innerHTML = `<div class="two-col"><div class="lines">${cart.map((it, i) => lineHTML(it, i)).join('')}</div>
+      <aside class="summary"><h2>Sipariş özeti</h2>
+        <div class="srow"><span>Ara toplam</span><span>${tl(subtotal())}</span></div>
+        <div class="srow"><span>Kargo</span><span class="muted">Ödeme adımında</span></div>
+        <div class="srow total"><span>Toplam</span><span>${tl(subtotal())}</span></div>
+        <a class="btn btn-dark" href="#odeme">Ödemeye geç</a><a class="btn btn-line" href="#urunler">Alışverişe devam et</a>
+      </aside></div>`;
+    bindLines(el);
+  }
+  function renderSummary() {
+    const el = $('#coSummary');
+    if (!cart.length) { el.innerHTML = `<h2>Sepetin boş</h2><a class="btn btn-dark" href="#urunler">Ürünlere git</a>`; return; }
+    el.innerHTML = `<h2>Sipariş özeti</h2>${cart.map(it => { const f = byId(it.id); return `<div class="sum-line"><img src="${IMG(it.s === '10' ? 'kova_teneke' : 'bottle_' + f.id)}" alt="" style="${it.s === '10' ? 'object-fit:cover;border-radius:8px' : ''}"><span>${esc(f.ad)}<br><small class="muted">${sizeName(it.s)} × ${it.q}</small></span><b class="tab-num">${tl(priceOf(it.id, it.s) * it.q)}</b></div>`; }).join('')}
+      <div class="srow" style="border-top:1px solid var(--line);padding-top:12px"><span>Ara toplam</span><span>${tl(subtotal())}</span></div>
+      <div class="srow"><span>Kargo</span><span class="muted">Canlı sitede hesaplanır</span></div>
+      <div class="srow total"><span>Toplam</span><span>${tl(subtotal())}</span></div>`;
+  }
+  $('#coForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!cart.length) { toast('Sepetin boş'); return; }
+    const req = ['#c-ad', '#c-tel', '#c-mail', '#c-il', '#c-ilce', '#c-adres'].map(s => $(s));
+    const miss = req.filter(i => !i.value.trim() || (i.type === 'email' && !/.+@.+\..+/.test(i.value)));
+    req.forEach(i => i.classList.toggle('bad', miss.includes(i)));
+    if (miss.length) { toast('Lütfen işaretli alanları doldurun'); miss[0].focus(); return; }
+    const no = 'DEMO-' + Math.floor(100000 + Math.random() * 900000);
+    const lines = cart.map(it => `<div class="srow" style="width:100%"><span>${esc(byId(it.id).ad)} · ${sizeName(it.s)} × ${it.q}</span><b>${tl(priceOf(it.id, it.s) * it.q)}</b></div>`).join('');
+    const total = subtotal(), pay = $('#pay-havale').checked ? 'Havale / EFT' : 'Kredi / banka kartı';
+    $('#donePage').innerHTML = `<span class="check">${ICON.check}</span><h1 style="font-size:clamp(34px,5vw,52px)">Teşekkürler, ${esc($('#c-ad').value.trim().split(' ')[0])}!</h1>
+      <p class="muted">Demo sipariş numarası <b class="tab-num" style="color:var(--ink)">${no}</b> · Ödeme: ${pay}</p>
+      <div class="summary" style="position:static;width:100%;text-align:left">${lines}<div class="srow total"><span>Toplam</span><span>${tl(total)}</span></div></div>
+      <p class="demo-note">Bu bir tasarım demosudur; gerçek sipariş oluşturulmadı ve ödeme alınmadı.</p>
+      <a class="btn btn-dark" href="#urunler">Alışverişe devam et</a>`;
+    cart = []; saveCart();
+    location.hash = '#tamamlandi';
+  });
+
+  /* ---------------- wholesale + contact ---------------- */
+  $('#ptBody').innerHTML = F.map(f => `<tr><td><span class="dot" style="--c:${f.c}"></span>${esc(f.ad)}</td><td>${tl(f.p1)}</td><td>${f.p10 ? tl(f.p10) : 'Teklif alın'}</td></tr>`).join('');
+  $('#wsPicks').innerHTML = F.map(f => `<label><input type="checkbox" id="pick-${f.id}" value="${f.id}">${esc(f.ad)}</label>`).join('');
+  function preselect(id) { const c = document.getElementById('pick-' + id); if (c) c.checked = true; }
+  function demoForm(form, ids, okSel, hideSel) {
+    $(form).addEventListener('submit', e => {
+      e.preventDefault();
+      const req = ids.map(s => $(s));
+      const miss = req.filter(i => !i.value.trim());
+      req.forEach(i => i.classList.toggle('bad', miss.includes(i)));
+      if (miss.length) { toast('Lütfen zorunlu alanları doldurun'); miss[0].focus(); return; }
+      hideSel.forEach(s => $(s).hidden = true); $(okSel).hidden = false;
+    });
+  }
+  demoForm('#wsForm', ['#w-firma', '#w-ad', '#w-tel'], '#wsOk', ['#wsFields', '#wsSubmit']);
+  demoForm('#ctForm', ['#t-ad', '#t-mail', '#t-msg'], '#ctOk', ['#ctSubmit']);
+
+  function renderFavs() {
+    const list = F.filter(f => favs.includes(f.id));
+    $('#favGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty-msg" style="grid-column:1/-1"><p>Henüz favorin yok. Ürünlerdeki kalbe dokunarak ekleyebilirsin.</p><a class="btn btn-dark" href="#urunler">Ürünlere göz at</a></div>`;
+  }
+
+  /* ---------------- router ---------------- */
+  let current = '';
+  const VIEWS = ['anasayfa', 'urunler', 'urun', 'sepet', 'odeme', 'tamamlandi', 'toptan', 'iletisim', 'favoriler'];
+  function route() {
+    const h = (location.hash || '#anasayfa').slice(1);
+    let view = h, id = null;
+    if (h.startsWith('urun-')) { view = 'urun'; id = h.slice(5); }
+    if (!VIEWS.includes(view)) view = 'anasayfa';
+    if (view === 'tamamlandi' && !$('#donePage').innerHTML) view = 'anasayfa';
+    const go = () => {
+      closeAll();
+      $$('[data-view]').forEach(s => s.hidden = s.dataset.view !== view);
+      $$('[data-nav]').forEach(a => a.toggleAttribute('aria-current', a.dataset.nav === view || (view === 'urun' && a.dataset.nav === 'urunler')));
+      $$('[data-nav][aria-current]').forEach(a => a.setAttribute('aria-current', 'page'));
+      document.body.classList.toggle('on-pdp', view === 'urun');
+      $('#buybar').hidden = view !== 'urun';
+      if (view === 'urun') { if (id !== current.split(':')[1]) { pdpQty = 1; pdpImg = 0; pdpSize = '1'; } renderPDP(id); }
+      if (view === 'urunler') renderPLP();
+      if (view === 'sepet') renderCartPage();
+      if (view === 'odeme') renderSummary();
+      if (view === 'favoriler') renderFavs();
+      if (view === 'anasayfa') $$('#homeRail .fav').forEach(b => b.setAttribute('aria-pressed', favs.includes(b.dataset.id)));
+      current = view === 'urun' ? 'urun:' + id : view;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
+    if (document.startViewTransition && !reduce) document.startViewTransition(go); else go();
+  }
+  window.addEventListener('hashchange', route);
+  route();
+  renderBadges();
+})();
+</script>
+<script>
+(function () {
+  const F = window.CK_FLAVORS;
+  const IMG = window.CK_IMGSRC;
+  const stage = document.getElementById('stage');
+  const cv = document.getElementById('gl');
+  const ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const WAFFLE_AR = 277 / 470, BOTTLE_AR = 304 / 970;
+  const HAND = { w: 1346, h: 669, nx: 7, ny: 602, bottle: 820, rot: -1.95 }; // hand_*.webp is drawn in pour pose: nozzle px, bottle length px, built-in rotation
+  const hero = stage.closest('.hero');
+  let OX = 0, OY = 0, CW = 0, CH = 0;
+
+  const load = src => new Promise(r => { const i = new Image(); i.decoding = 'async'; i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
+  const bottles = {}, waffles = {}, hands = {};
+  let ready = false;
+
+  /* ---------- color helpers ---------- */
+  function hexRgb(h) { h = h.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.substr(i, 2), 16)); }
+  function mix(h, t, a) { const c = hexRgb(h), d = hexRgb(t); return `rgb(${c.map((v, i) => Math.round(v + (d[i] - v) * a)).join(',')})`; }
+
+  /* ---------- state ---------- */
+  let W = 0, H = 0, dpr = 1, L = {};
+  const S = {
+    cur: 'sutlu', next: null, reveal: 0, ph: [0, 0, 0],
+    b: { id: 'sutlu', x: 0, y: 0, rot: 0, a: 1, sq: 0, lift: 0 },
+    st: { on: false, head: 0, tail: 0, color: '#6b3a1f' },
+    drops: [], steam: [], bokeh: [], splash: 0
+  };
+  let busy = false, queued = null, px = 0, py = 0, spx = 0, spy = 0;
+
+  function layout() {
+    const r = stage.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+    W = r.width; H = r.height; dpr = Math.min(devicePixelRatio || 1, 2);
+    OX = r.left - hr.left; OY = r.top - hr.top; CW = hr.width; CH = hr.height;
+    cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
+    const narrow = W < 560;
+    const wb = Math.min(W * (narrow ? 0.7 : 0.64), H * 1.05, 620);
+    const wh = wb * WAFFLE_AR;
+    const ground = H * 0.86;
+    const wx = W * (narrow ? 0.4 : 0.42) - wb / 2;
+    const wy = ground - wh;
+    const bh = Math.min(H * 0.64, wb * 1.25);
+    const bw = bh * BOTTLE_AR;
+    const hitX = wx + wb * 0.5;
+    L = {
+      wb, wh, wx, wy, ground, bh, bw, narrow,
+      stand: { x: Math.min(wx + wb * 0.98, W - bw * 1.1), y: wy - bh * 0.22 },
+      pour: { x: hitX, y: wy - bh * 0.12 },
+      hit: { x: hitX, y: wy + wh * 0.2 }
+    };
+    if (!busy) { S.b.x = L.stand.x; S.b.y = L.stand.y; S.b.rot = IDLE; }
+    if (!S.bokeh.length) seedBokeh();
+  }
+
+  function seedBokeh() {
+    for (let i = 0; i < 22; i++) S.bokeh.push({
+      x: 0.12 + Math.random() * 0.76, y: 0.1 + Math.random() * 0.5, r: 10 + Math.random() * 34, a: 0.05 + Math.random() * 0.12,
+      sp: 0.004 + Math.random() * 0.01, ph: Math.random() * 6.28, d: 0.3 + Math.random() * 0.7
+    });
+  }
+
+  /* ---------- tweens ---------- */
+  const tweens = new Set();
+  const ease = {
+    io: k => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2,
+    out: k => 1 - Math.pow(1 - k, 3),
+    in: k => k * k * k,
+    back: k => { const c = 1.5; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); },
+    lin: k => k
+  };
+  const tween = (sec, fn, e = ease.io) => new Promise(res => tweens.add({ t0: performance.now(), d: reduce ? 1 : sec * 1000, fn, e, res }));
+  const TILT = -1.95, IDLE = -0.9;
+
+  async function pour(id) {
+    if (!ready) return;
+    if (busy) { queued = id; return; }
+    busy = true;
+    const f = F.find(x => x.id === id);
+    const b = S.b;
+    if (b.id !== id) {
+      const x0 = L.stand.x;
+      const y0 = L.stand.y;
+      await tween(0.5, k => { b.x = x0 + k * (CW - OX - x0 + L.bh * 0.6); b.y = y0 + k * L.bh * 0.25; b.rot = IDLE + k * 0.25; }, ease.in);
+      b.id = id;
+      await tween(0.7, k => { b.x = x0 + (1 - k) * (CW - OX - x0 + L.bh * 0.6); b.y = y0 + (1 - k) * L.bh * 0.25; b.rot = IDLE + (1 - k) * 0.25; }, ease.out);
+    }
+    S.next = id; S.reveal = 0; S.ph = [Math.random() * 6.28, Math.random() * 6.28, Math.random() * 6.28];
+    S.st.color = f.c;
+    await tween(0.85, k => {
+      b.x = L.stand.x + (L.pour.x - L.stand.x) * k;
+      b.y = L.stand.y + (L.pour.y - L.stand.y) * k - Math.sin(k * Math.PI) * L.bh * 0.08;
+      b.rot = IDLE + (TILT - IDLE) * k; b.lift = k;
+    });
+    S.st.on = true; S.st.head = 0; S.st.tail = 0;
+    await tween(0.28, k => { S.st.head = k; }, ease.in);
+    await tween(2.2, k => { S.reveal = k; b.sq = Math.sin(k * Math.PI * 5) * 0.5 + 0.5; }, ease.io);
+    S.cur = id; S.next = null; S.reveal = 0;
+    await tween(0.24, k => { S.st.tail = k; b.sq = 0; }, ease.in);
+    S.st.on = false;
+    for (let i = 0; i < 3; i++) setTimeout(() => spawnDrop(f.c, 0.6 - i * 0.15), 120 + i * 260);
+    await tween(0.85, k => {
+      b.x = L.pour.x + (L.stand.x - L.pour.x) * k;
+      b.y = L.pour.y + (L.stand.y - L.pour.y) * k - Math.sin(k * Math.PI) * L.bh * 0.05;
+      b.rot = TILT + (IDLE - TILT) * k; b.lift = 1 - k;
+    });
+    busy = false;
+    if (queued && queued !== id) { const q = queued; queued = null; pour(q); } else queued = null;
+  }
+  window.CK3D = { busy: () => busy };
+
+  /* ---------- geometry helpers ---------- */
+  function nozzle() { return { x: S.b.x, y: S.b.y, dx: Math.sin(S.b.rot), dy: -Math.cos(S.b.rot) }; }
+  function spawnDrop(color, size) {
+    const n = nozzle();
+    S.drops.push({ x: n.x + n.dx * 4, y: n.y + n.dy * 4, vx: n.dx * 30, vy: 20, r: L.bw * 0.05 * size, c: color });
+  }
+
+  function streamPts() {
+    const n = nozzle(), e = { x: n.x + n.dx * 6, y: L.hit.y };
+    const c = { x: n.x + n.dx * 7, y: n.y + (e.y - n.y) * 0.12 };
+    const pts = [];
+    const a = S.st.tail, z = S.st.head;
+    const steps = 34;
+    for (let i = 0; i <= steps; i++) {
+      const s = a + (z - a) * (i / steps);
+      const u = 1 - s;
+      const x = u * u * n.x + 2 * u * s * c.x + s * s * e.x;
+      const y = u * u * n.y + 2 * u * s * c.y + s * s * e.y;
+      pts.push({ x, y, s });
+    }
+    return pts;
+  }
+
+  function drawStream(t) {
+    if (!S.st.on) return;
+    const pts = streamPts();
+    if (pts.length < 2) return;
+    const w0 = L.bw * 0.1;
+    const left = [], right = [];
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i], q = pts[Math.min(pts.length - 1, i + 1)], o = pts[Math.max(0, i - 1)];
+      let tx = q.x - o.x, ty = q.y - o.y; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l;
+      const w = w0 * (1 - 0.38 * p.s) * (1 + Math.sin(t * 18 + p.s * 14) * 0.06) / 2;
+      left.push({ x: p.x - ty * w, y: p.y + tx * w }); right.push({ x: p.x + ty * w, y: p.y - tx * w });
+    }
+    const col = S.st.color;
+    ctx.beginPath();
+    left.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+    for (let i = right.length - 1; i >= 0; i--) ctx.lineTo(right[i].x, right[i].y);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(left[0].x, left[0].y, right[0].x, right[0].y);
+    g.addColorStop(0, mix(col, '#000000', 0.35)); g.addColorStop(0.35, mix(col, '#ffffff', 0.12));
+    g.addColorStop(0.6, col); g.addColorStop(1, mix(col, '#000000', 0.45));
+    ctx.fillStyle = col; ctx.fill();
+    ctx.save(); ctx.clip();
+    ctx.lineWidth = w0 * 0.9; ctx.strokeStyle = mix(col, '#000000', 0.4); ctx.globalAlpha = 0.5;
+    ctx.beginPath(); right.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y)); ctx.stroke();
+    ctx.restore();
+    ctx.lineCap = 'round';
+    ctx.lineWidth = Math.max(1.2, w0 * 0.16); ctx.strokeStyle = 'rgba(255,255,255,.55)';
+    ctx.beginPath();
+    pts.forEach((p, i) => { const lp = left[i]; const x = p.x + (lp.x - p.x) * 0.45, y = p.y + (lp.y - p.y) * 0.45; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.stroke();
+    if (S.st.head > 0.98 && S.st.tail < 0.5) {
+      const e = { x: S.b.x + Math.sin(S.b.rot) * 6, y: L.hit.y }, rr = w0 * (1.3 + Math.sin(t * 9) * 0.12);
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.ellipse(e.x, e.y + 2, rr, rr * 0.42, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.35)';
+      ctx.beginPath(); ctx.ellipse(e.x - rr * 0.3, e.y, rr * 0.35, rr * 0.12, -0.2, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function blobPath(R) {
+    const c = L.hit, [p1, p2, p3] = S.ph;
+    ctx.beginPath();
+    for (let i = 0; i <= 160; i++) {
+      const th = (i / 160) * Math.PI * 2;
+      const rr = R * (1 + 0.08 * Math.sin(5 * th + p1) + 0.05 * Math.sin(9 * th + p2));
+      const down = Math.max(0, Math.sin(th));
+      const finger = R * 0.5 * Math.pow(Math.max(0, Math.sin(th * 13 + p3)), 10) * down;
+      const x = c.x + rr * Math.cos(th);
+      const y = c.y + rr * 0.55 * Math.sin(th) + finger;
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  function drawWaffle() {
+    const { wx, wy, wb, wh } = L;
+    const ox = spx * 4, oy = spy * 2;
+    const sg = ctx.createRadialGradient(wx + wb / 2, wy + wh * 0.96, 0, wx + wb / 2, wy + wh * 0.96, wb * 0.55);
+    sg.addColorStop(0, 'rgba(0,0,0,.55)'); sg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.save(); ctx.translate(wx + wb / 2, wy + wh * 0.96); ctx.scale(1, 0.16); ctx.translate(-(wx + wb / 2), -(wy + wh * 0.96));
+    ctx.fillStyle = sg; ctx.fillRect(wx - wb * 0.1, wy + wh * 0.96 - wb * 0.6, wb * 1.2, wb * 1.2); ctx.restore();
+    const cur = waffles[S.cur];
+    if (cur) ctx.drawImage(cur, wx + ox, wy + oy, wb, wh);
+    if (S.next && S.reveal > 0) {
+      const nx = waffles[S.next];
+      const Rmax = Math.hypot(wb * 0.55, (wh * 0.85) / 0.55) * 1.05;
+      ctx.save(); blobPath(Rmax * S.reveal); ctx.clip();
+      if (nx) ctx.drawImage(nx, wx + ox, wy + oy, wb, wh);
+      ctx.restore();
+    }
+  }
+
+  function drawBottle() {
+    const b = S.b, img = hands[b.id] || bottles[b.id];
+    if (!img) return;
+    const sc = L.bh / HAND.bottle;
+    ctx.save();
+    ctx.translate(b.x + spx * 8, b.y + spy * 4);
+    const idle = busy ? 0 : Math.sin(perf / 1100) * 0.03;
+    ctx.rotate(b.rot + idle - (hands[b.id] ? HAND.rot : 0));
+    const sq = 1 - b.sq * 0.03;
+    ctx.scale(sq, 1);
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 30 * dpr; ctx.shadowOffsetY = 18 * dpr;
+    if (hands[b.id]) ctx.drawImage(img, -HAND.nx * sc, -HAND.ny * sc, HAND.w * sc, HAND.h * sc);
+    else ctx.drawImage(img, -L.bw / 2, -L.bh * 0.008, L.bw, L.bh);
+    ctx.restore();
+  }
+
+  function drawBokeh(t) {
+    S.bokeh.forEach(k => {
+      const x = (k.x + Math.sin(t * k.sp * 10 + k.ph) * 0.02) * W - spx * 14 * k.d, y = k.y * H + Math.cos(t * k.sp * 8 + k.ph) * 10 - spy * 8 * k.d;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, k.r);
+      g.addColorStop(0, `rgba(255,200,130,${k.a})`); g.addColorStop(0.7, `rgba(255,180,110,${k.a * 0.5})`); g.addColorStop(1, 'rgba(255,180,110,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, k.r, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function drawSteam(dt) {
+    if (!reduce && S.steam.length < 26 && Math.random() < 0.25) {
+      S.steam.push({ x: L.wx + L.wb * (0.25 + Math.random() * 0.5), y: L.wy + L.wh * 0.12, r: L.wb * 0.03, a: 0, life: 0, vx: (Math.random() - 0.5) * 8, sw: Math.random() * 6 });
+    }
+    S.steam = S.steam.filter(p => p.life < 1);
+    S.steam.forEach(p => {
+      p.life += dt * 0.28; p.y -= dt * L.wh * 0.35; p.x += Math.sin(p.life * 6 + p.sw) * 0.4 + p.vx * dt; p.r += dt * L.wb * 0.05;
+      const a = Math.sin(p.life * Math.PI) * 0.07;
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, `rgba(255,244,230,${a})`); g.addColorStop(1, 'rgba(255,244,230,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  function drawDrops(dt) {
+    S.drops = S.drops.filter(d => d.y < L.hit.y);
+    S.drops.forEach(d => {
+      d.vy += 1400 * dt; d.x += d.vx * dt; d.y += d.vy * dt;
+      ctx.fillStyle = d.c;
+      ctx.beginPath(); ctx.ellipse(d.x, d.y, d.r * 0.85, d.r * 1.25, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.5)';
+      ctx.beginPath(); ctx.arc(d.x - d.r * 0.3, d.y - d.r * 0.4, d.r * 0.25, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+
+  /* ---------- loop ---------- */
+  let perf = 0, last = performance.now(), visible = true;
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min(0.05, (now - last) / 1000); last = now; perf = now;
+    if (!visible || document.hidden || !ready) return;
+    for (const tw of tweens) {
+      const k = Math.min(1, (now - tw.t0) / tw.d);
+      tw.fn(tw.e(k));
+      if (k >= 1) { tweens.delete(tw); tw.res(); }
+    }
+    spx += (px - spx) * 0.06; spy += (py - spy) * 0.06;
+    const t = now / 1000;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, CW, CH);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(L.narrow ? 0 : OX - 40, 0, CW, L.narrow ? OY + H : CH); ctx.clip();
+    ctx.translate(OX, OY);
+    drawBokeh(t);
+    const fg = ctx.createRadialGradient(W * 0.45, L.ground, 0, W * 0.45, L.ground, W * 0.42);
+    fg.addColorStop(0, 'rgba(255,190,120,.10)'); fg.addColorStop(1, 'rgba(255,190,120,0)');
+    ctx.fillStyle = fg; ctx.fillRect(0, L.ground - H * 0.2, W, H * 0.4);
+    drawWaffle();
+    drawSteam(dt);
+    drawDrops(dt);
+    drawStream(t);
+    drawBottle();
+    ctx.restore();
+  }
+
+  hero.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    px = ((e.clientX - r.left) / r.width - 0.5) * 2; py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+  });
+  hero.addEventListener('pointerleave', () => { px = py = 0; });
+  new ResizeObserver(layout).observe(hero);
+  new ResizeObserver(layout).observe(stage);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.01 }).observe(stage);
+  window.addEventListener('ck:flavor', e => pour(e.detail.id));
+
+  Promise.all(F.map(async f => {
+    bottles[f.id] = await load(IMG('bottle_' + f.id));
+    waffles[f.id] = await load(IMG('waffle_' + f.id));
+    hands[f.id] = await load(IMG('hand_' + f.id));
+  })).then(() => {
+    layout();
+    ready = true;
+    stage.classList.add('ready');
+    window.dispatchEvent(new Event('ck:ready'));
+  });
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
