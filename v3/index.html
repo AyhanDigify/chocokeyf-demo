@@ -453,7 +453,7 @@ footer a:hover { color: var(--cream); }
     <a class="logo" href="#anasayfa" aria-label="Chocokeyf ana sayfa"><img data-img="logo" alt="Chocokeyf" width="369" height="150"></a>
     <nav class="nav" aria-label="Ana menü">
       <a href="#anasayfa" data-nav="anasayfa">Ana sayfa</a>
-      <a href="#urunler" data-nav="urunler">Ürünler</a>
+      <a href="#sise" data-nav="sise">Şişe soslar</a>
       <a href="#teneke" data-nav="teneke">10 kg teneke</a>
       <a href="#toptan" data-nav="toptan">Toptan</a>
       <a href="#iletisim" data-nav="iletisim">İletişim</a>
@@ -511,14 +511,14 @@ footer a:hover { color: var(--cream); }
     <div class="sec"><div class="wrap">
       <div class="sec-head">
         <div><span class="eyebrow">Lezzetler</span><h2>Hangisi senin sosun?</h2></div>
-        <a class="link-arrow" href="#urunler">Tümünü gör →</a>
+        <a class="link-arrow" href="#sise">Şişe sosları gör →</a>
       </div>
       <div class="rail" id="homeRail"></div>
     </div></div>
 
     <div class="sec"><div class="wrap">
       <div class="tiles">
-        <a class="tile" href="#urunler"><img data-img="kitchen4" alt="Chocokeyf şişeleri mutfak tezgâhında" loading="lazy"><div class="tile-copy"><span class="eyebrow">1 kg şişe</span><h3>Evde kahvaltı keyfi</h3><p>Yedi lezzetin hepsi 1 kg şişede, 260 ₺'den başlayan fiyatlarla.</p></div></a>
+        <a class="tile" href="#sise"><img data-img="kitchen4" alt="Chocokeyf şişeleri mutfak tezgâhında" loading="lazy"><div class="tile-copy"><span class="eyebrow">1 kg şişe</span><h3>Evde kahvaltı keyfi</h3><p>Yedi lezzetin hepsi 1 kg şişede, 260 ₺'den başlayan fiyatlarla.</p></div></a>
         <a class="tile" href="#teneke"><img data-img="kova_teneke" alt="Chocokeyf 10 kg kova ve 10 kg teneke" loading="lazy"><div class="tile-copy"><span class="eyebrow">10 kg teneke · kova</span><h3>Servis hızında sos</h3><p>Kafe, pastane ve waffle dükkânları için büyük ambalaj ve toptan fiyat.</p></div></a>
       </div>
     </div></div>
@@ -709,7 +709,7 @@ footer a:hover { color: var(--cream); }
       <span class="foot-logo"><img data-img="logo" alt="Chocokeyf"></span>
       <p style="max-width:34ch">Pankek, krep ve waffle için yedi lezzet sos. 1 kg şişe ve 10 kg teneke.</p>
     </div>
-    <div><h4>Mağaza</h4><ul><li><a href="#urunler">Tüm soslar</a></li><li><a href="#teneke">10 kg teneke serisi</a></li><li><a href="#urun-sutlu">Sütlü</a></li><li><a href="#urun-bitter">Bitter</a></li><li><a href="#urun-antep">Antep Fıstık</a></li></ul></div>
+    <div><h4>Mağaza</h4><ul><li><a href="#urunler">Tüm soslar</a></li><li><a href="#sise">Şişe soslar</a></li><li><a href="#teneke">10 kg teneke serisi</a></li><li><a href="#urun-sutlu">Sütlü</a></li><li><a href="#urun-bitter">Bitter</a></li><li><a href="#urun-antep">Antep Fıstık</a></li></ul></div>
     <div><h4>Kurumsal</h4><ul><li><a href="#toptan">Toptan &amp; bayilik</a></li><li><a href="#iletisim">İletişim</a></li><li><a href="#favoriler">Favoriler</a></li></ul></div>
     <div><h4>Müşteri hizmetleri</h4><ul><li class="tab-num">0212 423 9 595</li><li>Avcılar / İstanbul</li></ul></div>
     <div class="foot-bottom"><span>© Chocokeyf</span><span>Bu site Digify tarafından hazırlanmış bir tasarım demosudur. Ödeme, kargo ve formlar canlı sitede bağlanır.</span></div>
@@ -725,7 +725,7 @@ footer a:hover { color: var(--cream); }
 </aside>
 <aside class="drawer left" id="menuDrawer" hidden aria-label="Menü">
   <div class="dr-head"><a class="logo" href="#anasayfa"><img data-img="logo" alt="Chocokeyf" style="height:36px"></a><button class="icon-btn" data-close aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mnav" aria-label="Mobil menü"><a href="#anasayfa">Ana sayfa</a><a href="#urunler">Ürünler</a><a href="#teneke">10 kg teneke</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a><a href="#favoriler">Favoriler</a><a href="#sepet">Sepet</a></nav>
+  <nav class="mnav" aria-label="Mobil menü"><a href="#anasayfa">Ana sayfa</a><a href="#sise">Şişe soslar</a><a href="#teneke">10 kg teneke</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a><a href="#favoriler">Favoriler</a><a href="#sepet">Sepet</a></nav>
   <div></div>
 </aside>
 <div class="search" id="search" hidden role="dialog" aria-label="Ürün ara">
@@ -990,7 +990,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     if (flt.sort === 'az') items.sort((a, b) => a.f.ad.localeCompare(b.f.ad, 'tr') || a.s.localeCompare(b.s));
     if (flt.sort === 'rec') items.sort((a, b) => a.s.localeCompare(b.s) || F.indexOf(a.f) - F.indexOf(b.f));
     const only10 = flt.pack.size === 1 && flt.pack.has('10'), only1 = flt.pack.size === 1 && flt.pack.has('1');
-    $('#plpTitle').textContent = only10 ? '10 kg teneke serisi' : only1 ? '1 kg şişe' : 'Tüm soslar';
+    $('#plpTitle').textContent = only10 ? '10 kg teneke serisi' : only1 ? 'Şişe soslar · 1 kg' : 'Tüm soslar';
     $('#plpCrumb').textContent = $('#plpTitle').textContent;
     $('#plpCount').textContent = `${items.length} ürün`;
     $('#plpGrid').innerHTML = items.length ? items.map(x => card(x.f, x.s)).join('') : `<div class="empty-msg" style="grid-column:1/-1"><p>Bu filtrelerle ürün bulunamadı.</p></div>`;
@@ -1145,13 +1145,13 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     let view = h, id = null;
     let size = '1';
     if (h.startsWith('urun-')) { view = 'urun'; id = h.slice(5); if (id.endsWith('-10')) { id = id.slice(0, -3); size = '10'; } }
-    if (view === 'teneke') { view = 'urunler'; setPack('10'); } else if (view === 'urunler') setPack(null);
+    if (view === 'teneke') { view = 'urunler'; setPack('10'); } else if (view === 'sise') { view = 'urunler'; setPack('1'); } else if (view === 'urunler') setPack(null);
     if (!VIEWS.includes(view)) view = 'anasayfa';
     if (view === 'tamamlandi' && !$('#donePage').innerHTML) view = 'anasayfa';
     const go = () => {
       closeAll();
       $$('[data-view]').forEach(s => s.hidden = s.dataset.view !== view);
-      const navKey = h === 'teneke' || (view === 'urun' && size === '10') ? 'teneke' : view === 'urun' ? 'urunler' : view;
+      const navKey = h === 'teneke' || (view === 'urun' && size === '10') ? 'teneke' : h === 'sise' || view === 'urun' ? 'sise' : view;
       $$('[data-nav]').forEach(a => a.toggleAttribute('aria-current', a.dataset.nav === navKey));
       $$('[data-nav][aria-current]').forEach(a => a.setAttribute('aria-current', 'page'));
       document.body.classList.toggle('on-pdp', view === 'urun');
