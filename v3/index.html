@@ -146,7 +146,7 @@ p { margin: 0; }
 .pc-media .bt { transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .35s; }
 .pc-tin .pc-media { background: radial-gradient(70% 60% at 50% 40%, #fff3d6, color-mix(in oklab, var(--c) 18%, #ead8b4)); }
 .pc-media .tn { position: absolute; left: 0; right: 0; margin: auto; top: 12%; width: 74%; height: auto; filter: drop-shadow(0 22px 18px rgba(80,50,10,.35)); transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .35s; }
-.pc-tin .pc-media .us { bottom: 10%; height: auto; width: 86%; }
+.pc-tin .pc-media .us, .pc-media .us.wfl { bottom: 10%; top: auto; height: auto; width: 86%; }
 .pc-tin:hover .pc-media .tn { opacity: 0; transform: translateY(-4%) scale(.96); }
 .tin-lbl { font-family: var(--f-body); font-size: 13px; font-weight: 700; background: var(--gold); color: var(--choc); border-radius: 999px; padding: 2px 8px; vertical-align: 4px; margin-left: 4px; }
 .tinband { margin-top: 0; background: radial-gradient(60% 80% at 80% 0%, rgba(228,184,108,.28), transparent 60%), linear-gradient(180deg, var(--choc-2), var(--choc)); color: var(--cream); padding-block: clamp(48px, 6vw, 80px); }
@@ -827,7 +827,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     const p = tin ? f.p10 : f.p1, href = tin ? `#urun-${f.id}-10` : `#urun-${f.id}`;
     const media = tin
       ? `<img class="tn" src="${IMG('tin_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 10 kg teneke"><img class="us" src="${IMG('waffle_' + f.id)}" alt="" aria-hidden="true" loading="lazy">`
-      : `<img class="us" src="${IMG('use_' + f.id)}" alt="" aria-hidden="true" loading="lazy"><img class="bt" src="${IMG('bottle_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 1 kg şişe">`;
+      : `<img class="us wfl" src="${IMG('waffle_' + f.id)}" alt="" aria-hidden="true" loading="lazy"><img class="bt" src="${IMG('bottle_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 1 kg şişe">`;
     return `<article class="pc${tin ? ' pc-tin' : ''}" style="--c:${f.c}">
       <div class="pc-top">
         <a class="pc-media" href="${href}" aria-label="${esc(f.ad)} Waffle Sos ${tin ? '10 kg teneke' : '1 kg şişe'}">
