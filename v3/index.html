@@ -139,17 +139,33 @@ p { margin: 0; }
 .pc { --c: #6b3a1f; position: relative; display: grid; gap: 12px; align-content: start; }
 .pc-media { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: var(--r); overflow: hidden; background: radial-gradient(70% 60% at 50% 38%, color-mix(in oklab, var(--c) 34%, #fff), color-mix(in oklab, var(--c) 14%, var(--paper-2))); }
 .pc-media .bt { position: absolute; left: 0; right: 0; margin: auto; top: 7%; height: 80%; width: auto; filter: drop-shadow(0 22px 18px rgba(43,23,13,.35)); transition: transform .5s cubic-bezier(.2,.9,.2,1); }
-.pc-media .wf { position: absolute; left: 6%; right: 6%; bottom: -30%; width: 88%; height: auto; opacity: 0; transition: opacity .4s, transform .5s cubic-bezier(.2,.9,.2,1); filter: drop-shadow(0 14px 14px rgba(43,23,13,.35)); }
-.pc:hover .pc-media .bt { transform: translateY(-6%) scale(.92) rotate(-4deg); }
-.pc:hover .pc-media .wf { opacity: 1; transform: translateY(-34%); }
-.pc-tag { position: absolute; left: 12px; top: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; background: rgba(255,255,255,.85); padding: 4px 10px; border-radius: 999px; }
-.fav { position: absolute; right: 10px; top: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.88); display: grid; place-items: center; z-index: 2; }
+.pc-top { position: relative; }
+.pc-media .us { position: absolute; left: 0; right: 0; margin: auto; bottom: 0; height: 94%; width: auto; opacity: 0; transform: translateY(6%); transition: opacity .45s, transform .6s cubic-bezier(.2,.9,.2,1); filter: drop-shadow(0 18px 18px rgba(43,23,13,.3)); }
+.pc:hover .pc-media .bt { opacity: 0; transform: translateY(-4%) scale(.96); }
+.pc:hover .pc-media .us { opacity: 1; transform: none; }
+.pc-media .bt { transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .35s; }
+.pc-tin .pc-media { background: radial-gradient(70% 60% at 50% 40%, #fff3d6, color-mix(in oklab, var(--c) 18%, #ead8b4)); }
+.pc-media .tn { position: absolute; left: 0; right: 0; margin: auto; top: 12%; width: 74%; height: auto; filter: drop-shadow(0 22px 18px rgba(80,50,10,.35)); transition: transform .5s cubic-bezier(.2,.9,.2,1), opacity .35s; }
+.pc-tin .pc-media .us { bottom: 10%; height: auto; width: 86%; }
+.pc-tin:hover .pc-media .tn { opacity: 0; transform: translateY(-4%) scale(.96); }
+.tin-lbl { font-family: var(--f-body); font-size: 13px; font-weight: 700; background: var(--gold); color: var(--choc); border-radius: 999px; padding: 2px 8px; vertical-align: 4px; margin-left: 4px; }
+.tinband { margin-top: 0; background: radial-gradient(60% 80% at 80% 0%, rgba(228,184,108,.28), transparent 60%), linear-gradient(180deg, var(--choc-2), var(--choc)); color: var(--cream); padding-block: clamp(48px, 6vw, 80px); }
+.tinband .sec-head h2 { color: var(--cream); }
+.tinband .sec-head p { color: var(--cream-2); }
+.tinband .pc-info h3, .tinband .pc-meta .price { color: var(--cream); }
+.tinband .pc-meta .sizes { color: var(--cream-2); }
+.tinband .link-arrow { color: var(--gold-2); }
+.pc-tag { color: var(--ink); position: absolute; left: 12px; top: 12px; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; background: rgba(255,255,255,.85); padding: 4px 10px; border-radius: 999px; }
+.fav { position: absolute; right: 10px; top: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255,255,255,.88); color: var(--ink); display: grid; place-items: center; z-index: 2; }
 .fav svg { width: 19px; height: 19px; }
 .fav[aria-pressed="true"] svg { fill: var(--err); stroke: var(--err); }
-.quick { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; }
-.pc:hover .quick, .pc:focus-within .quick { opacity: 1; transform: none; }
-@media (hover: none) { .quick { opacity: 1; transform: none; } }
-.quick .btn { width: 100%; padding: 11px; font-size: 14px; }
+.fab { position: absolute; right: 12px; bottom: 12px; z-index: 2; height: 44px; min-width: 44px; padding: 0 12px; border: 0; border-radius: 999px; background: rgba(255,255,255,.94); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; gap: 0; font-weight: 700; font-size: 14px; box-shadow: 0 8px 20px -8px rgba(43,23,13,.45); transition: background .25s, color .25s, gap .3s, transform .2s; }
+.fab svg { width: 18px; height: 18px; flex: none; transition: transform .3s; }
+.fab span { max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .35s cubic-bezier(.2,.9,.2,1); }
+.pc:hover .fab, .fab:focus-visible { background: var(--ink); color: var(--paper); gap: 8px; }
+.pc:hover .fab span, .fab:focus-visible span { max-width: 120px; }
+.fab:hover svg { transform: rotate(90deg); }
+.fab:active { transform: scale(.95); }
 .pc-info { display: grid; gap: 3px; }
 .pc-info h3 { font-size: 21px; font-weight: 800; }
 .pc-info h3 a { text-decoration: none; }
@@ -243,6 +259,11 @@ input.bad { border-color: var(--err); }
 .main-img { position: relative; aspect-ratio: 1 / 1.05; border-radius: 24px; overflow: hidden; background: radial-gradient(70% 60% at 50% 40%, color-mix(in oklab, var(--c) 38%, #fff), color-mix(in oklab, var(--c) 16%, var(--paper-2))); display: grid; place-items: center; }
 .main-img img { position: absolute; inset: 0; margin: auto; width: 86%; height: 88%; object-fit: contain; filter: drop-shadow(0 30px 26px rgba(43,23,13,.3)); animation: imgIn .45s cubic-bezier(.2,.9,.2,1); }
 .main-img img.cover { width: 100%; height: 100%; object-fit: cover; filter: none; }
+.main-img img.use { top: auto; bottom: 0; height: 95%; width: 80%; object-position: bottom; }
+.main-img img.label { width: 94%; height: 80%; filter: drop-shadow(0 18px 22px rgba(43,23,13,.25)); }
+.thumbs img.use { object-position: bottom; }
+.main-img img.tin { width: 70%; height: 80%; }
+.thumbs img.label { padding: 4px; }
 @keyframes imgIn { from { opacity: 0; transform: scale(.96); } }
 .main-img figcaption { position: absolute; left: 14px; bottom: 14px; right: 14px; font-size: 12.5px; background: rgba(255,255,255,.88); padding: 6px 10px; border-radius: 10px; }
 .buybox { display: grid; gap: 18px; }
@@ -402,7 +423,13 @@ footer a:hover { color: var(--cream); }
   .announce .hide-s { display: none; }
   .logo img { height: 36px; }
   .grid2 { grid-template-columns: minmax(0, 1fr); }
-  .trust .wrap { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .trust .wrap { grid-template-columns: 1fr 1fr; gap: 0; padding-block: 6px; }
+  .trust div { flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 14px 6px; }
+  .trust div:nth-child(odd) { border-right: 1px solid var(--line); }
+  .trust div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .trust svg { width: 26px; height: 26px; }
+  .trust b { font-size: 14.5px; }
+  .trust span { font-size: 12.5px; line-height: 1.35; }
   footer .wrap { grid-template-columns: minmax(0, 1fr); }
   .line { grid-template-columns: 72px minmax(0, 1fr); }
   .line .thumb { width: 72px; height: 88px; }
@@ -419,7 +446,7 @@ footer a:hover { color: var(--cream); }
 <body>
 
 
-<div class="announce"><div class="wrap"><span><b>Çikolata aşka geldi.</b> <span class="hide-s">Pankek, krep ve waffle için 7 lezzet sos.</span></span><a href="#toptan">İşletmeler için toptan fiyat →</a></div></div>
+<div class="announce"><div class="wrap"><span><b>Çikolata aşka geldi.</b> <span class="hide-s">Pankek, krep ve waffle için 7 lezzet sos.</span></span><a href="#teneke">Yeni: 10 kg teneke serisi →</a></div></div>
 <header class="hdr">
   <div class="wrap">
     <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menüyü aç"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -427,6 +454,7 @@ footer a:hover { color: var(--cream); }
     <nav class="nav" aria-label="Ana menü">
       <a href="#anasayfa" data-nav="anasayfa">Ana sayfa</a>
       <a href="#urunler" data-nav="urunler">Ürünler</a>
+      <a href="#teneke" data-nav="teneke">10 kg teneke</a>
       <a href="#toptan" data-nav="toptan">Toptan</a>
       <a href="#iletisim" data-nav="iletisim">İletişim</a>
     </nav>
@@ -472,6 +500,14 @@ footer a:hover { color: var(--cream); }
       </div>
     </div>
 
+    <div class="tinband"><div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow">Profesyonel seri</span><h2>10 kg teneke, yedi lezzet</h2><p>Kafe, pastane ve waffle dükkânları için büyük ambalaj. Liste fiyatlarıyla sepete ekleyin ya da işletmenize özel teklif isteyin.</p></div>
+        <a class="link-arrow" href="#teneke">Teneke serisini gör →</a>
+      </div>
+      <div class="rail" id="tinRail"></div>
+    </div></div>
+
     <div class="sec"><div class="wrap">
       <div class="sec-head">
         <div><span class="eyebrow">Lezzetler</span><h2>Hangisi senin sosun?</h2></div>
@@ -483,7 +519,7 @@ footer a:hover { color: var(--cream); }
     <div class="sec"><div class="wrap">
       <div class="tiles">
         <a class="tile" href="#urunler"><img data-img="kitchen4" alt="Chocokeyf şişeleri mutfak tezgâhında" loading="lazy"><div class="tile-copy"><span class="eyebrow">1 kg şişe</span><h3>Evde kahvaltı keyfi</h3><p>Yedi lezzetin hepsi 1 kg şişede, 260 ₺'den başlayan fiyatlarla.</p></div></a>
-        <a class="tile" href="#toptan"><img data-img="kova_teneke" alt="Chocokeyf 10 kg kova ve 10 kg teneke" loading="lazy"><div class="tile-copy"><span class="eyebrow">10 kg teneke · kova</span><h3>Servis hızında sos</h3><p>Kafe, pastane ve waffle dükkânları için büyük ambalaj ve toptan fiyat.</p></div></a>
+        <a class="tile" href="#teneke"><img data-img="kova_teneke" alt="Chocokeyf 10 kg kova ve 10 kg teneke" loading="lazy"><div class="tile-copy"><span class="eyebrow">10 kg teneke · kova</span><h3>Servis hızında sos</h3><p>Kafe, pastane ve waffle dükkânları için büyük ambalaj ve toptan fiyat.</p></div></a>
       </div>
     </div></div>
 
@@ -547,8 +583,8 @@ footer a:hover { color: var(--cream); }
   <!-- LISTING -->
   <section data-view="urunler" hidden aria-label="Ürünler">
     <div class="wrap page-head">
-      <nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span>Ürünler</span></nav>
-      <h1>Tüm soslar</h1>
+      <nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><span id="plpCrumb">Ürünler</span></nav>
+      <h1 id="plpTitle">Tüm soslar</h1>
     </div>
     <div class="wrap plp">
       <aside class="filters" id="filters" aria-label="Filtreler">
@@ -673,7 +709,7 @@ footer a:hover { color: var(--cream); }
       <span class="foot-logo"><img data-img="logo" alt="Chocokeyf"></span>
       <p style="max-width:34ch">Pankek, krep ve waffle için yedi lezzet sos. 1 kg şişe ve 10 kg teneke.</p>
     </div>
-    <div><h4>Mağaza</h4><ul><li><a href="#urunler">Tüm soslar</a></li><li><a href="#urun-sutlu">Sütlü</a></li><li><a href="#urun-bitter">Bitter</a></li><li><a href="#urun-antep">Antep Fıstık</a></li></ul></div>
+    <div><h4>Mağaza</h4><ul><li><a href="#urunler">Tüm soslar</a></li><li><a href="#teneke">10 kg teneke serisi</a></li><li><a href="#urun-sutlu">Sütlü</a></li><li><a href="#urun-bitter">Bitter</a></li><li><a href="#urun-antep">Antep Fıstık</a></li></ul></div>
     <div><h4>Kurumsal</h4><ul><li><a href="#toptan">Toptan &amp; bayilik</a></li><li><a href="#iletisim">İletişim</a></li><li><a href="#favoriler">Favoriler</a></li></ul></div>
     <div><h4>Müşteri hizmetleri</h4><ul><li class="tab-num">0212 423 9 595</li><li>Avcılar / İstanbul</li></ul></div>
     <div class="foot-bottom"><span>© Chocokeyf</span><span>Bu site Digify tarafından hazırlanmış bir tasarım demosudur. Ödeme, kargo ve formlar canlı sitede bağlanır.</span></div>
@@ -689,7 +725,7 @@ footer a:hover { color: var(--cream); }
 </aside>
 <aside class="drawer left" id="menuDrawer" hidden aria-label="Menü">
   <div class="dr-head"><a class="logo" href="#anasayfa"><img data-img="logo" alt="Chocokeyf" style="height:36px"></a><button class="icon-btn" data-close aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mnav" aria-label="Mobil menü"><a href="#anasayfa">Ana sayfa</a><a href="#urunler">Ürünler</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a><a href="#favoriler">Favoriler</a><a href="#sepet">Sepet</a></nav>
+  <nav class="mnav" aria-label="Mobil menü"><a href="#anasayfa">Ana sayfa</a><a href="#urunler">Ürünler</a><a href="#teneke">10 kg teneke</a><a href="#toptan">Toptan</a><a href="#iletisim">İletişim</a><a href="#favoriler">Favoriler</a><a href="#sepet">Sepet</a></nav>
   <div></div>
 </aside>
 <div class="search" id="search" hidden role="dialog" aria-label="Ürün ara">
@@ -786,27 +822,32 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   }
 
   /* ---------------- components ---------------- */
-  function card(f) {
-    const fav = favs.includes(f.id);
-    return `<article class="pc" style="--c:${f.c}">
-      <a class="pc-media" href="#urun-${f.id}" aria-label="${esc(f.ad)} Waffle Sos">
-        <span class="pc-tag">${GROUPS[f.grp]}</span>
-        <img class="wf" src="${IMG('waffle_' + f.id)}" alt="" aria-hidden="true" loading="lazy">
-        <img class="bt" src="${IMG('bottle_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 1 kg şişe">
-      </a>
-      <button class="fav" type="button" data-id="${f.id}" aria-pressed="${fav}" aria-label="${esc(f.ad)} favori">${ICON.heart}</button>
-      <div class="quick"><button class="btn btn-dark" type="button" data-add="${f.id}">${ICON.plus}Sepete ekle · ${tl(f.p1)}</button></div>
+  function card(f, size = '1') {
+    const fav = favs.includes(f.id), tin = size === '10';
+    const p = tin ? f.p10 : f.p1, href = tin ? `#urun-${f.id}-10` : `#urun-${f.id}`;
+    const media = tin
+      ? `<img class="tn" src="${IMG('tin_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 10 kg teneke"><img class="us" src="${IMG('waffle_' + f.id)}" alt="" aria-hidden="true" loading="lazy">`
+      : `<img class="us" src="${IMG('use_' + f.id)}" alt="" aria-hidden="true" loading="lazy"><img class="bt" src="${IMG('bottle_' + f.id)}" alt="Chocokeyf ${esc(f.ad)} Waffle Sos 1 kg şişe">`;
+    return `<article class="pc${tin ? ' pc-tin' : ''}" style="--c:${f.c}">
+      <div class="pc-top">
+        <a class="pc-media" href="${href}" aria-label="${esc(f.ad)} Waffle Sos ${tin ? '10 kg teneke' : '1 kg şişe'}">
+          <span class="pc-tag">${tin ? '10 kg teneke' : GROUPS[f.grp]}</span>
+          ${media}
+        </a>
+        <button class="fav" type="button" data-id="${f.id}" aria-pressed="${fav}" aria-label="${esc(f.ad)} favori">${ICON.heart}</button>
+        <button class="fab" type="button" data-add="${f.id}" data-size="${size}" aria-label="${esc(f.ad)} ${p ? 'sepete ekle' : 'için teklif iste'}">${ICON.plus}<span>${p ? 'Sepete ekle' : 'Teklif iste'}</span></button>
+      </div>
       <div class="pc-info">
-        <h3><a href="#urun-${f.id}">${esc(f.ad)}</a></h3>
-        <div class="pc-meta"><span class="price">${tl(f.p1)}</span><span class="sizes">1 kg · 10 kg</span></div>
+        <h3><a href="${href}">${esc(f.ad)}${tin ? ' <small class="tin-lbl">10 kg</small>' : ''}</a></h3>
+        <div class="pc-meta"><span class="price">${p ? tl(p) : 'Teklif alın'}</span><span class="sizes">${tin ? 'Teneke · işletmeler için' : '1 kg şişe'}</span></div>
       </div>
     </article>`;
   }
   function lineHTML(it, i, compact) {
     const f = byId(it.id), p = priceOf(it.id, it.s);
-    const img = it.s === '10' ? `<img class="cover" src="${IMG('kova_teneke')}" alt="">` : `<img src="${IMG('bottle_' + f.id)}" alt="">`;
+    const img = it.s === '10' ? `<img src="${IMG('tin_' + f.id)}" alt="" style="width:86%;height:auto">` : `<img src="${IMG('bottle_' + f.id)}" alt="">`;
     return `<div class="line" style="--c:${f.c}">
-      <a class="thumb" href="#urun-${f.id}" aria-label="${esc(f.ad)}">${img}</a>
+      <a class="thumb" href="#urun-${f.id}${it.s === '10' ? '-10' : ''}" aria-label="${esc(f.ad)}">${img}</a>
       <div><h3><a href="#urun-${f.id}">${esc(f.ad)} Waffle Sos</a></h3><small>${sizeName(it.s)} · ${tl(p)}</small></div>
       <div class="right">
         <div class="stepper"><button type="button" data-q="${i}" data-d="-1" aria-label="Azalt">−</button><span>${it.q}</span><button type="button" data-q="${i}" data-d="1" aria-label="Arttır">+</button></div>
@@ -862,8 +903,11 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   const norm = s => s.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ı/g, 'i');
   function renderSearch(q) {
     const n = norm(q.trim());
-    const res = F.filter(f => !n || norm(`${f.ad} ${f.en} ${GROUPS[f.grp]} ${f.tag} ${f.ing}`).includes(n));
-    $('#qRes').innerHTML = res.length ? res.map(f => `<a class="mini" href="#urun-${f.id}" style="--c:${f.c}"><img src="${IMG('bottle_' + f.id)}" alt=""><span><b>${esc(f.ad)}</b><span>${tl(f.p1)} · ${GROUPS[f.grp]}</span></span></a>`).join('') : `<p class="muted">“${esc(q)}” için sonuç yok. Örneğin “fıstık” ya da “çikolata” deneyin.</p>`;
+    const tinQ = /teneke|10 ?kg|kova/.test(n);
+    const res = F.filter(f => !n || tinQ || norm(`${f.ad} ${f.en} ${GROUPS[f.grp]} ${f.tag} ${f.ing}`).includes(n));
+    const one = f => `<a class="mini" href="#urun-${f.id}" style="--c:${f.c}"><img src="${IMG('bottle_' + f.id)}" alt=""><span><b>${esc(f.ad)}</b><span>${tl(f.p1)} · 1 kg şişe</span></span></a>`;
+    const ten = f => `<a class="mini" href="#urun-${f.id}-10" style="--c:${f.c}"><img src="${IMG('tin_' + f.id)}" alt="" style="width:44px;height:52px"><span><b>${esc(f.ad)}</b><span>${f.p10 ? tl(f.p10) : 'Teklif alın'} · 10 kg teneke</span></span></a>`;
+    $('#qRes').innerHTML = res.length ? res.map(f => (tinQ ? '' : one(f)) + ten(f)).join('') : `<p class="muted">“${esc(q)}” için sonuç yok. Örneğin “fıstık” ya da “çikolata” deneyin.</p>`;
   }
   $('#q').addEventListener('input', e => renderSearch(e.target.value));
   let tt;
@@ -908,7 +952,8 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     const i = F.findIndex(f => f.id === heroFlavor);
     selectHero(F[(i + 1) % F.length].id);
   }, 3600);
-  $('#homeRail').innerHTML = F.map(card).join('');
+  $('#homeRail').innerHTML = F.map(f => card(f)).join('');
+  $('#tinRail').innerHTML = F.map(f => card(f, '10')).join('');
 
   const TASTES = [['cikolata', 'Çikolata'], ['krema', 'Vanilya & karamel'], ['meyve', 'Meyve'], ['fistik', 'Fıstık']];
   let taste = 'cikolata';
@@ -936,19 +981,23 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   $('#sort').addEventListener('change', e => { flt.sort = e.target.value; renderPLP(); });
   $('#filtersToggle').onclick = () => $('#filters').classList.toggle('open');
   function renderPLP() {
-    let list = F.filter(f => !flt.grp.size || flt.grp.has(f.grp));
-    const only10 = flt.pack.size === 1 && flt.pack.has('10');
-    const pv = f => only10 ? (f.p10 ?? Infinity) : f.p1;
-    if (flt.sort === 'asc') list = [...list].sort((a, b) => pv(a) - pv(b));
-    if (flt.sort === 'desc') list = [...list].sort((a, b) => (pv(b) === Infinity ? -1 : pv(b)) - (pv(a) === Infinity ? -1 : pv(a)));
-    if (flt.sort === 'az') list = [...list].sort((a, b) => a.ad.localeCompare(b.ad, 'tr'));
-    $('#plpCount').textContent = `${list.length} ürün`;
-    $('#plpGrid').innerHTML = list.length ? list.map(f => {
-      if (!only10) return card(f);
-      return card(f).replace(`<span class="price">${tl(f.p1)}</span>`, `<span class="price">${f.p10 ? tl(f.p10) : 'Teklif alın'}</span>`)
-        .replace(`<span class="sizes">1 kg · 10 kg</span>`, `<span class="sizes">10 kg teneke</span>`)
-        .replace(`data-add="${f.id}">${ICON.plus}Sepete ekle · ${tl(f.p1)}`, `data-add="${f.id}" data-size="10">${ICON.plus}${f.p10 ? 'Sepete ekle · ' + tl(f.p10) : 'Teklif iste'}`);
-    }).join('') : `<div class="empty-msg"><p>Bu filtrelerle ürün bulunamadı.</p></div>`;
+    let items = [];
+    F.forEach(f => ['1', '10'].forEach(s => items.push({ f, s })));
+    items = items.filter(x => (!flt.grp.size || flt.grp.has(x.f.grp)) && (!flt.pack.size || flt.pack.has(x.s)));
+    const pv = x => priceOf(x.f.id, x.s) ?? Infinity;
+    if (flt.sort === 'asc') items.sort((a, b) => pv(a) - pv(b));
+    if (flt.sort === 'desc') items.sort((a, b) => (pv(b) === Infinity ? -1 : pv(b)) - (pv(a) === Infinity ? -1 : pv(a)));
+    if (flt.sort === 'az') items.sort((a, b) => a.f.ad.localeCompare(b.f.ad, 'tr') || a.s.localeCompare(b.s));
+    if (flt.sort === 'rec') items.sort((a, b) => a.s.localeCompare(b.s) || F.indexOf(a.f) - F.indexOf(b.f));
+    const only10 = flt.pack.size === 1 && flt.pack.has('10'), only1 = flt.pack.size === 1 && flt.pack.has('1');
+    $('#plpTitle').textContent = only10 ? '10 kg teneke serisi' : only1 ? '1 kg şişe' : 'Tüm soslar';
+    $('#plpCrumb').textContent = $('#plpTitle').textContent;
+    $('#plpCount').textContent = `${items.length} ürün`;
+    $('#plpGrid').innerHTML = items.length ? items.map(x => card(x.f, x.s)).join('') : `<div class="empty-msg" style="grid-column:1/-1"><p>Bu filtrelerle ürün bulunamadı.</p></div>`;
+  }
+  function setPack(v) {
+    flt.pack = new Set(v ? [v] : []);
+    ['1', '10'].forEach(x => { const c = document.getElementById('fp-' + x); if (c) c.checked = flt.pack.has(x); });
   }
 
   /* ---------------- product page ---------------- */
@@ -956,11 +1005,15 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   function gallery(f) {
     const g = [
       { k: 'bottle_' + f.id, alt: `Chocokeyf ${f.ad} Waffle Sos 1 kg şişe` },
-      { k: 'hand_' + f.id, alt: `${f.ad} sos şişeden dökülüyor` },
+      { k: 'use_' + f.id, alt: `${f.ad} Waffle Sos elde`, cls: 'use' },
       { k: 'waffle_' + f.id, alt: `${f.ad} soslu waffle` },
-      { k: 'front_' + f.id, alt: `${f.ad} etiketi`, cover: true }
+      { k: 'label_' + f.id, alt: `${f.ad} etiketi: içindekiler ve besin değerleri`, cls: 'label', cap: 'Etiketin tamamı: içindekiler, besin değerleri ve saklama bilgisi.' }
     ];
-    if (pdpSize === '10') g.unshift({ k: 'kova_teneke', alt: 'Chocokeyf 10 kg kova ve teneke', cover: true, cap: f.id === 'sutlu' ? '' : 'Görselde Sütlü 10 kg ambalaj gösterilmektedir.' });
+    if (pdpSize === '10') return [
+      { k: 'tin_' + f.id, alt: `Chocokeyf ${f.ad} Waffle Sos 10 kg teneke`, cls: 'tin' },
+      { k: 'kova_teneke', alt: 'Chocokeyf 10 kg kova ve teneke', cover: true, cap: 'Gerçek ambalaj fotoğrafı: Sütlü 10 kg kova ve teneke.' },
+      g[2], g[3]
+    ];
     return g;
   }
   function renderPDP(id) {
@@ -975,13 +1028,13 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
       <div class="page-head" style="padding-bottom:0"><nav class="crumbs" aria-label="Konum"><a href="#anasayfa">Ana sayfa</a><span>/</span><a href="#urunler">Ürünler</a><span>/</span><span>${esc(f.ad)}</span></nav></div>
       <div class="pdp">
         <div class="gal">
-          <div class="thumbs" role="group" aria-label="Görseller">${g.map((x, i) => `<button type="button" data-img-i="${i}" aria-pressed="${i === pdpImg}" aria-label="Görsel ${i + 1}"><img class="${x.cover ? 'cover' : ''}" src="${IMG(x.k)}" alt=""></button>`).join('')}</div>
-          <figure class="main-img" style="margin:0"><img class="${cur.cover ? 'cover' : ''}" src="${IMG(cur.k)}" alt="${esc(cur.alt)}">${cur.cap ? `<figcaption>${cur.cap}</figcaption>` : ''}</figure>
+          <div class="thumbs" role="group" aria-label="Görseller">${g.map((x, i) => `<button type="button" data-img-i="${i}" aria-pressed="${i === pdpImg}" aria-label="Görsel ${i + 1}"><img class="${x.cover ? 'cover' : x.cls || ''}" src="${IMG(x.k)}" alt=""></button>`).join('')}</div>
+          <figure class="main-img" style="margin:0"><img class="${cur.cover ? 'cover' : cur.cls || ''}" src="${IMG(cur.k)}" alt="${esc(cur.alt)}">${cur.cap ? `<figcaption>${cur.cap}</figcaption>` : ''}</figure>
         </div>
         <div class="buybox">
           <div style="display:grid;gap:8px">
             <span class="eyebrow">${GROUPS[f.grp]} · Pankek-krep-waffle sos</span>
-            <h1>${esc(f.ad)}</h1>
+            <h1>${esc(f.ad)}${pdpSize === '10' ? ' <small class="tin-lbl" style="font-size:16px;vertical-align:10px">10 kg teneke</small>' : ''}</h1>
             <p class="sub">${esc(f.tag)}</p>
           </div>
           <div class="bb-price">${p ? tl(p) : 'Fiyat için teklif alın'}<small>${sizeName(pdpSize)}</small></div>
@@ -989,7 +1042,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
             <button type="button" data-size="1" aria-pressed="${pdpSize === '1'}"><b>1 kg şişe</b><span>${tl(f.p1)}</span></button>
             <button type="button" data-size="10" aria-pressed="${pdpSize === '10'}"><b>10 kg teneke</b><span>${f.p10 ? tl(f.p10) : 'Teklif alın'}</span></button>
           </div></div>
-          <div><span class="lbl">Lezzet: ${esc(f.ad)}</span><div class="flv-row" style="margin-top:8px">${F.map(x => `<a href="#urun-${x.id}" style="--c:${x.c}" aria-current="${x.id === f.id}" aria-label="${esc(x.ad)}" title="${esc(x.ad)}"><i></i></a>`).join('')}</div></div>
+          <div><span class="lbl">Lezzet: ${esc(f.ad)}</span><div class="flv-row" style="margin-top:8px">${F.map(x => `<a href="#urun-${x.id}${pdpSize === '10' ? '-10' : ''}" style="--c:${x.c}" aria-current="${x.id === f.id}" aria-label="${esc(x.ad)}" title="${esc(x.ad)}"><i></i></a>`).join('')}</div></div>
           <div class="qty-row">
             ${p ? `<div class="stepper"><button type="button" id="qMinus" aria-label="Azalt">−</button><span id="qVal">${pdpQty}</span><button type="button" id="qPlus" aria-label="Arttır">+</button></div>
             <button class="btn btn-dark" type="button" id="pdpAdd">${ICON.plus}Sepete ekle</button>` : `<a class="btn btn-dark" href="#toptan" id="pdpQuote" style="flex:1">10 kg için teklif iste</a>`}
@@ -1009,9 +1062,9 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
         </div>
       </div>
       <div class="sec"><div class="sec-head"><div><span class="eyebrow">Diğer lezzetler</span><h2>Bunu da dene</h2></div></div>
-        <div class="rail">${F.filter(x => x.id !== f.id).map(card).join('')}</div></div>`;
+        <div class="rail">${F.filter(x => x.id !== f.id).map(x => card(x, pdpSize)).join('')}</div></div>`;
     $$('#pdp [data-img-i]').forEach(b => b.onclick = () => { pdpImg = +b.dataset.imgI; renderPDP(id); });
-    $$('#pdp .opt [data-size]').forEach(b => b.onclick = () => { pdpSize = b.dataset.size; pdpImg = 0; renderPDP(id); });
+    $$('#pdp .opt [data-size]').forEach(b => b.onclick = () => { pdpSize = b.dataset.size; pdpImg = 0; history.replaceState(null, '', `#urun-${f.id}${pdpSize === '10' ? '-10' : ''}`); current = 'urun:' + f.id + pdpSize; renderPDP(id); });
     if ($('#pdpAdd')) {
       $('#qMinus').onclick = () => { pdpQty = Math.max(1, pdpQty - 1); $('#qVal').textContent = pdpQty; };
       $('#qPlus').onclick = () => { pdpQty = Math.min(99, pdpQty + 1); $('#qVal').textContent = pdpQty; };
@@ -1038,7 +1091,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   function renderSummary() {
     const el = $('#coSummary');
     if (!cart.length) { el.innerHTML = `<h2>Sepetin boş</h2><a class="btn btn-dark" href="#urunler">Ürünlere git</a>`; return; }
-    el.innerHTML = `<h2>Sipariş özeti</h2>${cart.map(it => { const f = byId(it.id); return `<div class="sum-line"><img src="${IMG(it.s === '10' ? 'kova_teneke' : 'bottle_' + f.id)}" alt="" style="${it.s === '10' ? 'object-fit:cover;border-radius:8px' : ''}"><span>${esc(f.ad)}<br><small class="muted">${sizeName(it.s)} × ${it.q}</small></span><b class="tab-num">${tl(priceOf(it.id, it.s) * it.q)}</b></div>`; }).join('')}
+    el.innerHTML = `<h2>Sipariş özeti</h2>${cart.map(it => { const f = byId(it.id); return `<div class="sum-line"><img src="${IMG(it.s === '10' ? 'tin_' + f.id : 'bottle_' + f.id)}" alt=""><span>${esc(f.ad)}<br><small class="muted">${sizeName(it.s)} × ${it.q}</small></span><b class="tab-num">${tl(priceOf(it.id, it.s) * it.q)}</b></div>`; }).join('')}
       <div class="srow" style="border-top:1px solid var(--line);padding-top:12px"><span>Ara toplam</span><span>${tl(subtotal())}</span></div>
       <div class="srow"><span>Kargo</span><span class="muted">Canlı sitede hesaplanır</span></div>
       <div class="srow total"><span>Toplam</span><span>${tl(subtotal())}</span></div>`;
@@ -1081,7 +1134,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
 
   function renderFavs() {
     const list = F.filter(f => favs.includes(f.id));
-    $('#favGrid').innerHTML = list.length ? list.map(card).join('') : `<div class="empty-msg" style="grid-column:1/-1"><p>Henüz favorin yok. Ürünlerdeki kalbe dokunarak ekleyebilirsin.</p><a class="btn btn-dark" href="#urunler">Ürünlere göz at</a></div>`;
+    $('#favGrid').innerHTML = list.length ? list.map(f => card(f)).join('') : `<div class="empty-msg" style="grid-column:1/-1"><p>Henüz favorin yok. Ürünlerdeki kalbe dokunarak ekleyebilirsin.</p><a class="btn btn-dark" href="#urunler">Ürünlere göz at</a></div>`;
   }
 
   /* ---------------- router ---------------- */
@@ -1090,23 +1143,26 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   function route() {
     const h = (location.hash || '#anasayfa').slice(1);
     let view = h, id = null;
-    if (h.startsWith('urun-')) { view = 'urun'; id = h.slice(5); }
+    let size = '1';
+    if (h.startsWith('urun-')) { view = 'urun'; id = h.slice(5); if (id.endsWith('-10')) { id = id.slice(0, -3); size = '10'; } }
+    if (view === 'teneke') { view = 'urunler'; setPack('10'); } else if (view === 'urunler') setPack(null);
     if (!VIEWS.includes(view)) view = 'anasayfa';
     if (view === 'tamamlandi' && !$('#donePage').innerHTML) view = 'anasayfa';
     const go = () => {
       closeAll();
       $$('[data-view]').forEach(s => s.hidden = s.dataset.view !== view);
-      $$('[data-nav]').forEach(a => a.toggleAttribute('aria-current', a.dataset.nav === view || (view === 'urun' && a.dataset.nav === 'urunler')));
+      const navKey = h === 'teneke' || (view === 'urun' && size === '10') ? 'teneke' : view === 'urun' ? 'urunler' : view;
+      $$('[data-nav]').forEach(a => a.toggleAttribute('aria-current', a.dataset.nav === navKey));
       $$('[data-nav][aria-current]').forEach(a => a.setAttribute('aria-current', 'page'));
       document.body.classList.toggle('on-pdp', view === 'urun');
       $('#buybar').hidden = view !== 'urun';
-      if (view === 'urun') { if (id !== current.split(':')[1]) { pdpQty = 1; pdpImg = 0; pdpSize = '1'; } renderPDP(id); }
+      if (view === 'urun') { if (id + size !== current.split(':')[1]) { pdpQty = 1; pdpImg = 0; } pdpSize = size; renderPDP(id); }
       if (view === 'urunler') renderPLP();
       if (view === 'sepet') renderCartPage();
       if (view === 'odeme') renderSummary();
       if (view === 'favoriler') renderFavs();
       if (view === 'anasayfa') $$('#homeRail .fav').forEach(b => b.setAttribute('aria-pressed', favs.includes(b.dataset.id)));
-      current = view === 'urun' ? 'urun:' + id : view;
+      current = view === 'urun' ? 'urun:' + id + size : view;
       window.scrollTo({ top: 0, behavior: 'instant' });
     };
     if (document.startViewTransition && !reduce) document.startViewTransition(go); else go();
@@ -1140,7 +1196,7 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
   /* ---------- state ---------- */
   let W = 0, H = 0, dpr = 1, L = {};
   const S = {
-    cur: 'sutlu', next: null, reveal: 0, ph: [0, 0, 0],
+    cur: 'plain', next: null, reveal: 0, ph: [0, 0, 0],
     b: { id: 'sutlu', x: 0, y: 0, rot: 0, a: 1, sq: 0, lift: 0 },
     st: { on: false, head: 0, tail: 0, color: '#6b3a1f' },
     drops: [], steam: [], bokeh: [], splash: 0
@@ -1416,11 +1472,13 @@ window.CK_IMGSRC = n => (window.CK_IMG && CK_IMG[n]) || ('assets/' + n + '.webp'
     bottles[f.id] = await load(IMG('bottle_' + f.id));
     waffles[f.id] = await load(IMG('waffle_' + f.id));
     hands[f.id] = await load(IMG('hand_' + f.id));
-  })).then(() => {
+  }).concat(load(IMG('waffle_plain')).then(i => { waffles.plain = i; }))).then(() => {
+    if (!waffles.plain) S.cur = S.b.id;
     layout();
     ready = true;
     stage.classList.add('ready');
     window.dispatchEvent(new Event('ck:ready'));
+    setTimeout(() => pour(S.b.id), reduce ? 0 : 500);
   });
   requestAnimationFrame(frame);
 })();
